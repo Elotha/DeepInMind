@@ -1,8 +1,7 @@
-﻿using RegularDuck._Core.Helpers;
-using RegularDuck._Player.Interfaces;
+﻿using EraSoren.Player.Interfaces;
 using UnityEngine;
 
-namespace RegularDuck._Player
+namespace EraSoren.Player
 {
     public class PlayerCollisions : MonoBehaviour
     {

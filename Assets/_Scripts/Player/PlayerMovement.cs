@@ -1,10 +1,9 @@
 using System;
-using RegularDuck._Core;
-using RegularDuck._Core.Helpers;
+using EraSoren._Core.Helpers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RegularDuck._Player
+namespace EraSoren.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
@@ -56,7 +55,7 @@ namespace RegularDuck._Player
 
         private void Start()
         {
-            Rb.drag = PhysicsManager.I.linearDrag;
+            // Rb.drag = PhysicsManager.I.linearDrag;
 
             CalculateRaySpacing();
 

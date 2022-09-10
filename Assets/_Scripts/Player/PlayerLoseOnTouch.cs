@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using RegularDuck._GameStateControl;
 using UnityEngine;
 
-namespace RegularDuck._Player
+namespace EraSoren.Player
 {
     public class PlayerLoseOnTouch : MonoBehaviour
     {
@@ -17,7 +14,7 @@ namespace RegularDuck._Player
         {
             if (TargetLayers == (TargetLayers | 1 << other.gameObject.layer))
             {
-                GameStateControl.I.LoseGame();
+                // GameStateControl.I.LoseGame();
             }
         }
 
@@ -25,7 +22,7 @@ namespace RegularDuck._Player
         {
             if (TargetLayers == (TargetLayers | 1 << other.gameObject.layer))
             {
-                GameStateControl.I.LoseGame();
+                // GameStateControl.I.LoseGame();
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RegularDuck._Player
+namespace EraSoren.Player
 {
     public static class PlayerAnimationHashes
     {

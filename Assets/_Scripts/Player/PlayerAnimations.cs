@@ -1,8 +1,7 @@
 ﻿using System;
-using RegularDuck._Core.Helpers;
 using UnityEngine;
 
-namespace RegularDuck._Player
+namespace EraSoren.Player
 {
     public class PlayerAnimations : MonoBehaviour
     {
