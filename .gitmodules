@@ -1,0 +1,18 @@
+[submodule "Assets/_Scripts/_Core"]
+	path = Assets/_Scripts/_Core
+	url = https://gitlab.com/era-soren-games/template-modules/core
+[submodule "Assets/_Scripts/_CameraSystem"]
+	path = Assets/_Scripts/_CameraSystem
+	url = https://gitlab.com/era-soren-games/template-modules/camera-system
+[submodule "Assets/_Scripts/_ObjectPooling"]
+	path = Assets/_Scripts/_ObjectPooling
+	url = https://gitlab.com/era-soren-games/template-modules/object-pooling
+[submodule "Assets/_Scripts/_EnemyBehaviourSystem"]
+	path = Assets/_Scripts/_EnemyBehaviourSystem
+	url = https://gitlab.com/era-soren-games/template-modules/enemy-behaviour-system
+[submodule "Assets/_Scripts/_InputSystem"]
+	path = Assets/_Scripts/_InputSystem
+	url = https://gitlab.com/era-soren-games/template-modules/input-system
+[submodule "Assets/_Scripts/_TileUtilities"]
+	path = Assets/_Scripts/_TileUtilities
+	url = https://gitlab.com/era-soren-games/template-modules/tile-utilities
