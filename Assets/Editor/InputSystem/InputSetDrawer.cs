@@ -1,8 +1,8 @@
-﻿using RegularDuck.InputSystem;
+﻿using EraSoren._InputSystem;
 using UnityEditor;
 using UnityEngine;
 
-namespace RegularDuck.Editor.InputSystem
+namespace EraSoren.Editor.InputSystem
 {
     [CustomPropertyDrawer(typeof(InputSet))]
     public class InputSetDrawer : PropertyDrawer
