@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace TemplateProject.Editor.AbstractClasses
+namespace EraSoren.Editor.AbstractClasses
 {
     public abstract class SingleButtonEditor : UnityEditor.Editor
     {

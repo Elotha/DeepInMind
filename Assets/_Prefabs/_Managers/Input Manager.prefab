@@ -59,20 +59,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputDatabase:
     Values:
-    - primaryKey: 0
+    - primaryKey: 323
       secondaryKey: 0
-    - primaryKey: 0
+    - primaryKey: 324
       secondaryKey: 0
-    - primaryKey: 0
-      secondaryKey: 0
-    - primaryKey: 0
-      secondaryKey: 0
-    - primaryKey: 0
-      secondaryKey: 0
-    - primaryKey: 0
-      secondaryKey: 0
-    - primaryKey: 0
-      secondaryKey: 0
-    - primaryKey: 0
+    - primaryKey: 27
       secondaryKey: 0
     EnumType: 0

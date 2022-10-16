@@ -15,6 +15,9 @@ namespace EraSoren.Player
         
         public static PlayerStates PlayerStates;
         [SerializeField] private PlayerStates playerStates;
+        
+        public static PlayerTeleport PlayerTeleport;
+        [SerializeField] private PlayerTeleport playerTeleport;
 
         private void Awake()
         {
@@ -22,6 +25,7 @@ namespace EraSoren.Player
             PlayerCollisions = playerCollisions;
             PlayerMovement = playerMovement;
             PlayerStates = playerStates;
+            PlayerTeleport = playerTeleport;
         }
     }
 }

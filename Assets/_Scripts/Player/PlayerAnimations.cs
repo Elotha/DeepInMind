@@ -10,12 +10,10 @@ namespace EraSoren.Player
         [NonSerialized] public SpriteRenderer SpriteRenderer;
 
         private Animator _animator;
-        private PlayerMovement _playerMovement;
 
         protected void Awake()
         {
             _animator = GetComponent<Animator>();
-            _playerMovement = GetComponent<PlayerMovement>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
@@ -29,9 +27,9 @@ namespace EraSoren.Player
 
         private void RunTriggers()
         {
-            var playerVelocity = _playerMovement.Rb.velocity;
-            _animator.SetBool(PlayerAnimationHashes.VerSpeed, Mathf.Abs(playerVelocity.y) > tolerance);
-            _animator.SetBool(PlayerAnimationHashes.HorSpeed, Mathf.Abs(playerVelocity.x) > tolerance);
+            var playerVelocity = PlayerController.PlayerMovement.Rb.velocity;
+            _animator.SetBool(PlayerAnimationHashes.VerSpeed, Mathf.Abs((float)playerVelocity.y) > tolerance);
+            _animator.SetBool(PlayerAnimationHashes.HorSpeed, Mathf.Abs((float)playerVelocity.x) > tolerance);
         }
 
         public void PlayAnimation(PlayerStates.States state)
@@ -41,7 +39,7 @@ namespace EraSoren.Player
             switch (state)
             {
                 default:
-                    _animator.Play("Character" + state.ToString());
+                    _animator.Play("Character" + state);
                     break;
             }
         }

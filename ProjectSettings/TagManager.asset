@@ -12,16 +12,16 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Camera
+  - Player
+  - Blocks
+  - Enemy
+  - Hopelight
+  - Bullet
+  - EnemyAttack
+  - Spawner
+  - EnemyBubble
+  - EnemyDetection
   - 
   - 
   - 
@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 3072750663
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1412539523
     locked: 0

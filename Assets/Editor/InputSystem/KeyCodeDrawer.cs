@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace RegularDuck.Editor.InputSystem
+namespace EraSoren.Editor.InputSystem
 {
     [CustomPropertyDrawer(typeof(KeyCode))]
     public class KeyCodeDrawer : PropertyDrawer
