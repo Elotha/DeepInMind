@@ -211,6 +211,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1504215598048453222}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &574090572 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8374653729953397865, guid: f0384d13e8ec74d4e93396ced03d68a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8374653729842922517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &574090578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574090572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141c14e014b14d72b253c263966ab84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingSpeed: 8
+--- !u!114 &574090579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574090572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ae092de27a490bad185a4d162fc0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: -10}
+--- !u!114 &574090580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574090572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4081d06e5daf49e08af26ca9593bbc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 1
+  currentTarget: {fileID: 1834991207602290595}
+  otherTargets: []
+  forceTeleportOnTargetChange: 0
 --- !u!1 &595548338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1966,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371d749ad4ae4d6293dc6d2d5de8f220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2011872476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6337090556992235260, guid: 84b7bf6fb5970c748a46e9334865432a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6337090556621724199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379c1642b92044b08186b85e5bc5f616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2094482216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,7 +2484,7 @@ PrefabInstance:
     - target: {fileID: 6337090556992235257, guid: 84b7bf6fb5970c748a46e9334865432a,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6337090556992235259, guid: 84b7bf6fb5970c748a46e9334865432a,
         type: 3}
@@ -2445,6 +2505,41 @@ PrefabInstance:
         type: 3}
       propertyPath: onSpawnerTakesDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: EraSoren.Enemies.SpawnSystem.SpawnController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 2011872476}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SpawnerTakesDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: EraSoren.Enemies.SpawnSystem.SpawnerVulnerability, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337090556992235262, guid: 84b7bf6fb5970c748a46e9334865432a,
+        type: 3}
+      propertyPath: onSpawnerHit.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b7bf6fb5970c748a46e9334865432a, type: 3}
@@ -2584,6 +2679,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490253934216129668, guid: f0384d13e8ec74d4e93396ced03d68a2,
+        type: 3}
+      propertyPath: lateUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490253934216129668, guid: f0384d13e8ec74d4e93396ced03d68a2,
+        type: 3}
+      propertyPath: fixedUpdate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490253934216129668, guid: f0384d13e8ec74d4e93396ced03d68a2,
+        type: 3}
+      propertyPath: updateMethod
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8258747775040887820, guid: f0384d13e8ec74d4e93396ced03d68a2,
         type: 3}
