@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using EraSoren._Core.GameplayCore.Interfaces;
 using EraSoren._Core.Helpers;
+using EraSoren.Player.Interfaces;
 using UnityEngine;
 
 namespace EraSoren.Enemies

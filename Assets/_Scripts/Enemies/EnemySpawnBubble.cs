@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using EraSoren._Core.GameplayCore.Interfaces;
+using EraSoren.Player.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 

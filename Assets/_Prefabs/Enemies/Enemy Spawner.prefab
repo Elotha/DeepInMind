@@ -357,6 +357,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6337090556992235260}
+        m_TargetAssemblyTypeName: EraSoren.Enemies.SpawnSystem.SpawnerVulnerability,
+          Assembly-CSharp
+        m_MethodName: SpawnerTakesDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onSpawningEnemySpawnBubble:
     m_PersistentCalls:
       m_Calls: []
@@ -408,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnController: {fileID: 6337090556992235262}
   isActive: 0
-  enemyAmount: 5
+  enemyAmount: 15
   enemyObject: {fileID: 1513964263762596640, guid: 603586dba6afef04e94324ea8373e9c6,
     type: 3}
 --- !u!114 &6337090556992235260
@@ -430,10 +443,9 @@ MonoBehaviour:
   onSpawnerTakesDamage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6337090556992235260}
-        m_TargetAssemblyTypeName: EraSoren.Enemies.SpawnSystem.SpawnerVulnerability,
-          Assembly-CSharp
-        m_MethodName: SpawnerTakesDamage
+      - m_Target: {fileID: 6337090556992235262}
+        m_TargetAssemblyTypeName: EraSoren.Enemies.SpawnSystem.SpawnController, Assembly-CSharp
+        m_MethodName: KillSpawner
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

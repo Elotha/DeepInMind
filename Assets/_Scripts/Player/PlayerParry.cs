@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using EraSoren._Core;
 using EraSoren._Core.Audio;
 using EraSoren._Core.GameplayCore.Interfaces;
 using EraSoren._InputSystem;
 using EraSoren.Player.Interfaces;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace EraSoren.Player
 {
@@ -14,28 +14,23 @@ namespace EraSoren.Player
         public float parryTime;
         public float cooldownTime;
 
+        public bool IsParry { get; set; }
+
         private bool _canParry = true;
         private IParryFeedback _parryFeedback;
 
-        public bool IsParry { get; private set; }
-
         #region Events
+        public delegate void ParryHandler();
+        public event ParryHandler OnParryStart;
+        public event ParryHandler OnParryEnd;
         
-        public event IParry.ParryHandler OnParryStart;
-        public event IParry.ParryHandler OnParryEnd;
-        public event IParry.ParryHandler OnParried;
+        public UnityEvent onParried;
 
         #endregion
 
         private void Start()
         {
             _parryFeedback = GetComponent<IParryFeedback>();
-            OnParried += PlayParrySound;
-        }
-
-        private void OnDestroy()
-        {
-            OnParried -= PlayParrySound;
         }
 
         private void Update()
@@ -48,8 +43,8 @@ namespace EraSoren.Player
             if (!_canParry) return;
             if (InputManager.GetKeyDown(InputButton.Parry))
             {
-                Debug.Log("parry button down");
                 StartCoroutine(Parry());
+                
             }
         }
 
@@ -79,9 +74,10 @@ namespace EraSoren.Player
         {
             SoundManager.PlaySound(SoundEffects.Parry, SoundManager.I.defaultSource);
         }
+
         public void ApplyParry()
         {
-            OnParried?.Invoke();
+            onParried?.Invoke();
         }
 
         public void TakeDamage(float damageAngle)

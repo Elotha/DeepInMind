@@ -11,6 +11,9 @@ namespace EraSoren.Enemies
         private bool _damageIsGiven;
         private int _direction;
 
+        [SerializeField] private float damageCooldownTime = 1f;
+        
+
         private void Start()
         {
             _enemyState = GetComponentInParent<EnemyState>();
@@ -29,7 +32,7 @@ namespace EraSoren.Enemies
             {
                 if (!_damageIsGiven)
                 {
-                    PlayerTakingDamage.I.TakeDamage(_direction / 90);
+                    PlayerTakingDamage.I.TakeDamage(Mathf.FloorToInt(_direction / 90f));
                     _damageIsGiven = true;
                     StartCoroutine(DamageCooldown());
                 }
@@ -38,7 +41,7 @@ namespace EraSoren.Enemies
 
         private IEnumerator DamageCooldown()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(damageCooldownTime);
             _damageIsGiven = false;
         }
 
@@ -46,5 +49,6 @@ namespace EraSoren.Enemies
         {
             _direction = angle;
         }
+        
     }
 }

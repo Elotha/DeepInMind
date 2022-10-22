@@ -2,7 +2,7 @@
 
 namespace EraSoren.Enemies
 {
-    public class EnemyAnimation : MonoBehaviour
+    public class EnemyAnimations : MonoBehaviour
     {
         [SerializeField] private Sprite[] sprites;
 

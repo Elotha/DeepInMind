@@ -8,6 +8,8 @@ namespace EraSoren.Enemies
     public class EnemyController : MonoBehaviour
     {
         [NonSerialized] public SpawnController SpawnController;
+        [SerializeField] private EnemyParryCheck enemyParryCheck;
+        
         
         #region Events
 
