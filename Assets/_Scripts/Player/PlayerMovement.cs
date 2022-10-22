@@ -30,8 +30,13 @@ namespace EraSoren.Player
         private void Update()
         {
             HandleInput();
+        }
+
+        private void FixedUpdate()
+        {
             Move();
         }
+
         private void HandleInput()
         {
             if (!MovementPermission) return;
