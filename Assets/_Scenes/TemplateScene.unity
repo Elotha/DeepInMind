@@ -2206,6 +2206,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 824218987327781326, guid: 0dc71739dffacf243a4b23f5ffbb6bb6,
         type: 3}
+      propertyPath: parryTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 824218987327781326, guid: 0dc71739dffacf243a4b23f5ffbb6bb6,
+        type: 3}
       propertyPath: onParried.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 650065569}
@@ -2652,6 +2657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490253934216129668, guid: f0384d13e8ec74d4e93396ced03d68a2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8258747775040887820, guid: f0384d13e8ec74d4e93396ced03d68a2,
         type: 3}
