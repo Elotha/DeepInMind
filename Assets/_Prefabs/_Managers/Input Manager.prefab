@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3407402915095409198}
   - component: {fileID: 2958238870193748730}
   - component: {fileID: 6465882522785223166}
+  - component: {fileID: 1766079001944337965}
   m_Layer: 0
   m_Name: Input Manager
   m_TagString: Untagged
@@ -66,3 +67,15 @@ MonoBehaviour:
     - primaryKey: 27
       secondaryKey: 0
     EnumType: 0
+--- !u!114 &1766079001944337965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522482142386888990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9266737d763541af9f1fac566a6c623e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -18,10 +18,10 @@ namespace EraSoren.Hopelight
             {
                 var angle = -Vector2.SignedAngle(rb.velocity, Vector2.right);
                 var enemyScript = other.transform.GetComponent<EnemyController>();
-                if (enemyScript != null) {
+                
+                if (enemyScript != null) 
                     enemyScript.KillEnemy();
-                }
-                Debug.Log("bullet hit enemy");
+                
                 Destroy(gameObject);
             }
             

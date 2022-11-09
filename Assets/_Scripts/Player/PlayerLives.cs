@@ -31,7 +31,13 @@ namespace EraSoren.Player
 
         public static void AlterLives(int delta)
         {
-            Lives += delta;
+            if (Lives + delta == 0)
+                LevelManager.RestartLevel();
+
+            else
+            {
+                Lives += delta;
+            }
         }
     }
 }

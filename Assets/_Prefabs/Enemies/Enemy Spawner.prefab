@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!50 &6337090556992235250
 Rigidbody2D:
   serializedVersion: 4
@@ -404,7 +404,7 @@ MonoBehaviour:
   spawnBubbleObject: {fileID: 1743042375512630876, guid: 7a91d9aa38e27804986c5e7a9fe2c799,
     type: 3}
   spawnRadius: 1.5
-  spawnTime: 3
+  spawnTime: 0.6
   oneTimeDelay: 0.8
   sprRenderer: {fileID: 6337090556233786929}
 --- !u!114 &6337090556992235257

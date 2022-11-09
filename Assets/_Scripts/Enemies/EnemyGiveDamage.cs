@@ -32,7 +32,7 @@ namespace EraSoren.Enemies
             {
                 if (!_damageIsGiven)
                 {
-                    PlayerTakingDamage.I.TakeDamage(Mathf.FloorToInt(_direction / 90f));
+                    PlayerTakeDamage.I.TakeDamage(Mathf.FloorToInt(_direction / 90f));
                     _damageIsGiven = true;
                     StartCoroutine(DamageCooldown());
                 }

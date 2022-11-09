@@ -33,7 +33,7 @@ namespace EraSoren.InGameUI
 
         private void UpdateLivesUI(int notAddedDelta, int delta)
         {
-            // TODO: Maybe it can be more readable
+            // TODO: Maybe this can be more readable
             var sign = Ext.Sign(delta);
             if (sign == 1)
             {

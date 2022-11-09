@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1112665881}
   - component: {fileID: 1112665882}
   m_Layer: 8
-  m_Name: ParrySprite
+  m_Name: Parry Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,6 +84,264 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5440097761459918155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3328664402637342053}
+  - component: {fileID: 5993793252082633860}
+  - component: {fileID: 1087587740280376285}
+  - component: {fileID: 2382634830726656412}
+  - component: {fileID: 3839605645696370329}
+  - component: {fileID: 2872068618815253088}
+  m_Layer: 8
+  m_Name: Take Damage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3328664402637342053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2414197373853312631}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5993793252082633860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce40676373d426bbef9cfcbae98b67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087587740280376285}
+        m_TargetAssemblyTypeName: EraSoren._Core.Effects.FlashEffect, Assembly-CSharp
+        m_MethodName: StartFlashEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3839605645696370329}
+        m_TargetAssemblyTypeName: EraSoren.Player.PlayerInvincibleFrame, Assembly-CSharp
+        m_MethodName: BeInvincibleForAWhile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: EraSoren._Core.Effects.SlowdownEffect, Assembly-CSharp
+        m_MethodName: SlowdownTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamageTakenWithDirection:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2382634830726656412}
+        m_TargetAssemblyTypeName: EraSoren._Core.GameplayCore.Knockback, Assembly-CSharp
+        m_MethodName: ApplyKnockback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1087587740280376285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec56e91320a462b41bf460f2a09cc191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashTime: 0.1
+  matWhite: {fileID: 2100000, guid: d75e7b3ba9c514846828b7146bee2b0a, type: 2}
+  spriteRenderers:
+  - {fileID: 7138656816121217755}
+--- !u!114 &2382634830726656412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf484429fc643d4bdb7a0d25a02ee1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.2190955
+      outSlope: 1.2190955
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2460841
+      value: 0.3
+      inSlope: 0.010094472
+      outSlope: 0.010094472
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7269315
+    - serializedVersion: 3
+      time: 0.51939833
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.054154217
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0.3
+  length: 2
+  rb: {fileID: 4943565320595965285}
+--- !u!114 &3839605645696370329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6dd2b2c6b845f48b72431f1b7e0422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibilityTime: 1
+  onInvincibilityStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2872068618815253088}
+        m_TargetAssemblyTypeName: EraSoren.Player.ChangePlayerOpacityWhenInvincible,
+          Assembly-CSharp
+        m_MethodName: MakePlayerTranslucent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInvincibilityEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2872068618815253088}
+        m_TargetAssemblyTypeName: EraSoren.Player.ChangePlayerOpacityWhenInvincible,
+          Assembly-CSharp
+        m_MethodName: MakePlayerOpaque
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2872068618815253088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440097761459918155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7a7f23e1b84abe80bc6164322079e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 0.65
+  spriteRenderer: {fileID: 7138656816121217755}
 --- !u!1 &8569360253371154259
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,9 +364,6 @@ GameObject:
   - component: {fileID: 7610427593369195023}
   - component: {fileID: 824218987327781326}
   - component: {fileID: 1834991207602290622}
-  - component: {fileID: 7603791279499122564}
-  - component: {fileID: 5035787820296190188}
-  - component: {fileID: 3270274684174773419}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -129,6 +384,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1112665881}
+  - {fileID: 3328664402637342053}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -184,7 +440,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &8388136939457425534
 Animator:
   serializedVersion: 4
@@ -341,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bb7950ca244d6ea64ca384ffd47700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundMask:
+  blocksMask:
     serializedVersion: 2
     m_Bits: 512
   collisionDistance: 0.4
@@ -358,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryLockTime: 0.1
-  parryTime: 0.4
+  parryTime: 0.1
   cooldownTime: 0.5
   onParried:
     m_PersistentCalls:
@@ -401,138 +657,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryRingRenderer: {fileID: 1112665882}
---- !u!114 &7603791279499122564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8569360253371154259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce40676373d426bbef9cfcbae98b67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5035787820296190188}
-        m_TargetAssemblyTypeName: EraSoren._Core.GameplayCore.Knockback, Assembly-CSharp
-        m_MethodName: ApplyKnockback
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3270274684174773419}
-        m_TargetAssemblyTypeName: EraSoren._Core.Effects.FlashEffect, Assembly-CSharp
-        m_MethodName: StartFlashEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5035787820296190188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8569360253371154259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf484429fc643d4bdb7a0d25a02ee1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.2190955
-      outSlope: 1.2190955
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2460841
-      value: 0.3
-      inSlope: 0.010094472
-      outSlope: 0.010094472
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.7269315
-    - serializedVersion: 3
-      time: 0.51939833
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.054154217
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  speedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  duration: 0.3
-  length: 2
---- !u!114 &3270274684174773419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8569360253371154259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec56e91320a462b41bf460f2a09cc191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashTime: 0.1
-  matWhite: {fileID: 2100000, guid: d75e7b3ba9c514846828b7146bee2b0a, type: 2}
-  spriteRenderers:
-  - {fileID: 7138656816121217755}

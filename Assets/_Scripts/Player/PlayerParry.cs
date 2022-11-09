@@ -52,13 +52,13 @@ namespace EraSoren.Player
         {
             _canParry = false;
             IsParry = true;
-            PlayerMovement.SetMovementPermission(false);
+            PlayerMovement.I.SetMovementPermission(false);
             _parryFeedback.ParryStartFeedback();
             OnParryStart?.Invoke();
             
             yield return new WaitForSecondsRealtime(parryLockTime);
             _parryFeedback.ParryLockEndedFeedback();
-            PlayerMovement.SetMovementPermission(true);
+            PlayerMovement.I.SetMovementPermission(true);
             
             yield return new WaitForSecondsRealtime(parryTime - parryLockTime);
             _parryFeedback.ParryEndFeedback();
@@ -78,11 +78,6 @@ namespace EraSoren.Player
         public void ApplyParry()
         {
             onParried?.Invoke();
-        }
-
-        public void TakeDamage(float damageAngle)
-        {
-            PlayerTakingDamage.I.TakeDamage(damageAngle);
         }
     }
 }

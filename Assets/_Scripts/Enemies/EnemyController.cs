@@ -8,8 +8,8 @@ namespace EraSoren.Enemies
     public class EnemyController : MonoBehaviour
     {
         [NonSerialized] public SpawnController SpawnController;
-        [SerializeField] private EnemyParryCheck enemyParryCheck;
-        
+
+        private bool _isEnemyDead;
         
         #region Events
 
@@ -19,6 +19,11 @@ namespace EraSoren.Enemies
 
         public void KillEnemy()
         {
+            if (_isEnemyDead)
+                return;
+
+            _isEnemyDead = true;
+            
             onEnemyDie?.Invoke();
             SpawnController.BoundedEnemyDie(this);
             Destroy(gameObject);
@@ -26,6 +31,11 @@ namespace EraSoren.Enemies
 
         public void DestroySpawnBubble()
         {
+            if (_isEnemyDead)
+                return;
+
+            _isEnemyDead = true;
+            
             SpawnController.BoundedSpawnBubbleDestroyed(this);
             Destroy(gameObject);
         }

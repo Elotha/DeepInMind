@@ -28,8 +28,8 @@ namespace EraSoren.Player
         private void RunTriggers()
         {
             var playerVelocity = PlayerController.PlayerMovement.Rb.velocity;
-            _animator.SetBool(PlayerAnimationHashes.VerSpeed, Mathf.Abs((float)playerVelocity.y) > tolerance);
             _animator.SetBool(PlayerAnimationHashes.HorSpeed, Mathf.Abs((float)playerVelocity.x) > tolerance);
+            _animator.SetBool(PlayerAnimationHashes.VerSpeed, Mathf.Abs((float)playerVelocity.y) > tolerance);
         }
 
         public void PlayAnimation(PlayerStates.States state)

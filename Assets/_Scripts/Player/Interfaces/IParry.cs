@@ -4,6 +4,5 @@
     {
         bool IsParry { get; set; }
         void ApplyParry();
-        void TakeDamage(float damageAngle);
     }
 }

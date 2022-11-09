@@ -29,7 +29,8 @@ namespace EraSoren.Enemies
 
         private void CheckParry(Collider2D other)
         {
-            if (_enemyState.enemyState != EnemyStates.Casting) return;
+            if (_enemyState.enemyState != EnemyStates.Casting &&
+                _enemyState.enemyState != EnemyStates.Attacking) return;
             
             var parryInterface = other.GetComponent<IParry>();
             if (parryInterface is not { IsParry: true }) return;

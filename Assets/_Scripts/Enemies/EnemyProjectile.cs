@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using EraSoren._Core.GameplayCore.Interfaces;
 using EraSoren._Core.Helpers;
+using EraSoren.Player;
 using EraSoren.Player.Interfaces;
 using UnityEngine;
 
@@ -34,7 +35,6 @@ namespace EraSoren.Enemies
                 }
                 else
                 {
-                    parryInterface.TakeDamage(transform.rotation.z);
                     GiveDamage();
                 }
             }
@@ -42,6 +42,7 @@ namespace EraSoren.Enemies
 
         private void GiveDamage()
         {
+            PlayerTakeDamage.I.TakeDamage(transform.rotation.z);
             Destroy(gameObject);
         }
 
