@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using EraSoren.Menu.Managers;
+using UnityEngine;
 
 namespace EraSoren.Menu
 {
@@ -9,7 +10,6 @@ namespace EraSoren.Menu
             this.menuObject = menuObject;
         }
         public GameObject menuObject;
-        // public List<MenuItem> buttonList = new List<MenuItem>();
 
         protected MenuItem()
         {
@@ -28,20 +28,21 @@ namespace EraSoren.Menu
         }
         public virtual void Interact()
         {
-            MenuManager.I.DisableLast();
+            Debug.Log("menu item interact");
+            MenuManager.I.DisableLastMenuItem();
             Enable();
-            MenuManager.I.AddItem(this);
+            MenuManager.I.AddMenuItem(this);
         }
 
         public virtual void Interact(bool toggle)
         {
-            
         }
         
-        public virtual void Back() {
+        public virtual void Back() 
+        {
             Disable();
-            MenuManager.I.RemoveItem(this);
-            MenuManager.I.EnableLast();
+            MenuManager.I.RemoveMenuItem(this);
+            MenuManager.I.EnableLastMenuItem();
         }
     }
 }

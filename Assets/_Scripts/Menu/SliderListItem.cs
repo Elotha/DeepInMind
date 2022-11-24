@@ -1,4 +1,5 @@
 ﻿using System;
+using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,8 +48,8 @@ namespace EraSoren.Menu
 
         private void OnOverrideSliderWidthChange()
         {
-            sliderWidth = SliderManager.I.sliderWidth;
-            OnSliderWidthChange();
+            // sliderWidth = SliderManager.I.sliderWidth;
+            // OnSliderWidthChange();
         }
 
         private void OnSliderHeightChange()
@@ -58,14 +59,14 @@ namespace EraSoren.Menu
 
         private void OnOverrideSliderHeightChange()
         {
-            sliderHeight = SliderManager.I.sliderHeight;
-            OnSliderHeightChange();
+            // sliderHeight = SliderManager.I.sliderHeight;
+            // OnSliderHeightChange();
         }
 
         private void OnOverrideTotalWidthChange()
         {
-            totalWidth = SliderManager.I.totalWidth;
-            OnSliderHeightChange();
+            // totalWidth = SliderManager.I.totalWidth;
+            // OnSliderHeightChange();
         }
 
         private void OnTotalWidthChange()

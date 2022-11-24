@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using EraSoren.Menu.Managers;
+using Sirenix.OdinInspector;
 using UnityEngine.UI;
 
 namespace EraSoren.Menu
@@ -21,8 +22,8 @@ namespace EraSoren.Menu
 
         private void OnOverrideToggleLabelWidthChange()
         {
-            toggleLabelWidth = ToggleManager.I.labelWidth;
-            OnToggleLabelWidthChange();
+            // toggleLabelWidth = ToggleManager.I.labelWidth;
+            // OnToggleLabelWidthChange();
         }
     }
 }

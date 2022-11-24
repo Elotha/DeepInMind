@@ -1,4 +1,7 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using EraSoren.Menu.Managers;
+using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace EraSoren.Menu
@@ -8,14 +11,14 @@ namespace EraSoren.Menu
         [TabGroup("References")] public Button buttonComponent;
         
         [OnValueChanged("OnOverrideButtonWidthChange")]
-        [TabGroup("Properties")] public bool overrideButtonWidth;
+        [TabGroup("Properties")] public bool overrideButtonWidth = false;
         
         [ShowIf("overrideButtonWidth")] 
         [OnValueChanged("OnButtonWidthChange")]
         [TabGroup("Properties")] public int buttonWidth;
         
         [OnValueChanged("OnOverrideButtonHeightChange")]
-        [TabGroup("Properties")] public bool overrideButtonHeight;
+        [TabGroup("Properties")] public bool overrideButtonHeight = false;
         
         [ShowIf("overrideButtonHeight")] 
         [OnValueChanged("OnButtonHeightChange")]
@@ -26,21 +29,35 @@ namespace EraSoren.Menu
             ButtonManager.ChangeButtonWidth(this, buttonWidth);
         }
 
-        private void OnOverrideButtonWidthChange()
-        {
-            buttonWidth = ButtonManager.I.width;
-            OnButtonWidthChange();
-        }
+        // private void OnOverrideButtonWidthChange()
+        // {
+        //     buttonWidth = ButtonManager.I.width;
+        //     OnButtonWidthChange();
+        // }
 
         private void OnButtonHeightChange()
         {
             ButtonManager.ChangeButtonHeight(this, buttonHeight);
         }
 
-        private void OnOverrideButtonHeightChange()
+        // private void OnOverrideButtonHeightChange()
+        // {
+        //     buttonHeight = ButtonManager.I.height;
+        //     OnButtonHeightChange();
+        // }
+
+        public override void AddListener(UnityEngine.Events.UnityAction action)
         {
-            buttonHeight = ButtonManager.I.height;
-            OnButtonHeightChange();
+            buttonComponent.onClick.AddListener(action);
+            buttonComponent.onClick.Invoke();
+            Debug.Log("listener");
+        }
+
+        public override void AdjustItem()
+        {
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            ButtonManager.ChangeButtonWidth(this, buttonWidth);
+            ButtonManager.ChangeButtonHeight(this, buttonHeight);
         }
     }
 }
