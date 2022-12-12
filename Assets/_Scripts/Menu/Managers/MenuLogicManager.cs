@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using EraSoren._Core.Helpers;
-using EraSoren._Core.Helpers.Extensions;
 using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace EraSoren.Menu.Managers
 {
@@ -23,11 +22,13 @@ namespace EraSoren.Menu.Managers
         [OnValueChanged(nameof(ChangeOffset))] 
         [SerializeField] private Vector2 canvasOffset;
 
-        // [Space(20)]
-        // public List<MenuLogicObject> menuLogicObjects = new ();
-        
-        public List<MenuDictionary> menusDictionary;
         public List<MenuItemCreator> menuItemCreators = new();
+
+        #region Events
+
+        public UnityEvent onClearingMenuItems;
+
+        #endregion
 
         private void Start()
         {
@@ -54,16 +55,6 @@ namespace EraSoren.Menu.Managers
             if (removeSpaces)
                 str = str.Replace(" ", "");
             return str;
-        }
-
-        private void SetCanvasActivityOnEdit()
-        {
-            // TODO: Use event for this
-        }
-
-        public void AddNewMenuDictionary(string itemName, MenuButtonItem menuButtonItem)
-        {
-            menusDictionary.Add(new MenuDictionary(itemName, menuButtonItem));
         }
 
         private void ChangeOffset()
@@ -103,6 +94,8 @@ namespace EraSoren.Menu.Managers
             {
                 menuItemCreators.RemoveAt(j);
             }
+            
+            onClearingMenuItems?.Invoke();
         }
 
         [Serializable]

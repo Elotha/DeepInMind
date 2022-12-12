@@ -27,9 +27,9 @@ namespace EraSoren.Menu.Managers
             newItem.sliderComponent = sliderObj.GetComponent<Slider>();
             newItem.sliderTransform = sliderObj.transform.GetChild(1).GetComponent<RectTransform>();
             newItem.handleTransform = sliderObj.transform.GetChild(1).GetChild(2).GetComponent<RectTransform>();
-            newItem.itemTextComponent = sliderObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            newItem.textComponent = sliderObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             newItem.itemName = itemName;
-            newItem.itemTextComponent.font = FontManager.I.fontType;
+            newItem.textComponent.font = FontManager.I.fontType;
             newItem.rectTransform = sliderObj.transform.GetComponent<RectTransform>();
 
             if (!newItem.overrideFontSize)
@@ -43,8 +43,10 @@ namespace EraSoren.Menu.Managers
 
             if (!newItem.overrideSliderHeight)
                 newItem.sliderHeight = defaultSliderProperties.sliderHeight;
+            
+            sliderItemsList.AddItem(newItem);
         
-            FontManager.SetText(itemName, newItem.itemTextComponent);
+            FontManager.SetText(itemName, newItem.textComponent);
         
             return newItem;
         }

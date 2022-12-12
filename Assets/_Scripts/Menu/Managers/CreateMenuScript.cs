@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using EraSoren._Core.Helpers;
-using EraSoren.Menu.ItemTypes;
 using UnityEditor;
 using UnityEngine;
 using MenuItem = EraSoren.Menu.ItemTypes.MenuItem;
@@ -23,14 +22,15 @@ namespace EraSoren.Menu.Managers
                 
                 using var outfile = new StreamWriter(copyPath);
 
-                outfile.WriteLine("using EraSoren.Menu.ItemTypes;");
-                outfile.WriteLine("namespace " + namespaceName);
-                outfile.WriteLine("{");
-                outfile.WriteLine("    public class "+scriptName+" : " + ancestorName);
-                outfile.WriteLine("    {");
-                outfile.WriteLine("        ");
-                outfile.WriteLine("    }");
-                outfile.WriteLine("}"); 
+                outfile.Write("using EraSoren.Menu.ItemTypes;" +
+                              "\n\n" +
+                              "namespace " + namespaceName +
+                              "\n{" + 
+                              "\n    public class "+scriptName+" : " + ancestorName +
+                              "\n    {" +
+                              "\n        " +
+                              "\n    }" +
+                              "\n}");
                 outfile.Close(); 
             }
             AssetDatabase.Refresh();

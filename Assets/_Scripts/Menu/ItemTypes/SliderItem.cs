@@ -9,6 +9,11 @@ namespace EraSoren.Menu.ItemTypes
     [Serializable]
     public class SliderItem : MenuItem
     {
+        protected SliderItem()
+        {
+            ItemType = MenuItemTypes.Slider;
+        }
+        
         [TabGroup("References")] public Slider sliderComponent;
         [TabGroup("References")] public RectTransform sliderTransform;
         [TabGroup("References")] public RectTransform handleTransform;
@@ -40,6 +45,20 @@ namespace EraSoren.Menu.ItemTypes
         [ShowIf(nameof(overrideSliderHeight))] 
         [OnValueChanged(nameof(OnSliderHeightChange))]
         [TabGroup("Properties")] public int handleHeight;
+
+        private SliderManager _sliderManager;
+        private SliderManager SliderManager
+        {
+            get
+            {
+                if (_sliderManager == null)
+                {
+                    _sliderManager = ItemTypeManagers.I.GetManager<SliderManager>();
+                }
+
+                return _sliderManager;
+            }
+        }
         
         private void OnSliderWidthChange()
         {
@@ -48,8 +67,8 @@ namespace EraSoren.Menu.ItemTypes
 
         private void OnOverrideSliderWidthChange()
         {
-            // sliderWidth = SliderManager.I.sliderWidth;
-            // OnSliderWidthChange();
+            sliderWidth = SliderManager.defaultSliderProperties.sliderWidth;
+            OnSliderWidthChange();
         }
 
         private void OnSliderHeightChange()
@@ -59,19 +78,19 @@ namespace EraSoren.Menu.ItemTypes
 
         private void OnOverrideSliderHeightChange()
         {
-            // sliderHeight = SliderManager.I.sliderHeight;
-            // OnSliderHeightChange();
-        }
-
-        private void OnOverrideTotalWidthChange()
-        {
-            // totalWidth = SliderManager.I.totalWidth;
-            // OnSliderHeightChange();
+            sliderHeight = SliderManager.defaultSliderProperties.sliderHeight;;
+            OnSliderHeightChange();
         }
 
         private void OnTotalWidthChange()
         {
             SliderManager.ChangeTotalWidth(this, totalWidth);
+        }
+
+        private void OnOverrideTotalWidthChange()
+        {
+            totalWidth = SliderManager.defaultSliderProperties.totalWidth;
+            OnSliderHeightChange();
         }
     }
 }

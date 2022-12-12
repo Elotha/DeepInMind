@@ -1,10 +1,13 @@
-﻿namespace EraSoren.Menu.ItemTypes
+﻿using EraSoren.Menu.Managers;
+using UnityEngine;
+
+namespace EraSoren.Menu.ItemTypes
 {
     public class StandardButtonItem : ButtonItem
     {
-        public override void Interact()
+        public StandardButtonItem()
         {
-            
+            ItemType = MenuItemTypes.StandardButton;
         }
     }
 }

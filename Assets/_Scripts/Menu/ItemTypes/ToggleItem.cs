@@ -8,11 +8,11 @@ namespace EraSoren.Menu.ItemTypes
     {
         [TabGroup("References")] public Toggle toggleComponent;
         
-        [OnValueChanged("OnOverrideToggleLabelWidthChange")]
+        [OnValueChanged(nameof(OnOverrideToggleLabelWidthChange))]
         [TabGroup("Properties")] public bool overrideToggleLabelWidth;
         
-        [ShowIf("overrideToggleLabelWidth")] 
-        [OnValueChanged("OnToggleLabelWidthChange")]
+        [ShowIf(nameof(overrideToggleLabelWidth))] 
+        [OnValueChanged(nameof(OnToggleLabelWidthChange))]
         [TabGroup("Properties")] public int toggleLabelWidth;
         
         private void OnToggleLabelWidthChange()

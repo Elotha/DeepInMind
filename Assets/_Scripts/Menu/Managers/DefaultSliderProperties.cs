@@ -20,11 +20,24 @@ namespace EraSoren.Menu.Managers
 
         public int fontSize = 42;
 
-        [SerializeField] private SliderManager sliderManager;
+        private SliderManager _sliderManager;
+        private SliderManager SliderManager
+        {
+            get
+            {
+                if (_sliderManager == null)
+                {
+                    _sliderManager = ItemTypeManagers.I.GetManager<SliderManager>();
+                }
+
+                return _sliderManager;
+            }
+        }
         
         private void OnWidthChange()
         {
-            foreach (var item in sliderManager.sliderItemsList.allSliderItems.Where(item => !item.overrideSliderWidth))
+            var list = SliderManager.sliderItemsList.allSliderItems;
+            foreach (var item in list.Where(item => !item.overrideSliderWidth))
             {
                 item.sliderWidth = sliderWidth;
                 SliderManager.ChangeSliderWidth(item, sliderWidth);
@@ -33,7 +46,8 @@ namespace EraSoren.Menu.Managers
         
         private void OnHeightChange()
         {
-            foreach (var item in sliderManager.sliderItemsList.allSliderItems.Where(item => !item.overrideSliderWidth))
+            var list = SliderManager.sliderItemsList.allSliderItems;
+            foreach (var item in list.Where(item => !item.overrideSliderHeight))
             {
                 item.sliderHeight = sliderHeight;
                 SliderManager.ChangeSliderHeight(item, sliderHeight);
@@ -42,7 +56,8 @@ namespace EraSoren.Menu.Managers
         
         public void OnTotalWidthChange()
         {
-            foreach (var item in sliderManager.sliderItemsList.allSliderItems.Where(item => !item.overrideSliderWidth))
+            var list = SliderManager.sliderItemsList.allSliderItems;
+            foreach (var item in list.Where(item => !item.overrideTotalWidth))
             {
                 item.totalWidth = totalWidth;
                 SliderManager.ChangeTotalWidth(item, totalWidth);
@@ -51,7 +66,8 @@ namespace EraSoren.Menu.Managers
         
         private void OnHandleHeightChange()
         {
-            foreach (var item in sliderManager.sliderItemsList.allSliderItems.Where(item => !item.overrideSliderWidth))
+            var list = SliderManager.sliderItemsList.allSliderItems;
+            foreach (var item in list.Where(item => !item.overrideHandleHeight))
             {
                 item.handleHeight = handleHeight;
                 SliderManager.ChangeHandleHeight(item, handleHeight);

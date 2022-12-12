@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EraSoren._Core.Helpers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EraSoren.Menu.Managers
@@ -20,6 +22,22 @@ namespace EraSoren.Menu.Managers
                 this.menuItemType = menuItemType;
                 this.menuItemTypeManager = menuItemTypeManager;
             }
+        }
+
+        public MenuItemTypeManager FindTypeClass(MenuItemTypes type)
+        {
+            return itemTypes
+                .Where(itemType => itemType.menuItemType == type)
+                .Select(itemType => itemType.menuItemTypeManager)
+                .FirstOrDefault();
+        }
+
+        public T GetManager<T>() where T : MenuItemTypeManager
+        {
+            return itemTypes
+                .Where(itemType => itemType.menuItemTypeManager.GetType() == typeof(T))
+                .Select(itemType => itemType.menuItemTypeManager as T)
+                .FirstOrDefault();
         }
     }
 }

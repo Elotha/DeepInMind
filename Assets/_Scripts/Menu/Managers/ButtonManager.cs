@@ -32,8 +32,8 @@ namespace EraSoren.Menu.Managers
             newItem.canvasObject.GetComponent<ButtonInteract>().buttonItem = newItem;
             newItem.buttonComponent = buttonObj.GetComponent<Button>();
             newItem.rectTransform = buttonObj.GetComponent<RectTransform>();
-            newItem.itemTextComponent = buttonObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            newItem.itemTextComponent.font = FontManager.I.fontType;
+            newItem.textComponent = buttonObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            newItem.textComponent.font = FontManager.I.fontType;
 
             if (!newItem.overrideFontSize)
                 newItem.fontSize = FontManager.I.fontSize;
@@ -52,7 +52,7 @@ namespace EraSoren.Menu.Managers
             
             buttonItemsList.AddItem(newItem);
 
-            FontManager.SetText(itemName, newItem.itemTextComponent);
+            FontManager.SetText(itemName, newItem.textComponent);
 
             return newItem;
         }

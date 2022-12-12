@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers.Extensions;
-using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
+using MenuItem = EraSoren.Menu.ItemTypes.MenuItem;
 
 namespace EraSoren.Menu.Managers
 {
+    [ExecuteInEditMode]
     public class MenuItemCreator : MonoBehaviour
     {
         public Transform canvasMenuParent;
@@ -22,31 +24,30 @@ namespace EraSoren.Menu.Managers
         [Space(20)]
         [SerializeField] private List<MenuItemNameAndType> newItems = new ();
         
-        private void Start()
-        {
-            SetButtonEvents();
-        }
-
         [Button]
         private void CreateScriptsForNewItems()
         {
+            if (IsThereAnyEmptyName()) return;
+            
             foreach (var item in newItems)
             {
-                var itemType = FindTypeClass(item.itemType);
+                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateScript(item.itemName);
             }
             if (newItems.Count != 0)
             {
-                Debug.Log("New scripts are created!");
+                Debug.Log("The provided scripts are already created.");
             }
         }
 
         [Button]
         private void CreateObjectsForNewItems()
         {
+            if (IsThereAnyEmptyName()) return;
+            
             foreach (var item in newItems)
             {
-                var itemType = FindTypeClass(item.itemType);
+                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateObjects(item.itemName, transform);
             }
             if (newItems.Count != 0)
@@ -58,14 +59,14 @@ namespace EraSoren.Menu.Managers
         [Button]
         private void AddScriptsToNewItems()
         {
+            if (IsThereAnyEmptyName()) return;
+            
             foreach (var child in transform.GetAllChildrenList())
             {
-                // if (child.name == ButtonManager.BackString) continue;
-                
                 var itemInfo = child.GetComponent<MenuItemInfo>();
                 if (itemInfo == null)
                 {
-                    Debug.Log("null");
+                    Debug.LogError("MenuItemInfo script that you are trying to get is null!");
                     continue;
                 }
                 if (itemInfo.isScriptAdded) continue;
@@ -75,6 +76,7 @@ namespace EraSoren.Menu.Managers
 
                 if (component != null)
                 {
+                    itemInfo.itemType = component.GetItemType();
                     itemInfo.isScriptAdded = true;
                     continue;
                 }
@@ -88,97 +90,22 @@ namespace EraSoren.Menu.Managers
         [Button]
         private void FinalizeItems()
         {
+            if (IsThereAnyEmptyName()) return;
+            
             foreach (var item in newItems)
             {
-                var itemType = FindTypeClass(item.itemType);
+                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 var obj = transform.Find(item.itemName).gameObject;
                 var newItem = itemType.Finalize(obj, item.itemName, canvasMenuParent);
                 currentItems.Add(newItem);
             }
-            newItems.Clear();
             AdjustItems();
             MakeThisCanvasActive();
             if (newItems.Count != 0)
             {
                 Debug.Log("Items are finalized!");
             }
-        }
-
-        private MenuItemTypeManager FindTypeClass(MenuItemTypes type)
-        {
-            return ItemTypeManagers.I.itemTypes
-                .Where(itemType => itemType.menuItemType == type)
-                .Select(itemType => itemType.menuItemTypeManager)
-                .FirstOrDefault();
-        }
-
-        // Set events yapılacak
-        private void SetButtonEvents()
-        {
-            foreach (var item in currentItems)
-            {
-                // switch (item.itemType)
-                // {
-                //     case MenuItemTypes.StandardButton:
-                //         if (item.itemName != "Back")
-                //         {
-                //             Debug.Log("interact");
-                //             item.AddListener(item.menuItem.Interact);
-                //         }
-                //         else
-                //         {
-                //             Debug.Log("back");
-                //             Debug.Log(item.menuItem != null);
-                //             item.AddListener(item.menuItem.Back);
-                //         }
-                //         
-                //         // if (item is EnumListItem)
-                //         //     Debug.Log("enum");
-                //         //
-                //         // if (item is SliderListItem)
-                //         //     Debug.Log("slider");
-                //         //
-                //         // if (item is ToggleListItem)
-                //         //     Debug.Log("toggle");
-                //         //
-                //         // if (item is ButtonListItem buttonItem)
-                //         // {
-                //         //     Debug.Log("button");
-                //         //     if (item.itemName != "Back")
-                //         //     {
-                //         //         buttonItem.buttonComponent.onClick.AddListener(item.menuItem.Interact);
-                //         //         Debug.Log("interact");
-                //         //     }
-                //         //     else
-                //         //     {
-                //         //         buttonItem.buttonComponent.onClick.AddListener(item.menuItem.Back);
-                //         //     }
-                //         // }
-                //
-                //         break;
-                //     
-                //     case MenuItemTypes.Toggle:
-                //         if (item is ToggleListItem toggleItem)
-                //         {
-                //             toggleItem.toggleComponent.onValueChanged.AddListener(item.menuItem.Interact);
-                //         }
-                //
-                //         break;
-                //     
-                //     case MenuItemTypes.Slider:     
-                //         break;
-                //     
-                //     case MenuItemTypes.Enum:
-                //         
-                //         break;
-                //     
-                //     case MenuItemTypes.InputField: 
-                //         break;
-                //     
-                //     default:                       
-                //         throw new ArgumentOutOfRangeException();
-                // }
-            }
+            newItems.Clear();
         }
 
         private void AdjustItems()
@@ -191,9 +118,11 @@ namespace EraSoren.Menu.Managers
             TotalHeightManager.ChangeTotalHeight(currentItems);
         }
 
-        public void DetermineActiveCanvas(GameObject logicObject)
+        private bool IsThereAnyEmptyName()
         {
-            canvasMenuParent.gameObject.SetActive(logicObject == gameObject);
+            if (newItems.All(item => item.itemName.Replace(" ", "") != "")) return false;
+            Debug.LogError("Item names cannot be empty!");
+            return true;
         }
 
         [Button]
@@ -201,17 +130,34 @@ namespace EraSoren.Menu.Managers
         {
             MenuLogicManager.I.SetActiveCanvas(gameObject);
         }
-        
-        // public IEnumerable<Type> GetFilteredTypeList()
-        // {
-        //     var q = typeof(MenuListItem).Assembly.GetTypes()
-        //                              .Where(x => !x.IsAbstract)  
-        //                              .Where(x => !x.IsGenericTypeDefinition) 
-        //                              .Where(x => typeof(MenuListItem).IsAssignableFrom(x));
-        //
-        //     return q;
-        // }
-        
+
+        [Button]
+        private void ClearSubItems()
+        {
+            for (var i = transform.childCount; i > 0; i--)
+            {
+                var childObj = transform.GetChild(i - 1).gameObject;
+                DestroyImmediate(childObj);
+            }
+
+            for (var i = canvasMenuParent.childCount; i > 0; i--)
+            {
+                var childObj = canvasMenuParent.GetChild(i - 1).gameObject;
+                DestroyImmediate(childObj);
+            }
+            
+            if (DeleteObsoleteMenuItems.I.deleteIfObsolete)
+            {
+                AssetDatabase.Refresh();
+            }
+            
+            currentItems.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            MenuLogicManager.I.menuItemCreators.Remove(this);
+        }
     }
 
     [Serializable]

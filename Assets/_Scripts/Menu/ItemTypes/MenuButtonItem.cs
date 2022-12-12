@@ -1,10 +1,16 @@
-﻿using EraSoren.Menu.Managers;
+﻿using System;
+using EraSoren.Menu.Managers;
 using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes
 {
     public abstract class MenuButtonItem : ButtonItem
     {
+        protected MenuButtonItem()
+        {
+            ItemType = MenuItemTypes.MenuButton;
+        }
+        
         public GameObject menuCanvasObject;
 
         public void Enable()
@@ -21,6 +27,12 @@ namespace EraSoren.Menu.ItemTypes
             MenuManager.I.DisableLastMenuItem();
             Enable();
             MenuManager.I.AddMenuItem(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            DestroyImmediate(menuCanvasObject);
+            base.OnDestroy();
         }
     }
 }

@@ -14,16 +14,16 @@ namespace EraSoren.Menu.Managers
 
         public void OnTotalHeightChange()
         {
-            // foreach (var logicObject in MenuLogicManager.I.menuLogicObjects)
-            // {
-            //     foreach (var item in logicObject.menuItemCreator.currentItems
-            //                                     .Where(item => !item.overrideTotalHeight))
-            //     {
-            //         item.totalHeight = totalHeight;
-            //     }
-            //
-            //     ChangeTotalHeight(logicObject.menuItemCreator.currentItems);
-            // }
+            foreach (var menuItemCreator in MenuLogicManager.I.menuItemCreators)
+            {
+                foreach (var item in menuItemCreator.currentItems
+                                                .Where(item => !item.overrideTotalHeight))
+                {
+                    item.totalHeight = totalHeight;
+                }
+            
+                ChangeTotalHeight(menuItemCreator.currentItems);
+            }
         }
 
         public static void ChangeTotalHeight(List<MenuItem> currentItems)

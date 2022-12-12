@@ -42,7 +42,7 @@ namespace EraSoren.Menu.Managers
 
         public void ChangeFontSize(MenuItem item, float size)
         {
-            item.itemTextComponent.fontSize = size;
+            item.textComponent.fontSize = size;
         }
         public static void SetText(string buttonName, TMP_Text itemText)
         {

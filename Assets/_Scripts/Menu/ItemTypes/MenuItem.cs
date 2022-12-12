@@ -6,13 +6,16 @@ using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes
 {
+    [ExecuteInEditMode]
     public abstract class MenuItem : MonoBehaviour
     {
+        protected MenuItemTypes ItemType;
+
         [TabGroup("General")] public string itemName;
         [TabGroup("General")] [MultiLineProperty(3)] public string description;
         
         [TabGroup("References")] public GameObject canvasObject;
-        [TabGroup("References")] public TextMeshProUGUI itemTextComponent;
+        [TabGroup("References")] public TextMeshProUGUI textComponent;
         [TabGroup("References")] public RectTransform rectTransform;
         
         [OnValueChanged(nameof(OnOverrideTotalHeightChange))]
@@ -52,5 +55,14 @@ namespace EraSoren.Menu.ItemTypes
         
         public virtual void AdjustItem() { }
 
+        public MenuItemTypes GetItemType()
+        {
+            return ItemType;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            DeleteObsoleteMenuItems.I.DeleteObsoleteFile(itemName);
+        }
     }
 }
