@@ -39,11 +39,11 @@ namespace EraSoren.Menu.ItemTypes
         [OnValueChanged(nameof(OnSliderHeightChange))]
         [TabGroup("Properties")] public int sliderHeight;
         
-        [OnValueChanged(nameof(OnOverrideSliderHeightChange))]
+        [OnValueChanged(nameof(OnOverrideHandleHeightChange))]
         [TabGroup("Properties")] public bool overrideHandleHeight;
         
-        [ShowIf(nameof(overrideSliderHeight))] 
-        [OnValueChanged(nameof(OnSliderHeightChange))]
+        [ShowIf(nameof(overrideHandleHeight))] 
+        [OnValueChanged(nameof(OnHandleHeightChange))]
         [TabGroup("Properties")] public int handleHeight;
 
         private SliderManager _sliderManager;
@@ -91,6 +91,17 @@ namespace EraSoren.Menu.ItemTypes
         {
             totalWidth = SliderManager.defaultSliderProperties.totalWidth;
             OnSliderHeightChange();
+        }
+
+        private void OnHandleHeightChange()
+        {
+            SliderManager.ChangeHandleHeight(this, handleHeight);
+        }
+
+        private void OnOverrideHandleHeightChange()
+        {
+            handleHeight = SliderManager.defaultSliderProperties.handleHeight;
+            OnHandleHeightChange();
         }
     }
 }
