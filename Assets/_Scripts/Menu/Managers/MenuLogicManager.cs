@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using EraSoren._Core.Helpers;
 using EraSoren.Menu.ItemTypes;
+using EraSoren.Menu.ItemTypes.Button;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace EraSoren.Menu.Managers
 {
+    [ExecuteInEditMode]
     public class MenuLogicManager : Singleton<MenuLogicManager>
     {
         [Header("References")]

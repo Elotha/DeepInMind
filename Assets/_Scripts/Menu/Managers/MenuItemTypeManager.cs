@@ -1,8 +1,10 @@
-﻿using EraSoren.Menu.ItemTypes;
+﻿using EraSoren.Menu.General;
+using EraSoren.Menu.ItemTypes;
 using UnityEngine;
 
 namespace EraSoren.Menu.Managers
 {
+    [ExecuteInEditMode]
     public abstract class MenuItemTypeManager : MonoBehaviour
     {
         public abstract MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent);

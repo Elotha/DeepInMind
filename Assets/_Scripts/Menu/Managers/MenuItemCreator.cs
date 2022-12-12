@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers.Extensions;
+using EraSoren.Menu.General;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
-using MenuItem = EraSoren.Menu.ItemTypes.MenuItem;
+using MenuItem = EraSoren.Menu.General.MenuItem;
 
 namespace EraSoren.Menu.Managers
 {
-    [ExecuteInEditMode]
+    [ExecuteAlways]
     public class MenuItemCreator : MonoBehaviour
     {
         public Transform canvasMenuParent;
@@ -105,7 +106,6 @@ namespace EraSoren.Menu.Managers
             {
                 Debug.Log("Items are finalized!");
             }
-            newItems.Clear();
         }
 
         private void AdjustItems()
@@ -154,8 +154,15 @@ namespace EraSoren.Menu.Managers
             currentItems.Clear();
         }
 
+        [Button]
+        private void ClearNewItemsList()
+        {
+            newItems.Clear();
+        }
+
         private void OnDestroy()
         {
+            if (MenuLogicManager.I == null) return;
             MenuLogicManager.I.menuItemCreators.Remove(this);
         }
     }

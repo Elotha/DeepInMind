@@ -2,11 +2,11 @@
 {
     public enum MenuItemTypes
     {
-        MenuButton,
         StandardButton,
+        MenuButton,
         Toggle,
         Slider,
-        Enum,
+        MultipleChoice,
         InputField
     }
 }
