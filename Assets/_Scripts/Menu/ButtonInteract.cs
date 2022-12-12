@@ -1,17 +1,16 @@
-﻿using UnityEngine;
+﻿using EraSoren.Menu.ItemTypes;
+using UnityEngine;
 
 namespace EraSoren.Menu
 {
     [ExecuteInEditMode]
     public class ButtonInteract : MonoBehaviour
     {
-        public MenuItem menuItem;
-        public delegate void OnClick();
-        public event OnClick OnClickEvent;
+        public ButtonItem buttonItem;
 
         public void Interact()
         {
-            OnClickEvent?.Invoke();
+            buttonItem.Interact();
         }
 
     }

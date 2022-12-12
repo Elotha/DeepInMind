@@ -1,16 +1,26 @@
-﻿using UnityEngine;
+﻿using EraSoren.Menu.ItemTypes;
+using UnityEngine;
 
 namespace EraSoren.Menu.Managers
 {
-    public class StandardButtonManager : ButtonManager
+    public class StandardButtonManager : MenuItemTypeManager
     {
         [SerializeField] private GameObject standardButtonLogicPrefab;
-        
-        public override MenuListItem Create(string itemName, Transform canvasMenuParent, Transform parentObject)
+
+        public override void CreateScript(string itemName)
         {
-            var newItem = base.Create(itemName, canvasMenuParent, parentObject);
+            CreateMenuScript.I.Create(itemName, nameof(StandardButtonItem));
+        }
+
+        public override void CreateObjects(string itemName, Transform parentObject)
+        {
             var menuLogicObject = Instantiate(standardButtonLogicPrefab, parentObject);
             menuLogicObject.name = itemName;
+        }
+        
+        public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
+        {
+            var newItem = ButtonManager.I.FinalizeItem(obj, itemName, canvasMenuParent);
             return newItem;
         }
     }

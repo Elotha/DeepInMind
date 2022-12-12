@@ -13,12 +13,12 @@ namespace EraSoren.Menu.Managers
         public struct ItemType
         {
             public MenuItemTypes menuItemType;
-            public MenuItemTypeManager MenuItemTypeManager;
+            public MenuItemTypeManager menuItemTypeManager;
 
             public ItemType(MenuItemTypes menuItemType, MenuItemTypeManager menuItemTypeManager)
             {
                 this.menuItemType = menuItemType;
-                MenuItemTypeManager = menuItemTypeManager;
+                this.menuItemTypeManager = menuItemTypeManager;
             }
         }
     }

@@ -1,9 +1,10 @@
-﻿using Sirenix.OdinInspector;
+﻿using EraSoren.Menu.ItemTypes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EraSoren.Menu.Managers
 {
-    public class MenuButtonManager : ButtonManager
+    public class MenuButtonManager : MenuItemTypeManager
     {
         [Header("Objects")]
         [SerializeField] private GameObject menuButtonPrefab;
@@ -14,26 +15,38 @@ namespace EraSoren.Menu.Managers
         
         [OnValueChanged(nameof(ChangeOffset))] 
         [SerializeField] private Vector2 canvasOffset;
+
+        [SerializeField] private string canvasSuffix = " Canvas";
         
-        public override MenuListItem Create(string itemName, Transform canvasMenuParent, Transform parentObject)
+        
+        public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
         {
-            var newItem = base.Create(itemName, canvasMenuParent, parentObject);
+            // TODO: Button manager üzerinden create yapma işlemini daha sağlıklı hale getirmem lazım
             
-            var menuLogicObject = CreateMenuLogicObject(itemName, parentObject);
+            var newItem = ButtonManager.I.FinalizeItem(obj, itemName, canvasMenuParent);
+            var buttonItem = obj.GetComponent<MenuButtonItem>();
+            buttonItem.menuCanvasObject = obj.GetComponent<MenuItemCreator>().canvasMenuParent.gameObject;
             
-            var newCanvasParent = CreateCanvasParent(itemName);
-
-            SetValuesOfItemCreator(menuLogicObject, newCanvasParent);
-
-            AssignCanvasParentProperties(newCanvasParent);
-
             return newItem;
+        }
+
+        public override void CreateScript(string itemName)
+        {
+            CreateMenuScript.I.Create(itemName, nameof(MenuButtonItem));
+        }
+
+        public override void CreateObjects(string itemName, Transform parentObject)
+        {
+            var menuLogicObject = CreateMenuLogicObject(itemName, parentObject);
+            var newCanvasParent = CreateCanvasParent(itemName);
+            SetValuesOfItemCreator(menuLogicObject, newCanvasParent);
+            AssignCanvasParentProperties(newCanvasParent);
         }
 
         private GameObject CreateCanvasParent(string itemName)
         {
             var newCanvasParent = Instantiate(canvasParentPrefab, canvasMainParent);
-            newCanvasParent.name = itemName + " Parent";
+            newCanvasParent.name = itemName + canvasSuffix;
             return newCanvasParent;
         }
 

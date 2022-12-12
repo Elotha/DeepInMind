@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.ItemTypes;
 using UnityEngine;
 
 namespace EraSoren.Menu.Managers
@@ -8,7 +9,7 @@ namespace EraSoren.Menu.Managers
     public class MenuManager : Singleton<MenuManager>
     {
         public string menuNameSuffix = "MenuItem";
-        public List<MenuItem> menuHierarchy = new ();
+        public List<MenuButtonItem> menuHierarchy = new ();
 
         #region Events
 
@@ -18,21 +19,24 @@ namespace EraSoren.Menu.Managers
 
         #endregion
 
-        public void AddMenuItem(MenuItem menuItem)
+        public void AddMenuItem(MenuButtonItem menuButtonItem)
         {
-            menuHierarchy.Add(menuItem);
+            menuHierarchy.Add(menuButtonItem);
         }
 
-        public void RemoveMenuItem(MenuItem menuItem)
+        public void RemoveLastMenuItem()
         {
-            menuHierarchy.Remove(menuItem);
+            if (menuHierarchy.Count >= 1)
+            {
+                menuHierarchy.Remove(menuHierarchy.Last());
+            }
         }
 
         public void DisableLastMenuItem()
         {
             if (menuHierarchy.Count >= 1) 
             {
-                menuHierarchy.Last().menuObject.SetActive(false);
+                menuHierarchy.Last().Disable();
             }
         }
 
@@ -40,7 +44,7 @@ namespace EraSoren.Menu.Managers
         {
             if (menuHierarchy.Count >= 1) 
             {
-                menuHierarchy.Last().menuObject.SetActive(true);
+                menuHierarchy.Last().Enable();
             }
         }
 

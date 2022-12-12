@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace EraSoren.Menu.Managers
             // }
         }
 
-        public static void ChangeTotalHeight(List<MenuListItem> currentItems)
+        public static void ChangeTotalHeight(List<MenuItem> currentItems)
         {
             var newGap = Vector3.zero;
             newGap = currentItems.Aggregate(newGap, (current, menuListItem) => 

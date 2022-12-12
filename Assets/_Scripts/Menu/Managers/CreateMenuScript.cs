@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.ItemTypes;
 using UnityEditor;
 using UnityEngine;
+using MenuItem = EraSoren.Menu.ItemTypes.MenuItem;
 
 namespace EraSoren.Menu.Managers
 {
@@ -11,7 +13,7 @@ namespace EraSoren.Menu.Managers
         [SerializeField] private string filePath = "Assets/_Scripts/Menu/MenuItems";
         [SerializeField] private string namespaceName = "Menu.MenuItems";
         
-        public void Create(string scriptName) 
+        public void Create(string scriptName, string ancestorName) 
         {
             scriptName = MenuLogicManager.StandardizeNewMenuName(scriptName, true);
             scriptName += MenuManager.I.menuNameSuffix;
@@ -21,9 +23,10 @@ namespace EraSoren.Menu.Managers
                 
                 using var outfile = new StreamWriter(copyPath);
 
+                outfile.WriteLine("using EraSoren.Menu.ItemTypes;");
                 outfile.WriteLine("namespace " + namespaceName);
                 outfile.WriteLine("{");
-                outfile.WriteLine("    public class "+scriptName+" : MenuItem");
+                outfile.WriteLine("    public class "+scriptName+" : " + ancestorName);
                 outfile.WriteLine("    {");
                 outfile.WriteLine("        ");
                 outfile.WriteLine("    }");

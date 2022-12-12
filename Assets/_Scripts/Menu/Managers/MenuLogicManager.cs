@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers;
 using EraSoren._Core.Helpers.Extensions;
+using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace EraSoren.Menu.Managers
     public class MenuLogicManager : Singleton<MenuLogicManager>
     {
         [Header("References")]
-        public GameObject firstSceneItem;
+        public MenuButtonItem firstSceneItem;
 
         [Header("For Clearing")]
         [SerializeField] private Transform mainMenuLogic;
@@ -19,7 +20,8 @@ namespace EraSoren.Menu.Managers
         [SerializeField] private Transform mainMenuCanvas;
 
         [Header("Creation")]
-        [OnValueChanged(nameof(ChangeOffset))] [SerializeField] private Vector2 canvasOffset;
+        [OnValueChanged(nameof(ChangeOffset))] 
+        [SerializeField] private Vector2 canvasOffset;
 
         // [Space(20)]
         // public List<MenuLogicObject> menuLogicObjects = new ();
@@ -27,35 +29,23 @@ namespace EraSoren.Menu.Managers
         public List<MenuDictionary> menusDictionary;
         public List<MenuItemCreator> menuItemCreators = new();
 
-        [Serializable]
-        public struct MenuDictionary
+        private void Start()
         {
-            public string menuName;
-            public MenuItem menuItem;
+            SetActiveCanvas(firstSceneItem.gameObject);
+            InitializeMenuHierarchy();
+        }
 
-            public MenuDictionary(string menuName, MenuItem menuItem)
+        public void SetActiveCanvas(GameObject logicObject)
+        {
+            foreach (var menuItemCreator in menuItemCreators)
             {
-                this.menuName = menuName;
-                this.menuItem = menuItem;
+                menuItemCreator.canvasMenuParent.gameObject.SetActive(menuItemCreator.gameObject == logicObject);
             }
         }
 
-        [Serializable]
-        public struct MenuLogicObject
+        private void InitializeMenuHierarchy()
         {
-            public string menuName;
-            public GameObject logicObject;
-            public GameObject canvasObject;
-            public MenuItemCreator menuItemCreator;
-
-            public MenuLogicObject(string menuName, GameObject logicObject, GameObject canvasObject, 
-                                   MenuItemCreator menuItemCreator)
-            {
-                this.menuName = menuName;
-                this.logicObject = logicObject;
-                this.canvasObject = canvasObject;
-                this.menuItemCreator = menuItemCreator;
-            }
+            MenuManager.I.AddMenuItem(firstSceneItem);
         }
 
         public static string StandardizeNewMenuName(string menuName, bool removeSpaces)
@@ -71,17 +61,9 @@ namespace EraSoren.Menu.Managers
             // TODO: Use event for this
         }
 
-        public void AddNewMenuDictionary(string itemName, MenuItem menuItem)
+        public void AddNewMenuDictionary(string itemName, MenuButtonItem menuButtonItem)
         {
-            menusDictionary.Add(new MenuDictionary(itemName, menuItem));
-        }
-
-        public void SetActiveCanvas(GameObject logicObject)
-        {
-            foreach (var menuItemCreator in menuItemCreators)
-            {
-                menuItemCreator.canvasMenuParent.gameObject.SetActive(menuItemCreator.gameObject == logicObject);
-            }
+            menusDictionary.Add(new MenuDictionary(itemName, menuButtonItem));
         }
 
         private void ChangeOffset()
@@ -90,29 +72,6 @@ namespace EraSoren.Menu.Managers
             // {
             //     logicObject.canvasObject.transform.localPosition = canvasOffset;
             // }
-        }
-
-        private void Start()
-        {
-            SetCanvasActivityOnStart();
-            InitializeMenuHieracrhy();
-        }
-
-        private void SetCanvasActivityOnStart()
-        {
-            // foreach (var item in menuLogicObjects) 
-            // {
-            //     item.canvasObject.SetActive(item.logicObject == firstSceneItem);
-            // }
-        }
-
-        private void InitializeMenuHieracrhy()
-        {
-            foreach (var item in menusDictionary
-                .Where(item => item.menuName == firstSceneItem.name + MenuManager.I.menuNameSuffix)) 
-            {
-                MenuManager.I.AddMenuItem(item.menuItem);
-            }
         }
 
         [Button]
@@ -143,6 +102,37 @@ namespace EraSoren.Menu.Managers
             for (var j = menuItemCreators.Count - 1; j > 0; j--)
             {
                 menuItemCreators.RemoveAt(j);
+            }
+        }
+
+        [Serializable]
+        public struct MenuDictionary
+        {
+            public string menuName;
+            public MenuButtonItem menuButtonItem;
+
+            public MenuDictionary(string menuName, MenuButtonItem menuButtonItem)
+            {
+                this.menuName = menuName;
+                this.menuButtonItem = menuButtonItem;
+            }
+        }
+
+        [Serializable]
+        public struct MenuLogicObject
+        {
+            public string menuName;
+            public GameObject logicObject;
+            public GameObject canvasObject;
+            public MenuItemCreator menuItemCreator;
+
+            public MenuLogicObject(string menuName, GameObject logicObject, GameObject canvasObject, 
+                MenuItemCreator menuItemCreator)
+            {
+                this.menuName = menuName;
+                this.logicObject = logicObject;
+                this.canvasObject = canvasObject;
+                this.menuItemCreator = menuItemCreator;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using TMPro;
 
@@ -39,7 +40,7 @@ namespace EraSoren.Menu.Managers
 
         }
 
-        public void ChangeFontSize(MenuListItem item, float size)
+        public void ChangeFontSize(MenuItem item, float size)
         {
             item.itemTextComponent.fontSize = size;
         }

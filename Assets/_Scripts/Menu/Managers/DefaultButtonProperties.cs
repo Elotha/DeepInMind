@@ -12,11 +12,9 @@ namespace EraSoren.Menu.Managers
         public int height = 150;
         public int fontSize = 42;
         
-        [SerializeField] private ButtonItemsList buttonItemsList;
-        
         private void OnWidthChange()
         {
-            foreach (var buttonItem in buttonItemsList.AllButtonItems.Where(buttonItem => !buttonItem.overrideButtonWidth))
+            foreach (var buttonItem in ButtonManager.I.buttonItemsList.allButtonItems.Where(buttonItem => !buttonItem.overrideButtonWidth))
             {
                 buttonItem.buttonWidth = width;
                 ButtonManager.ChangeButtonWidth(buttonItem, width);
@@ -25,7 +23,7 @@ namespace EraSoren.Menu.Managers
         
         private void OnHeightChange()
         {
-            foreach (var buttonItem in buttonItemsList.AllButtonItems.Where(buttonItem => !buttonItem.overrideButtonHeight))
+            foreach (var buttonItem in ButtonManager.I.buttonItemsList.allButtonItems.Where(buttonItem => !buttonItem.overrideButtonHeight))
             {
                 buttonItem.buttonHeight = height;
                 ButtonManager.ChangeButtonHeight(buttonItem, height);

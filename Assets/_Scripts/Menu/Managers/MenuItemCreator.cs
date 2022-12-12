@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers.Extensions;
+using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace EraSoren.Menu.Managers
         public Vector2 canvasOffset;
         
         [Space(20)]
-        [SerializeReference] public List<MenuListItem> currentItems = new ();
+        [SerializeReference] public List<MenuItem> currentItems = new ();
 
         [Space(20)]
         [SerializeField] private List<MenuItemNameAndType> newItems = new ();
@@ -27,23 +28,87 @@ namespace EraSoren.Menu.Managers
         }
 
         [Button]
-        private void CreateNewItems()
+        private void CreateScriptsForNewItems()
         {
             foreach (var item in newItems)
             {
                 var itemType = FindTypeClass(item.itemType);
-                var newItem = itemType.Create(item.itemName, canvasMenuParent, transform);
+                itemType.CreateScript(item.itemName);
+            }
+            if (newItems.Count != 0)
+            {
+                Debug.Log("New scripts are created!");
+            }
+        }
+
+        [Button]
+        private void CreateObjectsForNewItems()
+        {
+            foreach (var item in newItems)
+            {
+                var itemType = FindTypeClass(item.itemType);
+                itemType.CreateObjects(item.itemName, transform);
+            }
+            if (newItems.Count != 0)
+            {
+                Debug.Log("New objects are created!");
+            }
+        }
+
+        [Button]
+        private void AddScriptsToNewItems()
+        {
+            foreach (var child in transform.GetAllChildrenList())
+            {
+                // if (child.name == ButtonManager.BackString) continue;
+                
+                var itemInfo = child.GetComponent<MenuItemInfo>();
+                if (itemInfo == null)
+                {
+                    Debug.Log("null");
+                    continue;
+                }
+                if (itemInfo.isScriptAdded) continue;
+                
+                var scriptName = child.name.Replace(" ", "") + MenuManager.I.menuNameSuffix;
+                var component = CreateMenuScript.I.AddMenuComponent(scriptName, child.gameObject);
+
+                if (component != null)
+                {
+                    itemInfo.isScriptAdded = true;
+                    continue;
+                }
+                
+                Debug.LogError("The component you have tried to add is null!");
+                return;
+            }
+            Debug.Log("Scripts added!");
+        }
+
+        [Button]
+        private void FinalizeItems()
+        {
+            foreach (var item in newItems)
+            {
+                var itemType = FindTypeClass(item.itemType);
+                var obj = transform.Find(item.itemName).gameObject;
+                var newItem = itemType.Finalize(obj, item.itemName, canvasMenuParent);
                 currentItems.Add(newItem);
             }
             newItems.Clear();
             AdjustItems();
+            MakeThisCanvasActive();
+            if (newItems.Count != 0)
+            {
+                Debug.Log("Items are finalized!");
+            }
         }
 
         private MenuItemTypeManager FindTypeClass(MenuItemTypes type)
         {
             return ItemTypeManagers.I.itemTypes
                 .Where(itemType => itemType.menuItemType == type)
-                .Select(itemType => itemType.MenuItemTypeManager)
+                .Select(itemType => itemType.menuItemTypeManager)
                 .FirstOrDefault();
         }
 
@@ -146,36 +211,6 @@ namespace EraSoren.Menu.Managers
         //
         //     return q;
         // }
-
-        [Button]
-        private void AddScriptsToMenuItems()
-        {
-            foreach (var child in transform.GetAllChildrenList())
-            {
-                if (child.name == ButtonManager.BackString) continue;
-                
-                var itemInfo = child.GetComponent<MenuItemInfo>();
-                if (itemInfo == null)
-                {
-                    Debug.Log("null");
-                    continue;
-                }
-                if (itemInfo.isScriptAdded) continue;
-                
-                var scriptName = child.name.Replace(" ", "") + MenuManager.I.menuNameSuffix;
-                var component = CreateMenuScript.I.AddMenuComponent(scriptName, child.gameObject);
-
-                if (component != null)
-                {
-                    itemInfo.isScriptAdded = true;
-                    continue;
-                }
-                
-                Debug.LogError("The component you have tried to add is null!");
-                return;
-            }
-            Debug.Log("Scripts added!");
-        }
         
     }
 
