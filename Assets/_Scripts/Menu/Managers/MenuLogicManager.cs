@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using EraSoren._Core.Helpers;
-using EraSoren.Menu.ItemTypes;
 using EraSoren.Menu.ItemTypes.Button;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.Events;
 
 namespace EraSoren.Menu.Managers
 {
-    [ExecuteInEditMode]
+    [ExecuteAlways]
     public class MenuLogicManager : Singleton<MenuLogicManager>
     {
         [Header("References")]
@@ -35,7 +34,6 @@ namespace EraSoren.Menu.Managers
         private void Start()
         {
             SetActiveCanvas(firstSceneItem.gameObject);
-            InitializeMenuHierarchy();
         }
 
         public void SetActiveCanvas(GameObject logicObject)
@@ -44,11 +42,6 @@ namespace EraSoren.Menu.Managers
             {
                 menuItemCreator.canvasMenuParent.gameObject.SetActive(menuItemCreator.gameObject == logicObject);
             }
-        }
-
-        private void InitializeMenuHierarchy()
-        {
-            MenuManager.I.AddMenuItem(firstSceneItem);
         }
 
         public static string StandardizeNewMenuName(string menuName, bool removeSpaces)

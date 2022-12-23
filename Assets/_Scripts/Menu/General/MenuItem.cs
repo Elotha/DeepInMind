@@ -8,7 +8,7 @@ namespace EraSoren.Menu.General
     [ExecuteAlways]
     public abstract class MenuItem : MonoBehaviour
     {
-        protected MenuItemTypes ItemType;
+        public MenuItemTypes ItemType;
 
         [TabGroup("General")] public string itemName;
         [TabGroup("General")] [MultiLineProperty(3)] public string description;
@@ -48,7 +48,7 @@ namespace EraSoren.Menu.General
             FontManager.I.ChangeFontSize(this, fontSize);
         }
 
-        private void OnFontSizeChange()
+        public void OnFontSizeChange()
         {
             FontManager.I.ChangeFontSize(this, fontSize);
         }

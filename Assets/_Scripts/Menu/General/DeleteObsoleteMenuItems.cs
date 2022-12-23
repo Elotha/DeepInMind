@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.ItemTypes.Button;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -19,12 +20,15 @@ namespace EraSoren.Menu.General
             
             itemName = itemName.Replace(" ", "");
             var filePath = directoryPath + itemName + MenuManager.I.menuNameSuffix + ".cs";
-            Debug.Log(filePath);
             if (!File.Exists(filePath))
             {
                 Debug.LogError("File path does not exist!");
                 return;
             }
+            
+            if (itemName.Contains("Main Menu")) return;
+            if (itemName.Contains(ButtonManager.BackString)) return;
+            
             File.Delete(filePath);
         }
 
@@ -39,6 +43,7 @@ namespace EraSoren.Menu.General
                 foreach (var file in files)
                 {
                     if (file.Contains("MainMenu" + MenuManager.I.menuNameSuffix)) continue;
+                    if (file.Contains(ButtonManager.BackString + MenuManager.I.menuNameSuffix)) continue;
                     File.Delete(file);
                 }
                 AssetDatabase.Refresh();

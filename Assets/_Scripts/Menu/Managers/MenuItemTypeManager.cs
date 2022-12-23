@@ -10,5 +10,7 @@ namespace EraSoren.Menu.Managers
         public abstract MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent);
         public abstract void CreateScript(string itemName);
         public abstract void CreateObjects(string itemName, Transform parentObject);
+
+        public DefaultProperties defaultProperties;
     }
 }

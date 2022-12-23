@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using EraSoren.Menu.General;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
@@ -6,13 +7,10 @@ using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.Toggle
 {
-    public class DefaultToggleProperties : MonoBehaviour
+    public class DefaultToggleProperties : DefaultProperties
     {
         [OnValueChanged(nameof(OnLabelWidthChange))]
         public int labelWidth;
-        
-        
-        public int fontSize = 42;
 
         private ToggleManager _toggleManager;
         private ToggleManager ToggleManager
@@ -36,6 +34,14 @@ namespace EraSoren.Menu.ItemTypes.Toggle
                 item.labelWidth = labelWidth;
                 ToggleManager.ChangeLabelWidth(item, labelWidth);
             }
+        }
+
+        protected override List<MenuItem> GetItems()
+        {
+            var toggleItems = ToggleManager.toggleItemsList.allToggleItems
+                .Where(item => !item.overrideFontSize);
+            var parentList = toggleItems.Cast<MenuItem>().ToList();
+            return parentList;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers;
 using EraSoren.Menu.ItemTypes;
@@ -19,6 +20,11 @@ namespace EraSoren.Menu.Managers
         public event CanvasActivityHandler OnActivateCanvas;
 
         #endregion
+
+        private void Start()
+        {
+            AddMenuItem(MenuLogicManager.I.firstSceneItem);
+        }
 
         public void AddMenuItem(MenuButtonItem menuButtonItem)
         {

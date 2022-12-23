@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using EraSoren.Menu.General;
+using EraSoren.Menu.ItemTypes.Toggle;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.Slider
 {
-    public class DefaultSliderProperties : MonoBehaviour
+    public class DefaultSliderProperties : DefaultProperties
     {
         [OnValueChanged(nameof(OnWidthChange))]
         public int sliderWidth = 560;
@@ -18,8 +21,6 @@ namespace EraSoren.Menu.ItemTypes.Slider
 
         [OnValueChanged(nameof(OnHandleHeightChange))]
         public int handleHeight = 60;
-
-        public int fontSize = 42;
 
         private SliderManager _sliderManager;
         private SliderManager SliderManager
@@ -73,6 +74,14 @@ namespace EraSoren.Menu.ItemTypes.Slider
                 item.handleHeight = handleHeight;
                 SliderManager.ChangeHandleHeight(item, handleHeight);
             }
+        }
+
+        protected override List<MenuItem> GetItems()
+        {
+            var toggleItems = SliderManager.sliderItemsList.allSliderItems
+                .Where(item => !item.overrideFontSize);
+            var parentList = toggleItems.Cast<MenuItem>().ToList();
+            return parentList;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace EraSoren.Menu.Managers
     {
         public List<ItemType> itemTypes = new();
 
+        public static readonly List<ItemType> StaticItemTypes = new ();
+
         [Serializable]
         public struct ItemType
         {
@@ -21,6 +23,15 @@ namespace EraSoren.Menu.Managers
             {
                 this.menuItemType = menuItemType;
                 this.menuItemTypeManager = menuItemTypeManager;
+            }
+        }
+
+        public void InitializeStaticItemTypes()
+        {
+            StaticItemTypes.Clear();
+            foreach (var itemType in itemTypes)
+            {
+                StaticItemTypes.Add(itemType);
             }
         }
 

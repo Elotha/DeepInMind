@@ -12,9 +12,8 @@ namespace EraSoren.Player
         public float playerDirection;
         
         [SerializeField] private LayerMask blocksMask;
-        [SerializeField] private float collisionDistance = 0.4f;
         [SerializeField] private float moveSpeed;
-        [SerializeField] private bool isRunning;
+        // [SerializeField] private bool isRunning;
 
         private float _verSpeed;
         private float _horSpeed;
@@ -68,7 +67,7 @@ namespace EraSoren.Player
             if (movePos == Vector2.zero) return;
             
             Rb.MovePosition((Vector2) transform.position + movePos);
-            isRunning = true;
+            // isRunning = true;
         }
 
         public void SetMovementPermission(bool permission)
