@@ -14,7 +14,7 @@ namespace EraSoren.Menu.ItemTypes.Button
         
         [Header("References")] 
         public DefaultButtonProperties defaultButtonProperties;
-        public ButtonItemsList buttonItemsList;
+        public ItemsList itemsList;
 
         public const string BackString = "Back";
 
@@ -32,25 +32,14 @@ namespace EraSoren.Menu.ItemTypes.Button
             newItem.rectTransform = buttonObj.GetComponent<RectTransform>();
             newItem.textComponent = buttonObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             newItem.textComponent.font = FontManager.I.fontType;
-
-            if (!newItem.overrideFontSize)
-                newItem.fontSize = FontManager.I.fontSize;
-
-            if (!newItem.overrideTotalHeight)
-                newItem.totalHeight = TotalHeightManager.I.totalHeight;
-
-            if (!newItem.overrideButtonHeight)
-                newItem.buttonHeight = defaultButtonProperties.height;
-
-            if (!newItem.overrideButtonWidth)
-                newItem.buttonWidth = defaultButtonProperties.width;
-
-            if (!newItem.overrideFontSize)
-                newItem.fontSize = defaultButtonProperties.fontSize;
-            
-            buttonItemsList.AddItem(newItem);
+            newItem.SetFontSize();
+            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.buttonHeight = defaultButtonProperties.height;
+            newItem.buttonWidth = defaultButtonProperties.width;
 
             FontManager.SetText(itemName, newItem.textComponent);
+            
+            itemsList.AddItem(newItem);
 
             return newItem;
         }
@@ -74,7 +63,7 @@ namespace EraSoren.Menu.ItemTypes.Button
 
         public void DestroyButtonItem(ButtonItem buttonItem)
         {
-            buttonItemsList.RemoveItem(buttonItem);
+            itemsList.RemoveItem(buttonItem);
         }
     }
 }

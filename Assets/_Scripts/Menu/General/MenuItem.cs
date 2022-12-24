@@ -6,9 +6,10 @@ using UnityEngine;
 namespace EraSoren.Menu.General
 {
     [ExecuteAlways]
+    [DisallowMultipleComponent]
     public abstract class MenuItem : MonoBehaviour
     {
-        public MenuItemTypes ItemType;
+        public MenuItemTypes itemType;
 
         [TabGroup("General")] public string itemName;
         [TabGroup("General")] [MultiLineProperty(3)] public string description;
@@ -27,7 +28,7 @@ namespace EraSoren.Menu.General
         [OnValueChanged(nameof(OnOverrideFontSizeChange))]
         [TabGroup("Properties")] public bool overrideFontSize;
         
-        [ShowIf(nameof(overrideFontSize))] 
+        // [ShowIf(nameof(overrideFontSize))] 
         [OnValueChanged(nameof(OnFontSizeChange))]
         [TabGroup("Properties")] public float fontSize;
 
@@ -44,7 +45,15 @@ namespace EraSoren.Menu.General
 
         private void OnOverrideFontSizeChange()
         {
-            fontSize = FontManager.I.fontSize;
+            SetFontSize();
+        }
+
+        public void SetFontSize()
+        {
+            var manager = ItemTypeManagers.I.FindTypeClass(itemType);
+            fontSize = manager.defaultProperties.overrideFontSizes
+                ? manager.defaultProperties.fontSize
+                : FontManager.I.fontSize;
             FontManager.I.ChangeFontSize(this, fontSize);
         }
 
@@ -55,13 +64,12 @@ namespace EraSoren.Menu.General
 
         public virtual void AdjustItem()
         {
-            OnFontSizeChange();
             OnTotalHeightChange();
         }
 
         public MenuItemTypes GetItemType()
         {
-            return ItemType;
+            return itemType;
         }
 
         protected virtual void OnDestroy()

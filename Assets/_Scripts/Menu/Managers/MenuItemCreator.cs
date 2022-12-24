@@ -4,6 +4,7 @@ using System.Linq;
 using EraSoren._Core.Helpers.Extensions;
 using EraSoren.Menu.General;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using MenuItem = EraSoren.Menu.General.MenuItem;
@@ -32,6 +33,8 @@ namespace EraSoren.Menu.Managers
             
             foreach (var item in newItems)
             {
+                if (IsThereAnItemWithSameName(item.itemName)) continue;
+                
                 var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateScript(item.itemName);
             }
@@ -48,6 +51,8 @@ namespace EraSoren.Menu.Managers
             
             foreach (var item in newItems)
             {
+                if (IsThereAnItemWithSameName(item.itemName)) continue;
+                
                 var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateObjects(item.itemName, transform);
             }
@@ -95,6 +100,8 @@ namespace EraSoren.Menu.Managers
             
             foreach (var item in newItems)
             {
+                if (IsThereAnItemWithSameName(item.itemName)) continue;
+                
                 var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 var obj = transform.Find(item.itemName).gameObject;
                 var newItem = itemType.Finalize(obj, item.itemName, canvasMenuParent);
@@ -106,6 +113,11 @@ namespace EraSoren.Menu.Managers
             {
                 Debug.Log("Items are finalized!");
             }
+        }
+
+        private bool IsThereAnItemWithSameName(string itemName)
+        {
+            return currentItems.Any(currentItem => currentItem.itemName == itemName);
         }
 
         private void AdjustItems()

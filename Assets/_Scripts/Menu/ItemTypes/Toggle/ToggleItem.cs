@@ -9,7 +9,7 @@ namespace EraSoren.Menu.ItemTypes.Toggle
     {
         protected ToggleItem()
         {
-            ItemType = MenuItemTypes.Toggle;
+            itemType = MenuItemTypes.Toggle;
         }
         
         [OnValueChanged(nameof(OnOverrideLabelWidthChange))]

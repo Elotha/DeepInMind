@@ -14,7 +14,6 @@ namespace EraSoren.Menu.ItemTypes.Toggle
         
         [Header("References")] 
         public DefaultToggleProperties defaultToggleProperties;
-        public ToggleItemsList toggleItemsList;
 
         public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
         {
@@ -27,19 +26,13 @@ namespace EraSoren.Menu.ItemTypes.Toggle
             newItem.rectTransform = toggleObj.transform.GetComponent<RectTransform>();
             newItem.canvasObject = toggleObj;
             newItem.canvasObject.GetComponent<ToggleInteract>().toggleItem = newItem;
-
-            if (!newItem.overrideFontSize)
-                newItem.fontSize = defaultToggleProperties.fontSize;
-
-            if (!newItem.overrideTotalHeight)
-                newItem.totalHeight = TotalHeightManager.I.totalHeight;
-
-            if (!newItem.overrideLabelWidth)
-                newItem.labelWidth = defaultToggleProperties.labelWidth;
-            
-            toggleItemsList.AddItem(newItem);
+            newItem.SetFontSize();
+            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.labelWidth = defaultToggleProperties.labelWidth;
                 
             FontManager.SetText(itemName, newItem.textComponent);
+            
+            itemsList.AddItem(newItem);
             
             return newItem;
         }
@@ -68,7 +61,7 @@ namespace EraSoren.Menu.ItemTypes.Toggle
 
         public void DestroyToggleItem(ToggleItem toggleItem)
         {
-            toggleItemsList.RemoveItem(toggleItem);
+            itemsList.RemoveItem(toggleItem);
         }
     }
 }

@@ -4,6 +4,7 @@ using EraSoren.Menu.General;
 using EraSoren.Menu.ItemTypes;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine;
 
 namespace EraSoren.Menu.Managers
 {
@@ -31,8 +32,9 @@ namespace EraSoren.Menu.Managers
                          .SelectMany(menuItemCreator => menuItemCreator.currentItems
                              .Where(item => !item.overrideFontSize)))
             {
-                var manager = ItemTypeManagers.I.FindTypeClass(item.ItemType);
+                var manager = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 if (manager.defaultProperties.overrideFontSizes) continue;
+                
                 item.fontSize = fontSize;
                 ChangeFontSize(item, fontSize);
             }

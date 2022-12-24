@@ -7,7 +7,7 @@ namespace EraSoren.Menu.ItemTypes.Button
     {
         protected MenuButtonItem()
         {
-            ItemType = MenuItemTypes.MenuButton;
+            itemType = MenuItemTypes.MenuButton;
         }
         
         public GameObject menuCanvasObject;

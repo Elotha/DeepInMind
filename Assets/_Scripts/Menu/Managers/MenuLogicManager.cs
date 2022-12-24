@@ -90,7 +90,16 @@ namespace EraSoren.Menu.Managers
                 menuItemCreators.RemoveAt(j);
             }
             
+            ClearAllMenuItemsFromLists();
             onClearingMenuItems?.Invoke();
+        }
+
+        private static void ClearAllMenuItemsFromLists()
+        {
+            foreach (var itemTypeManager in ItemTypeManagers.I.itemTypes)
+            {
+                itemTypeManager.menuItemTypeManager.itemsList.ClearItems();
+            }
         }
 
         [Serializable]

@@ -13,7 +13,6 @@ namespace EraSoren.Menu.ItemTypes.Slider
         
         [Header("References")] 
         public DefaultSliderProperties defaultSliderProperties;
-        public SliderItemsList sliderItemsList;
 
         public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
         {
@@ -28,28 +27,16 @@ namespace EraSoren.Menu.ItemTypes.Slider
             newItem.rectTransform = sliderObj.transform.GetComponent<RectTransform>();
             newItem.canvasObject = sliderObj;
             newItem.canvasObject.GetComponent<SliderInteract>().sliderItem = newItem;
-
-            if (!newItem.overrideFontSize)
-                newItem.fontSize = defaultSliderProperties.fontSize;
-
-            if (!newItem.overrideTotalHeight)
-                newItem.totalHeight = TotalHeightManager.I.totalHeight;
-
-            if (!newItem.overrideTotalWidth)
-                newItem.totalWidth = defaultSliderProperties.totalWidth;
-
-            if (!newItem.overrideSliderWidth)
-                newItem.sliderWidth = defaultSliderProperties.sliderWidth;
-
-            if (!newItem.overrideSliderHeight)
-                newItem.sliderHeight = defaultSliderProperties.sliderHeight;
-
-            if (!newItem.overrideHandleHeight)
-                newItem.handleHeight = defaultSliderProperties.handleHeight;
-            
-            sliderItemsList.AddItem(newItem);
+            newItem.SetFontSize();
+            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.totalWidth = defaultSliderProperties.totalWidth;
+            newItem.sliderWidth = defaultSliderProperties.sliderWidth;
+            newItem.sliderHeight = defaultSliderProperties.sliderHeight;
+            newItem.handleHeight = defaultSliderProperties.handleHeight;
         
             FontManager.SetText(itemName, newItem.textComponent);
+            
+            itemsList.AddItem(newItem);
         
             return newItem;
         }
@@ -103,7 +90,7 @@ namespace EraSoren.Menu.ItemTypes.Slider
 
         public void DestroySliderItem(SliderItem sliderItem)
         {
-            sliderItemsList.RemoveItem(sliderItem);
+            itemsList.RemoveItem(sliderItem);
         }
     }
 }

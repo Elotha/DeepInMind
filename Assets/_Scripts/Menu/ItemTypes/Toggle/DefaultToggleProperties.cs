@@ -28,20 +28,15 @@ namespace EraSoren.Menu.ItemTypes.Toggle
         
         private void OnLabelWidthChange()
         {
-            var list = ToggleManager.toggleItemsList.allToggleItems;
-            foreach (var item in list.Where(item => !item.overrideLabelWidth))
+            var items = ToggleManager.itemsList.allItems;
+            foreach (var item in items)
             {
-                item.labelWidth = labelWidth;
+                if (item is not ToggleItem toggleItem) continue;
+                if (toggleItem.overrideLabelWidth) continue;
+                
+                toggleItem.labelWidth = labelWidth;
                 ToggleManager.ChangeLabelWidth(item, labelWidth);
             }
-        }
-
-        protected override List<MenuItem> GetItems()
-        {
-            var toggleItems = ToggleManager.toggleItemsList.allToggleItems
-                .Where(item => !item.overrideFontSize);
-            var parentList = toggleItems.Cast<MenuItem>().ToList();
-            return parentList;
         }
     }
 }

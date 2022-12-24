@@ -38,50 +38,54 @@ namespace EraSoren.Menu.ItemTypes.Slider
         
         private void OnWidthChange()
         {
-            var list = SliderManager.sliderItemsList.allSliderItems;
-            foreach (var item in list.Where(item => !item.overrideSliderWidth))
+            var items = SliderManager.itemsList.allItems;
+            foreach (var item in items)
             {
-                item.sliderWidth = sliderWidth;
+                if (item is not SliderItem sliderItem) continue;
+                if (sliderItem.overrideSliderWidth) continue;
+
+                sliderItem.sliderWidth = sliderWidth;
                 SliderManager.ChangeSliderWidth(item, sliderWidth);
             }
         }
         
         private void OnHeightChange()
         {
-            var list = SliderManager.sliderItemsList.allSliderItems;
-            foreach (var item in list.Where(item => !item.overrideSliderHeight))
+            var items = SliderManager.itemsList.allItems;
+            foreach (var item in items)
             {
-                item.sliderHeight = sliderHeight;
-                SliderManager.ChangeSliderHeight(item, sliderHeight);
+                if (item is not SliderItem sliderItem) continue;
+                if (sliderItem.overrideSliderHeight) continue;
+                
+                sliderItem.sliderHeight = sliderHeight;
+                SliderManager.ChangeSliderHeight(sliderItem, sliderHeight);
             }
         }
         
         public void OnTotalWidthChange()
         {
-            var list = SliderManager.sliderItemsList.allSliderItems;
-            foreach (var item in list.Where(item => !item.overrideTotalWidth))
+            var items = SliderManager.itemsList.allItems;
+            foreach (var item in items)
             {
-                item.totalWidth = totalWidth;
-                SliderManager.ChangeTotalWidth(item, totalWidth);
+                if (item is not SliderItem sliderItem) continue;
+                if (sliderItem.overrideTotalWidth) continue;
+
+                sliderItem.totalWidth = totalWidth;
+                SliderManager.ChangeTotalWidth(sliderItem, totalWidth);
             }
         }
         
         private void OnHandleHeightChange()
         {
-            var list = SliderManager.sliderItemsList.allSliderItems;
-            foreach (var item in list.Where(item => !item.overrideHandleHeight))
+            var items = SliderManager.itemsList.allItems;
+            foreach (var item in items)
             {
-                item.handleHeight = handleHeight;
-                SliderManager.ChangeHandleHeight(item, handleHeight);
-            }
-        }
+                if (item is not SliderItem sliderItem) continue;
+                if (sliderItem.overrideHandleHeight) continue;
 
-        protected override List<MenuItem> GetItems()
-        {
-            var toggleItems = SliderManager.sliderItemsList.allSliderItems
-                .Where(item => !item.overrideFontSize);
-            var parentList = toggleItems.Cast<MenuItem>().ToList();
-            return parentList;
+                sliderItem.handleHeight = handleHeight;
+                SliderManager.ChangeHandleHeight(sliderItem, handleHeight);
+            }
         }
     }
 }

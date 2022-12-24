@@ -17,8 +17,12 @@ namespace EraSoren.Menu.ItemTypes.Button
         
         private void OnWidthChange()
         {
-            foreach (var buttonItem in ButtonManager.I.buttonItemsList.allButtonItems.Where(buttonItem => !buttonItem.overrideButtonWidth))
+            var allItems = ButtonManager.I.itemsList.allItems;
+            foreach (var item in allItems)
             {
+                if (item is not ButtonItem buttonItem) continue;
+                if (buttonItem.overrideButtonWidth) continue;
+                
                 buttonItem.buttonWidth = width;
                 ButtonManager.ChangeButtonWidth(buttonItem, width);
             }
@@ -26,19 +30,15 @@ namespace EraSoren.Menu.ItemTypes.Button
         
         private void OnHeightChange()
         {
-            foreach (var buttonItem in ButtonManager.I.buttonItemsList.allButtonItems.Where(buttonItem => !buttonItem.overrideButtonHeight))
+            var allItems = ButtonManager.I.itemsList.allItems;
+            foreach (var item in allItems)
             {
+                if (item is not ButtonItem buttonItem) continue;
+                if (buttonItem.overrideButtonHeight) continue;
+
                 buttonItem.buttonHeight = height;
                 ButtonManager.ChangeButtonHeight(buttonItem, height);
             }
-        }
-
-        protected override List<MenuItem> GetItems()
-        {
-            var toggleItems = ButtonManager.I.buttonItemsList.allButtonItems
-                .Where(item => !item.overrideFontSize);
-            var parentList = toggleItems.Cast<MenuItem>().ToList();
-            return parentList;
         }
     }
 }

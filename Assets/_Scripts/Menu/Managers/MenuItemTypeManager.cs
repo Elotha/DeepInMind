@@ -1,4 +1,5 @@
-﻿using EraSoren.Menu.General;
+﻿using System.Collections.Generic;
+using EraSoren.Menu.General;
 using EraSoren.Menu.ItemTypes;
 using UnityEngine;
 
@@ -12,5 +13,7 @@ namespace EraSoren.Menu.Managers
         public abstract void CreateObjects(string itemName, Transform parentObject);
 
         public DefaultProperties defaultProperties;
+
+        public ItemsList itemsList;
     }
 }

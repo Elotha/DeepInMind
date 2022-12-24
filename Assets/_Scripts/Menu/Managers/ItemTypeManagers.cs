@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using EraSoren._Core.Helpers;
+using EraSoren.Menu.General;
+using EraSoren.Menu.ItemTypes.Button;
+using EraSoren.Menu.ItemTypes.MultipleChoice;
+using EraSoren.Menu.ItemTypes.Slider;
+using EraSoren.Menu.ItemTypes.Toggle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,8 +15,6 @@ namespace EraSoren.Menu.Managers
     public class ItemTypeManagers : Singleton<ItemTypeManagers>
     {
         public List<ItemType> itemTypes = new();
-
-        public static readonly List<ItemType> StaticItemTypes = new ();
 
         [Serializable]
         public struct ItemType
@@ -26,24 +29,14 @@ namespace EraSoren.Menu.Managers
             }
         }
 
-        public void InitializeStaticItemTypes()
-        {
-            StaticItemTypes.Clear();
-            foreach (var itemType in itemTypes)
-            {
-                StaticItemTypes.Add(itemType);
-            }
-        }
-
         public MenuItemTypeManager FindTypeClass(MenuItemTypes type)
         {
-            return itemTypes
-                .Where(itemType => itemType.menuItemType == type)
-                .Select(itemType => itemType.menuItemTypeManager)
-                .FirstOrDefault();
+            return (from itemType in itemTypes 
+                where itemType.menuItemType == type 
+                select itemType.menuItemTypeManager.GetComponent<MenuItemTypeManager>()).FirstOrDefault();
         }
 
-        public T GetManager<T>() where T : MenuItemTypeManager
+        public T GetManager<T>() where T : class
         {
             return itemTypes
                 .Where(itemType => itemType.menuItemTypeManager.GetType() == typeof(T))

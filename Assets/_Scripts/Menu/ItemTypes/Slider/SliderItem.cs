@@ -11,7 +11,7 @@ namespace EraSoren.Menu.ItemTypes.Slider
     {
         protected SliderItem()
         {
-            ItemType = MenuItemTypes.Slider;
+            itemType = MenuItemTypes.Slider;
         }
         
         [TabGroup("References")] public RectTransform sliderTransform;

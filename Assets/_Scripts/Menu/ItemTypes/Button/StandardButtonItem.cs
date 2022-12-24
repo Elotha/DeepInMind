@@ -6,7 +6,7 @@ namespace EraSoren.Menu.ItemTypes.Button
     {
         public StandardButtonItem()
         {
-            ItemType = MenuItemTypes.StandardButton;
+            itemType = MenuItemTypes.StandardButton;
         }
     }
 }
