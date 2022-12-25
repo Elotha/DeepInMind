@@ -33,7 +33,7 @@ namespace EraSoren.Menu.ItemTypes.Button
             newItem.textComponent = buttonObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             newItem.textComponent.font = FontManager.I.fontType;
             newItem.SetFontSize();
-            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
             newItem.buttonHeight = defaultButtonProperties.height;
             newItem.buttonWidth = defaultButtonProperties.width;
 

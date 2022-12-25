@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using EraSoren._Core.Helpers;
 using EraSoren.Menu.Managers;
 using UnityEditor;
@@ -20,23 +21,20 @@ namespace EraSoren.Menu.General
             
             var namespaceSuffix = GetNamespaceForMenuItemTypes.GetNamespace(itemType);
             var copyPath = filePath + "/" + scriptName + ".cs";
-            
-            if (!File.Exists(copyPath)) {
-                
-                using var outfile = new StreamWriter(copyPath);
 
-                outfile.Write("using EraSoren.Menu.ItemTypes." + namespaceSuffix + ";" +
-                              "\n\n" +
-                              "namespace " + namespaceName +
-                              "\n{" + 
-                              "\n    public class "+scriptName+" : " + ancestorName +
-                              "\n    {" +
-                              "\n        " +
-                              "\n    }" +
-                              "\n}");
-                outfile.Close(); 
-            }
-            AssetDatabase.Refresh();
+            if (File.Exists(copyPath)) return;
+            
+            using var outfile = new StreamWriter(copyPath);
+            outfile.Write("using EraSoren.Menu.ItemTypes." + namespaceSuffix + ";" +
+                          "\n\n" +
+                          "namespace " + namespaceName +
+                          "\n{" + 
+                          "\n    public class "+scriptName+" : " + ancestorName +
+                          "\n    {" +
+                          "\n        " +
+                          "\n    }" +
+                          "\n}");
+            outfile.Close();
         }
 
         public MenuItem AddMenuComponent(string scriptName, GameObject scriptObject)

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EraSoren._Core.Helpers.Extensions;
 using EraSoren.Menu.General;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using MenuItem = EraSoren.Menu.General.MenuItem;
@@ -12,25 +13,39 @@ using MenuItem = EraSoren.Menu.General.MenuItem;
 namespace EraSoren.Menu.Managers
 {
     [ExecuteAlways]
-    public class MenuItemCreator : MonoBehaviour
+    public class MenuItemCreator : ItemCreator
     {
         public Transform canvasMenuParent;
         
         [SerializeField] private bool overrideCanvasOffset;
-        [ShowIf("overrideCanvasOffset")] 
+        [ShowIf(nameof(overrideCanvasOffset))] 
         public Vector2 canvasOffset;
         
         [Space(20)]
-        [SerializeReference] public List<MenuItem> currentItems = new ();
+        public List<MenuItem> currentItems = new ();
 
         [Space(20)]
         [SerializeField] private List<MenuItemNameAndType> newItems = new ();
         
         [Button]
+        private void CreateNewItems()
+        {
+            if (newItems.Count == 0)
+            {
+                Debug.LogError("New Items list is empty!");
+                return;
+            }
+            
+            if (IsThereAnyEmptyName())
+            {
+                Debug.LogError("Names cannot be empty!");
+                return;
+            }
+            
+            CreateScriptsForNewItems();
+        }
         private void CreateScriptsForNewItems()
         {
-            if (IsThereAnyEmptyName()) return;
-            
             foreach (var item in newItems)
             {
                 if (IsThereAnItemWithSameName(item.itemName)) continue;
@@ -38,17 +53,21 @@ namespace EraSoren.Menu.Managers
                 var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateScript(item.itemName);
             }
-            if (newItems.Count != 0)
-            {
-                Debug.Log("The provided scripts are already created.");
-            }
+            
+            ReloadScripts.I.Set(this);
+            Debug.Log("The provided scripts are created.");
+            AssetDatabase.Refresh();
         }
 
-        [Button]
+        public override void ContinueAfterRefreshingAssets()
+        {
+            CreateObjectsForNewItems();
+            AddScriptsToNewItems();
+            FinalizeItems();
+        }
+
         private void CreateObjectsForNewItems()
         {
-            if (IsThereAnyEmptyName()) return;
-            
             foreach (var item in newItems)
             {
                 if (IsThereAnItemWithSameName(item.itemName)) continue;
@@ -56,17 +75,12 @@ namespace EraSoren.Menu.Managers
                 var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
                 itemType.CreateObjects(item.itemName, transform);
             }
-            if (newItems.Count != 0)
-            {
-                Debug.Log("New objects are created!");
-            }
+            
+            Debug.Log("New objects are created!");
         }
 
-        [Button]
         private void AddScriptsToNewItems()
         {
-            if (IsThereAnyEmptyName()) return;
-            
             foreach (var child in transform.GetAllChildrenList())
             {
                 var itemInfo = child.GetComponent<MenuItemInfo>();
@@ -93,11 +107,8 @@ namespace EraSoren.Menu.Managers
             Debug.Log("Scripts added!");
         }
 
-        [Button]
         private void FinalizeItems()
         {
-            if (IsThereAnyEmptyName()) return;
-            
             foreach (var item in newItems)
             {
                 if (IsThereAnItemWithSameName(item.itemName)) continue;
@@ -109,10 +120,7 @@ namespace EraSoren.Menu.Managers
             }
             AdjustItems();
             MakeThisCanvasActive();
-            if (newItems.Count != 0)
-            {
-                Debug.Log("Items are finalized!");
-            }
+            Debug.Log("Items are finalized!");
         }
 
         private bool IsThereAnItemWithSameName(string itemName)
@@ -127,7 +135,7 @@ namespace EraSoren.Menu.Managers
                 item.AdjustItem();
             }
             
-            TotalHeightManager.ChangeTotalHeight(currentItems);
+            LengthInHierarchyManager.ChangeLengthInHierarchy(currentItems);
         }
 
         private bool IsThereAnyEmptyName()

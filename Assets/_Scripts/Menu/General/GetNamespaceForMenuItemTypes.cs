@@ -7,16 +7,28 @@ namespace EraSoren.Menu.General
     {
         public static string GetNamespace(MenuItemTypes menuItemType)
         {
-            return menuItemType switch
+            switch (menuItemType)
             {
-                MenuItemTypes.StandardButton => "Button",
-                MenuItemTypes.MenuButton => "Button",
-                MenuItemTypes.Toggle => "Toggle",
-                MenuItemTypes.Slider => "Slider",
-                MenuItemTypes.MultipleChoice => "MultipleChoice",
-                MenuItemTypes.InputField => "InputField",
-                _ => ""
-            };
+                case MenuItemTypes.StandardButton:
+                case MenuItemTypes.MenuButton:
+                    return "Button";
+                
+                case MenuItemTypes.Toggle:
+                    return "Toggle";
+                
+                case MenuItemTypes.Slider:
+                    return "Slider";
+                
+                case MenuItemTypes.MultipleChoice:
+                    return "MultipleChoice";
+                
+                case MenuItemTypes.InputField:
+                    return "InputField";
+                
+                default:
+                    Debug.LogError("Provided item type does not have specified namespace!");
+                    return "";
+            }
         }
     }
 }

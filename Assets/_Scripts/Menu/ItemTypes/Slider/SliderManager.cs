@@ -1,4 +1,5 @@
-﻿using EraSoren.Menu.General;
+﻿using System.Threading.Tasks;
+using EraSoren.Menu.General;
 using EraSoren.Menu.Managers;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,18 @@ namespace EraSoren.Menu.ItemTypes.Slider
         [Header("References")] 
         public DefaultSliderProperties defaultSliderProperties;
 
+        private GameObject CreateSliderObject(string itemName, Transform parent)
+        {
+            var sliderObj = Instantiate(sliderCanvasPrefab, parent);
+            sliderObj.name = itemName;
+            return sliderObj;
+        }
+
+        public override void CreateScript(string itemName)
+        {
+            CreateMenuScript.I.Create(itemName, nameof(SliderItem), MenuItemTypes.Slider);
+        }
+
         public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
         {
             var sliderObj = CreateSliderObject(itemName, canvasMenuParent);
@@ -28,7 +41,7 @@ namespace EraSoren.Menu.ItemTypes.Slider
             newItem.canvasObject = sliderObj;
             newItem.canvasObject.GetComponent<SliderInteract>().sliderItem = newItem;
             newItem.SetFontSize();
-            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
             newItem.totalWidth = defaultSliderProperties.totalWidth;
             newItem.sliderWidth = defaultSliderProperties.sliderWidth;
             newItem.sliderHeight = defaultSliderProperties.sliderHeight;
@@ -39,18 +52,6 @@ namespace EraSoren.Menu.ItemTypes.Slider
             itemsList.AddItem(newItem);
         
             return newItem;
-        }
-
-        private GameObject CreateSliderObject(string itemName, Transform parent)
-        {
-            var sliderObj = Instantiate(sliderCanvasPrefab, parent);
-            sliderObj.name = itemName;
-            return sliderObj;
-        }
-
-        public override void CreateScript(string itemName)
-        {
-            CreateMenuScript.I.Create(itemName, nameof(SliderItem), MenuItemTypes.Slider);
         }
 
         public override void CreateObjects(string itemName, Transform parentObject)
@@ -73,11 +74,6 @@ namespace EraSoren.Menu.ItemTypes.Slider
             {
                 sliderItem.sliderTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, sliderHeight);
             }
-        }
-
-        public static void ChangeTotalWidth(MenuItem item, int totalWidth)
-        {
-            item.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalWidth);
         }
 
         public static void ChangeHandleHeight(MenuItem item, int handleHeight)

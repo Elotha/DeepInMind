@@ -83,7 +83,7 @@ namespace EraSoren.Menu.ItemTypes.Slider
 
         private void OnTotalWidthChange()
         {
-            SliderManager.ChangeTotalWidth(this, totalWidth);
+            SliderManager.ChangeLengthInHierarchy(this, totalWidth);
         }
 
         private void OnOverrideTotalWidthChange()

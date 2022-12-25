@@ -71,7 +71,7 @@ namespace EraSoren.Menu.ItemTypes.Slider
                 if (sliderItem.overrideTotalWidth) continue;
 
                 sliderItem.totalWidth = totalWidth;
-                SliderManager.ChangeTotalWidth(sliderItem, totalWidth);
+                SliderManager.ChangeLengthInHierarchy(sliderItem, totalWidth);
             }
         }
         

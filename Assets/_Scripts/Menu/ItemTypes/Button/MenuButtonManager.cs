@@ -1,4 +1,5 @@
-﻿using EraSoren.Menu.General;
+﻿using System.Threading.Tasks;
+using EraSoren.Menu.General;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,18 +19,6 @@ namespace EraSoren.Menu.ItemTypes.Button
         [SerializeField] private Vector2 canvasOffset;
 
         [SerializeField] private string canvasSuffix = " Canvas";
-        
-        
-        public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
-        {
-            // TODO: Button manager üzerinden create yapma işlemini daha sağlıklı hale getirmem lazım
-            
-            var newItem = ButtonManager.I.FinalizeItem(obj, itemName, canvasMenuParent);
-            var buttonItem = obj.GetComponent<MenuButtonItem>();
-            buttonItem.menuCanvasObject = obj.GetComponent<MenuItemCreator>().canvasMenuParent.gameObject;
-            
-            return newItem;
-        }
 
         public override void CreateScript(string itemName)
         {
@@ -42,6 +31,18 @@ namespace EraSoren.Menu.ItemTypes.Button
             var newCanvasParent = CreateCanvasParent(itemName);
             SetValuesOfItemCreator(menuLogicObject, newCanvasParent);
             AssignCanvasParentProperties(newCanvasParent);
+        }
+        
+        
+        public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
+        {
+            // TODO: Button manager üzerinden create yapma işlemini daha sağlıklı hale getirmem lazım
+            
+            var newItem = ButtonManager.I.FinalizeItem(obj, itemName, canvasMenuParent);
+            var buttonItem = obj.GetComponent<MenuButtonItem>();
+            buttonItem.menuCanvasObject = obj.GetComponent<MenuItemCreator>().canvasMenuParent.gameObject;
+            
+            return newItem;
         }
 
         private GameObject CreateCanvasParent(string itemName)

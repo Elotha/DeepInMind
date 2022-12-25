@@ -1,4 +1,5 @@
-﻿using EraSoren.Menu.General;
+﻿using System.Threading.Tasks;
+using EraSoren.Menu.General;
 using EraSoren.Menu.Managers;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ namespace EraSoren.Menu.ItemTypes.Button
 
         public override void CreateScript(string itemName)
         {
-            CreateMenuScript.I.Create(itemName, nameof(StandardButtonItem), MenuItemTypes.StandardButton);
+            CreateMenuScript.I.Create(itemName, nameof(StandardButtonItem), 
+                MenuItemTypes.StandardButton);
         }
 
         public override void CreateObjects(string itemName, Transform parentObject)

@@ -1,4 +1,5 @@
-﻿using EraSoren.Menu.General;
+﻿using System.Threading.Tasks;
+using EraSoren.Menu.General;
 using EraSoren.Menu.ItemTypes.Button;
 using EraSoren.Menu.Managers;
 using TMPro;
@@ -15,6 +16,17 @@ namespace EraSoren.Menu.ItemTypes.Toggle
         [Header("References")] 
         public DefaultToggleProperties defaultToggleProperties;
 
+        public override void CreateScript(string itemName)
+        {
+            CreateMenuScript.I.Create(itemName, nameof(ToggleItem), MenuItemTypes.Toggle);
+        }
+
+        public override void CreateObjects(string itemName, Transform parentObject)
+        {
+            var menuLogicObject = Instantiate(toggleLogicPrefab, parentObject);
+            menuLogicObject.name = itemName;
+        }
+
         public override MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent)
         {
             var toggleObj = CreateToggleObject(toggleCanvasPrefab, itemName, canvasMenuParent);
@@ -27,7 +39,7 @@ namespace EraSoren.Menu.ItemTypes.Toggle
             newItem.canvasObject = toggleObj;
             newItem.canvasObject.GetComponent<ToggleInteract>().toggleItem = newItem;
             newItem.SetFontSize();
-            newItem.totalHeight = TotalHeightManager.I.totalHeight;
+            newItem.lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
             newItem.labelWidth = defaultToggleProperties.labelWidth;
                 
             FontManager.SetText(itemName, newItem.textComponent);
@@ -41,17 +53,6 @@ namespace EraSoren.Menu.ItemTypes.Toggle
             var obj = Instantiate(prefabType, canvasMenuParent);
             obj.name = buttonName.Replace(" ", "");;
             return obj;
-        }
-
-        public override void CreateScript(string itemName)
-        {
-            CreateMenuScript.I.Create(itemName, nameof(ToggleItem), MenuItemTypes.Toggle);
-        }
-
-        public override void CreateObjects(string itemName, Transform parentObject)
-        {
-            var menuLogicObject = Instantiate(toggleLogicPrefab, parentObject);
-            menuLogicObject.name = itemName;
         }
         
         public static void ChangeLabelWidth(MenuItem item, int labelWidth)

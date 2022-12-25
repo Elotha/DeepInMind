@@ -18,29 +18,29 @@ namespace EraSoren.Menu.General
         [TabGroup("References")] public TextMeshProUGUI textComponent;
         [TabGroup("References")] public RectTransform rectTransform;
         
-        [OnValueChanged(nameof(OnOverrideTotalHeightChange))]
-        [TabGroup("General")] public bool overrideTotalHeight;
+        [OnValueChanged(nameof(OnOverrideLengthInHierarchyChange))]
+        [TabGroup("General")] public bool overrideLengthInHierarchy;
         
-        [ShowIf(nameof(overrideTotalHeight))] 
-        [OnValueChanged(nameof(OnTotalHeightChange))]
-        [TabGroup("General")] public int totalHeight;
+        [ShowIf(nameof(overrideLengthInHierarchy))] 
+        [OnValueChanged(nameof(OnLengthInHierarchyChange))]
+        [TabGroup("General")] public int lengthInHierarchy;
         
         [OnValueChanged(nameof(OnOverrideFontSizeChange))]
         [TabGroup("Properties")] public bool overrideFontSize;
         
-        // [ShowIf(nameof(overrideFontSize))] 
+        [ShowIf(nameof(overrideFontSize))] 
         [OnValueChanged(nameof(OnFontSizeChange))]
         [TabGroup("Properties")] public float fontSize;
 
-        private void OnTotalHeightChange()
+        private void OnLengthInHierarchyChange()
         {
-            TotalHeightManager.I.OnTotalHeightChange();
+            LengthInHierarchyManager.I.OnLengthInHierarchyChange();
         }
 
-        private void OnOverrideTotalHeightChange()
+        private void OnOverrideLengthInHierarchyChange()
         {
-            totalHeight = TotalHeightManager.I.totalHeight;
-            TotalHeightManager.I.OnTotalHeightChange();
+            lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
+            LengthInHierarchyManager.I.OnLengthInHierarchyChange();
         }
 
         private void OnOverrideFontSizeChange()
@@ -64,7 +64,7 @@ namespace EraSoren.Menu.General
 
         public virtual void AdjustItem()
         {
-            OnTotalHeightChange();
+            OnLengthInHierarchyChange();
         }
 
         public MenuItemTypes GetItemType()

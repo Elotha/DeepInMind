@@ -8,38 +8,38 @@ using UnityEngine;
 
 namespace EraSoren.Menu.Managers
 {
-    public class TotalHeightManager : Singleton<TotalHeightManager>
+    public class LengthInHierarchyManager : Singleton<LengthInHierarchyManager>
     {
         [OnValueChanged("OnTotalHeightChange")]
-        public int totalHeight = 200;
+        public int LengthInHierarchy = 200;
 
-        public void OnTotalHeightChange()
+        public void OnLengthInHierarchyChange()
         {
             foreach (var menuItemCreator in MenuLogicManager.I.menuItemCreators)
             {
                 foreach (var item in menuItemCreator.currentItems
-                                                .Where(item => !item.overrideTotalHeight))
+                                                .Where(item => !item.overrideLengthInHierarchy))
                 {
-                    item.totalHeight = totalHeight;
+                    item.lengthInHierarchy = LengthInHierarchy;
                 }
             
-                ChangeTotalHeight(menuItemCreator.currentItems);
+                ChangeLengthInHierarchy(menuItemCreator.currentItems);
             }
         }
 
-        public static void ChangeTotalHeight(List<MenuItem> currentItems)
+        public static void ChangeLengthInHierarchy(List<MenuItem> currentItems)
         {
             var newGap = Vector3.zero;
             newGap = currentItems.Aggregate(newGap, (current, menuListItem) => 
-                                                current + menuListItem.totalHeight * Vector3.up);
+                                                current + menuListItem.lengthInHierarchy * Vector3.up);
 
             var creationPoint = newGap / 2;
             
             foreach (var item in currentItems)
             {
-                creationPoint += item.totalHeight / 2f * Vector3.down;
+                creationPoint += item.lengthInHierarchy / 2f * Vector3.down;
                 item.rectTransform.localPosition = creationPoint;
-                creationPoint += item.totalHeight / 2f * Vector3.down;
+                creationPoint += item.lengthInHierarchy / 2f * Vector3.down;
             }
         }
     }

@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EraSoren.Menu.General;
+using EraSoren.Menu.Managers;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.MultipleChoice
 {
@@ -8,6 +12,14 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
         public List<MultipleChoiceOption> options = new();
         public MultipleChoiceOption currentOption;
         private int _currentOptionNo;
+
+        public void AddOption(MultipleChoiceOption newOption)
+        {
+            if (!options.Contains(newOption))
+            {
+                options.Add(newOption);
+            }
+        }
 
         public void SelectOption(MultipleChoiceOption selectedOption)
         {
