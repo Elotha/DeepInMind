@@ -7,6 +7,7 @@
         Toggle,
         Slider,
         MultipleChoice,
+        ChoiceOption,
         InputField
     }
 }

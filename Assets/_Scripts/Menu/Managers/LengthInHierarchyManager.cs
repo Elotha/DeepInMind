@@ -10,8 +10,8 @@ namespace EraSoren.Menu.Managers
 {
     public class LengthInHierarchyManager : Singleton<LengthInHierarchyManager>
     {
-        [OnValueChanged("OnTotalHeightChange")]
-        public int LengthInHierarchy = 200;
+        [OnValueChanged(nameof(OnLengthInHierarchyChange))]
+        public int lengthInHierarchy = 200;
 
         public void OnLengthInHierarchyChange()
         {
@@ -20,7 +20,7 @@ namespace EraSoren.Menu.Managers
                 foreach (var item in menuItemCreator.currentItems
                                                 .Where(item => !item.overrideLengthInHierarchy))
                 {
-                    item.lengthInHierarchy = LengthInHierarchy;
+                    item.lengthInHierarchy = lengthInHierarchy;
                 }
             
                 ChangeLengthInHierarchy(menuItemCreator.currentItems);

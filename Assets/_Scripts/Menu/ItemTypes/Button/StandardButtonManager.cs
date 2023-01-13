@@ -9,9 +9,9 @@ namespace EraSoren.Menu.ItemTypes.Button
     {
         [SerializeField] private GameObject standardButtonLogicPrefab;
 
-        public override void CreateScript(string itemName)
+        public override bool CreateScript(string itemName)
         {
-            CreateMenuScript.I.Create(itemName, nameof(StandardButtonItem), 
+            return CreateMenuScript.I.CreateScript(itemName, nameof(StandardButtonItem), 
                 MenuItemTypes.StandardButton);
         }
 

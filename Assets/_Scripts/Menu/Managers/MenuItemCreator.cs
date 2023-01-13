@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EraSoren._Core.Helpers.Extensions;
 using EraSoren.Menu.General;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
-using MenuItem = EraSoren.Menu.General.MenuItem;
 
 namespace EraSoren.Menu.Managers
 {
@@ -20,66 +14,8 @@ namespace EraSoren.Menu.Managers
         [SerializeField] private bool overrideCanvasOffset;
         [ShowIf(nameof(overrideCanvasOffset))] 
         public Vector2 canvasOffset;
-        
-        [Space(20)]
-        public List<MenuItem> currentItems = new ();
 
-        [Space(20)]
-        [SerializeField] private List<MenuItemNameAndType> newItems = new ();
-        
-        [Button]
-        private void CreateNewItems()
-        {
-            if (newItems.Count == 0)
-            {
-                Debug.LogError("New Items list is empty!");
-                return;
-            }
-            
-            if (IsThereAnyEmptyName())
-            {
-                Debug.LogError("Names cannot be empty!");
-                return;
-            }
-            
-            CreateScriptsForNewItems();
-        }
-        private void CreateScriptsForNewItems()
-        {
-            foreach (var item in newItems)
-            {
-                if (IsThereAnItemWithSameName(item.itemName)) continue;
-                
-                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
-                itemType.CreateScript(item.itemName);
-            }
-            
-            ReloadScripts.I.Set(this);
-            Debug.Log("The provided scripts are created.");
-            AssetDatabase.Refresh();
-        }
-
-        public override void ContinueAfterRefreshingAssets()
-        {
-            CreateObjectsForNewItems();
-            AddScriptsToNewItems();
-            FinalizeItems();
-        }
-
-        private void CreateObjectsForNewItems()
-        {
-            foreach (var item in newItems)
-            {
-                if (IsThereAnItemWithSameName(item.itemName)) continue;
-                
-                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
-                itemType.CreateObjects(item.itemName, transform);
-            }
-            
-            Debug.Log("New objects are created!");
-        }
-
-        private void AddScriptsToNewItems()
+        protected override void AddScriptsToNewItems()
         {
             foreach (var child in transform.GetAllChildrenList())
             {
@@ -107,7 +43,7 @@ namespace EraSoren.Menu.Managers
             Debug.Log("Scripts added!");
         }
 
-        private void FinalizeItems()
+        protected override void FinalizeItems()
         {
             foreach (var item in newItems)
             {
@@ -123,12 +59,7 @@ namespace EraSoren.Menu.Managers
             Debug.Log("Items are finalized!");
         }
 
-        private bool IsThereAnItemWithSameName(string itemName)
-        {
-            return currentItems.Any(currentItem => currentItem.itemName == itemName);
-        }
-
-        private void AdjustItems()
+        protected virtual void AdjustItems()
         {
             foreach (var item in currentItems)
             {
@@ -138,13 +69,6 @@ namespace EraSoren.Menu.Managers
             LengthInHierarchyManager.ChangeLengthInHierarchy(currentItems);
         }
 
-        private bool IsThereAnyEmptyName()
-        {
-            if (newItems.All(item => item.itemName.Replace(" ", "") != "")) return false;
-            Debug.LogError("Item names cannot be empty!");
-            return true;
-        }
-
         [Button]
         private void MakeThisCanvasActive()
         {
@@ -152,32 +76,14 @@ namespace EraSoren.Menu.Managers
         }
 
         [Button]
-        private void ClearSubItems()
+        protected override void ClearSubItems()
         {
-            for (var i = transform.childCount; i > 0; i--)
-            {
-                var childObj = transform.GetChild(i - 1).gameObject;
-                DestroyImmediate(childObj);
-            }
-
             for (var i = canvasMenuParent.childCount; i > 0; i--)
             {
                 var childObj = canvasMenuParent.GetChild(i - 1).gameObject;
                 DestroyImmediate(childObj);
             }
-            
-            if (DeleteObsoleteMenuItems.I.deleteIfObsolete)
-            {
-                AssetDatabase.Refresh();
-            }
-            
-            currentItems.Clear();
-        }
-
-        [Button]
-        private void ClearNewItemsList()
-        {
-            newItems.Clear();
+            base.ClearSubItems();
         }
 
         private void OnDestroy()

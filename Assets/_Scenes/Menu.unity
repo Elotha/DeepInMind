@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &53230397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53230398}
+  - component: {fileID: 53230399}
+  m_Layer: 0
+  m_Name: Option Choice Items List
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53230398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53230397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2130788072}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &53230399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53230397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2acd04a55be948b49f6dd4fcf861fdd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []
 --- !u!1 &68627907
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,10 +198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuItemTypeManager: {fileID: 1123678106}
-  overrideFontSizes: 1
-  fontSize: 37.5
-  width: 466
-  height: 82
+  overrideFontSizes: 0
+  fontSize: 45.1
+  width: 469
+  height: 89
 --- !u!4 &68627909
 Transform:
   m_ObjectHideFlags: 0
@@ -217,21 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a532a3ae0114c0e9d2f57daf02a965b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentItems: []
+  newItems: []
   canvasMenuParent: {fileID: 1964483941}
   overrideCanvasOffset: 0
   canvasOffset: {x: 0, y: -100}
-  currentItems: []
-  newItems:
-  - itemName: Start Game
-    itemType: 0
-  - itemName: Options
-    itemType: 1
-  - itemName: Go Wild
-    itemType: 2
-  - itemName: Volume
-    itemType: 3
-  - itemName: Exit
-    itemType: 0
 --- !u!114 &75485500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd1ce9b214945d6a1755a551df86b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LengthInHierarchy: 130
+  lengthInHierarchy: 157
 --- !u!1 &143603121
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +373,7 @@ Transform:
   - {fileID: 595226099}
   - {fileID: 1981411572}
   - {fileID: 1096649702}
+  - {fileID: 2130788072}
   m_Father: {fileID: 723761773}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -364,6 +400,8 @@ MonoBehaviour:
     menuItemTypeManager: {fileID: 1981411573}
   - menuItemType: 4
     menuItemTypeManager: {fileID: 1096649703}
+  - menuItemType: 5
+    menuItemTypeManager: {fileID: 2130788073}
 --- !u!1 &166371208
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontType: {fileID: 11400000, guid: 78789062bb12a494694f4dc37adc2087, type: 2}
-  fontSize: 57.6
+  fontSize: 44.77
 --- !u!1 &305562242
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIGHTS OF HOPE
+  m_text: TITLE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -636,8 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acd04a55be948b49f6dd4fcf861fdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allItems:
-  - {fileID: 0}
+  allItems: []
 --- !u!1 &398347077
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +750,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1964483941}
-  - {fileID: 760905159}
   m_Father: {fileID: 458879662}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -963,6 +999,55 @@ MonoBehaviour:
   sliderLogicPrefab: {fileID: 7211656068174392031, guid: 0282bcbae1d469142a3aea708e375692,
     type: 3}
   defaultSliderProperties: {fileID: 1696231829}
+--- !u!1 &646203289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 646203290}
+  - component: {fileID: 646203291}
+  m_Layer: 0
+  m_Name: Default Choice Option Properties
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &646203290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646203289}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2130788072}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646203291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646203289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c38da891b1f4e21b132e3bef34d419a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuItemTypeManager: {fileID: 1123678106}
+  overrideFontSizes: 0
+  fontSize: 44.77
+  width: 469
+  height: 89
 --- !u!1 &723761769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,42 +1239,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &760905158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 760905159}
-  m_Layer: 5
-  m_Name: Graphics Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &760905159
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760905158}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 441493111}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &834013995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,10 +1412,6 @@ MonoBehaviour:
     type: 3}
   multipleChoiceLogicPrefab: {fileID: 7211656068174392031, guid: 35da4100418574445988090a4e61464b,
     type: 3}
-  optionLogicPrefab: {fileID: 7211656068174392031, guid: 386b5d1c05cbca34c84ca61ba500416b,
-    type: 3}
-  optionCanvasPrefab: {fileID: 1264492885848338233, guid: 109af255919f28246b0bf1fbb61e3108,
-    type: 3}
   defaultMultipleChoiceProperties: {fileID: 365007001}
 --- !u!1 &1118319569
 GameObject:
@@ -1513,7 +1558,7 @@ MonoBehaviour:
   menuItemTypeManager: {fileID: 1981411573}
   overrideFontSizes: 0
   fontSize: 39.51
-  labelWidth: 388
+  labelWidth: 393
 --- !u!1 &1696231827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,11 +1605,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuItemTypeManager: {fileID: 595226100}
   overrideFontSizes: 0
-  fontSize: 39.51
-  sliderWidth: 565
-  sliderHeight: 20
-  totalWidth: 885
-  handleHeight: 33
+  fontSize: 44.77
+  sliderWidth: 481
+  sliderHeight: 32
+  totalWidth: 1005
+  handleHeight: 45
 --- !u!1 &1830235400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,9 +1654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acd04a55be948b49f6dd4fcf861fdd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allItems:
-  - {fileID: 0}
-  - {fileID: 0}
+  allItems: []
 --- !u!1 &1880728708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,3 +1868,56 @@ MonoBehaviour:
   toggleLogicPrefab: {fileID: 7211656068174392031, guid: 9b4ece93f75085b47981c6775fb93dfa,
     type: 3}
   defaultToggleProperties: {fileID: 1381258497}
+--- !u!1 &2130788071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2130788072}
+  - component: {fileID: 2130788073}
+  m_Layer: 0
+  m_Name: Option Choice Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2130788072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130788071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 646203290}
+  - {fileID: 53230398}
+  m_Father: {fileID: 143603122}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2130788073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130788071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2e1b7ed49d495e9401a3315143e239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultProperties: {fileID: 646203291}
+  itemsList: {fileID: 1830235403}
+  optionCanvasPrefab: {fileID: 1264492885848338233, guid: 5b1fc7ee43e10cb418ef9b960dd5b121,
+    type: 3}
+  optionLogicPrefab: {fileID: 7211656068174392031, guid: 386b5d1c05cbca34c84ca61ba500416b,
+    type: 3}
+  defaultButtonProperties: {fileID: 646203291}

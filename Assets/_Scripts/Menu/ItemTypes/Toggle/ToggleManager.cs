@@ -16,9 +16,9 @@ namespace EraSoren.Menu.ItemTypes.Toggle
         [Header("References")] 
         public DefaultToggleProperties defaultToggleProperties;
 
-        public override void CreateScript(string itemName)
+        public override bool CreateScript(string itemName)
         {
-            CreateMenuScript.I.Create(itemName, nameof(ToggleItem), MenuItemTypes.Toggle);
+            return CreateMenuScript.I.CreateScript(itemName, nameof(ToggleItem), MenuItemTypes.Toggle);
         }
 
         public override void CreateObjects(string itemName, Transform parentObject)
@@ -39,7 +39,7 @@ namespace EraSoren.Menu.ItemTypes.Toggle
             newItem.canvasObject = toggleObj;
             newItem.canvasObject.GetComponent<ToggleInteract>().toggleItem = newItem;
             newItem.SetFontSize();
-            newItem.lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
+            newItem.lengthInHierarchy = LengthInHierarchyManager.I.lengthInHierarchy;
             newItem.labelWidth = defaultToggleProperties.labelWidth;
                 
             FontManager.SetText(itemName, newItem.textComponent);

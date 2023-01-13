@@ -14,7 +14,7 @@ namespace EraSoren.Menu.General
         [SerializeField] private string namespaceName = "Menu.MenuItems";
         public GetNamespaceForMenuItemTypes getNamespaceForMenuItemTypes;
         
-        public void Create(string scriptName, string ancestorName, MenuItemTypes itemType) 
+        public bool CreateScript(string scriptName, string ancestorName, MenuItemTypes itemType) 
         {
             scriptName = MenuLogicManager.StandardizeNewMenuName(scriptName, true);
             scriptName += MenuManager.I.menuNameSuffix;
@@ -22,7 +22,7 @@ namespace EraSoren.Menu.General
             var namespaceSuffix = GetNamespaceForMenuItemTypes.GetNamespace(itemType);
             var copyPath = filePath + "/" + scriptName + ".cs";
 
-            if (File.Exists(copyPath)) return;
+            if (File.Exists(copyPath)) return false;
             
             using var outfile = new StreamWriter(copyPath);
             outfile.Write("using EraSoren.Menu.ItemTypes." + namespaceSuffix + ";" +
@@ -35,6 +35,7 @@ namespace EraSoren.Menu.General
                           "\n    }" +
                           "\n}");
             outfile.Close();
+            return true;
         }
 
         public MenuItem AddMenuComponent(string scriptName, GameObject scriptObject)

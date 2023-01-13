@@ -39,7 +39,7 @@ namespace EraSoren.Menu.General
 
         private void OnOverrideLengthInHierarchyChange()
         {
-            lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
+            lengthInHierarchy = LengthInHierarchyManager.I.lengthInHierarchy;
             LengthInHierarchyManager.I.OnLengthInHierarchyChange();
         }
 
@@ -54,12 +54,12 @@ namespace EraSoren.Menu.General
             fontSize = manager.defaultProperties.overrideFontSizes
                 ? manager.defaultProperties.fontSize
                 : FontManager.I.fontSize;
-            FontManager.I.ChangeFontSize(this, fontSize);
+            FontManager.ChangeFontSize(this, fontSize);
         }
 
         public void OnFontSizeChange()
         {
-            FontManager.I.ChangeFontSize(this, fontSize);
+            FontManager.ChangeFontSize(this, fontSize);
         }
 
         public virtual void AdjustItem()

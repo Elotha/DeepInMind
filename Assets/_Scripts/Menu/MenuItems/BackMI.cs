@@ -7,9 +7,7 @@ namespace EraSoren.Menu.MenuItems
     {
         public override void Interact()
         {
-            MenuManager.I.DisableLastMenuItem();
             MenuManager.I.RemoveLastMenuItem();
-            MenuManager.I.EnableLastMenuItem();
         }
     }
 }

@@ -35,7 +35,9 @@ namespace EraSoren.Menu.Managers
         {
             if (menuHierarchy.Count >= 1)
             {
+                menuHierarchy.Last().Disable();
                 menuHierarchy.Remove(menuHierarchy.Last());
+                menuHierarchy.Last().Enable();
             }
         }
 

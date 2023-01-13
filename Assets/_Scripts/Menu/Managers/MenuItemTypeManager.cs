@@ -9,7 +9,7 @@ namespace EraSoren.Menu.Managers
     [ExecuteInEditMode]
     public abstract class MenuItemTypeManager : MonoBehaviour
     {
-        public abstract void CreateScript(string itemName);
+        public abstract bool CreateScript(string itemName);
         public abstract void CreateObjects(string itemName, Transform parentObject);
         public abstract MenuItem Finalize(GameObject obj, string itemName, Transform canvasMenuParent);
 

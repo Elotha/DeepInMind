@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfe02201df1497e9317786bec904284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 4
   isScriptAdded: 0
 --- !u!114 &5175342371766069193
 MonoBehaviour:
@@ -60,4 +60,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multipleChoiceItem: {fileID: 0}
-  newOptions: []
+  newItems: []

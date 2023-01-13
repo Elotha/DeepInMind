@@ -40,7 +40,7 @@ namespace EraSoren.Menu.Managers
             }
         }
 
-        public void ChangeFontSize(MenuItem item, float size)
+        public static void ChangeFontSize(MenuItem item, float size)
         {
             item.textComponent.fontSize = size;
         }

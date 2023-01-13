@@ -36,7 +36,7 @@ namespace EraSoren.Menu.Managers
                 select itemType.menuItemTypeManager.GetComponent<MenuItemTypeManager>()).FirstOrDefault();
         }
 
-        public T GetManager<T>() where T : class
+        public T GetManager<T>() where T : MenuItemTypeManager
         {
             return itemTypes
                 .Where(itemType => itemType.menuItemTypeManager.GetType() == typeof(T))

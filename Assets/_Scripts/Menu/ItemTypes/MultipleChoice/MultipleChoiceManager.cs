@@ -11,15 +11,13 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
         [Header("Objects")]
         [SerializeField] private GameObject multipleChoiceCanvasPrefab;
         [SerializeField] private GameObject multipleChoiceLogicPrefab;
-        public GameObject optionLogicPrefab;
-        public GameObject optionCanvasPrefab;
         
         [Header("References")] 
         public DefaultMultipleChoiceProperties defaultMultipleChoiceProperties;
 
-        public override void CreateScript(string itemName)
+        public override bool CreateScript(string itemName)
         {
-            CreateMenuScript.I.Create(itemName, nameof(MultipleChoiceItem), 
+            return CreateMenuScript.I.CreateScript(itemName, nameof(MultipleChoiceItem), 
                 MenuItemTypes.MultipleChoice);
         }
 
@@ -39,9 +37,10 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
             newItem.textComponent.font = FontManager.I.fontType;
             newItem.rectTransform = multipleChoiceObj.transform.GetComponent<RectTransform>();
             newItem.canvasObject = multipleChoiceObj;
-            // newItem.canvasObject.GetComponent<SliderInteract>().sliderItem = newItem;
             newItem.SetFontSize();
-            newItem.lengthInHierarchy = LengthInHierarchyManager.I.LengthInHierarchy;
+            newItem.lengthInHierarchy = LengthInHierarchyManager.I.lengthInHierarchy;
+            newItem.GetComponent<OptionCreator>().multipleChoiceItem = newItem;
+            newItem.menuCanvasObject = obj.transform.parent.GetComponent<MenuItemCreator>().canvasMenuParent.gameObject;
             
             itemsList.AddItem(newItem);
         

@@ -20,9 +20,9 @@ namespace EraSoren.Menu.ItemTypes.Button
 
         [SerializeField] private string canvasSuffix = " Canvas";
 
-        public override void CreateScript(string itemName)
+        public override bool CreateScript(string itemName)
         {
-            CreateMenuScript.I.Create(itemName, nameof(MenuButtonItem), MenuItemTypes.MenuButton);
+            return CreateMenuScript.I.CreateScript(itemName, nameof(MenuButtonItem), MenuItemTypes.MenuButton);
         }
 
         public override void CreateObjects(string itemName, Transform parentObject)

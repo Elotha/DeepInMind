@@ -1,10 +1,12 @@
 ﻿using EraSoren.Menu.General;
+using EraSoren.Menu.ItemTypes.Button;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.MultipleChoice
 {
-    public abstract class MultipleChoiceOption : MenuItem
+    public abstract class MultipleChoiceOption : ButtonItem
     {
-        public abstract void Activate();
+        public virtual void Activate() { }
     }
 }

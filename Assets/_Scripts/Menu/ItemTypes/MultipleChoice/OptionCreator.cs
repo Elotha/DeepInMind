@@ -2,62 +2,34 @@
 using System.Linq;
 using EraSoren._Core.Helpers.Extensions;
 using EraSoren.Menu.General;
+using EraSoren.Menu.ItemTypes.Button;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.MultipleChoice
 {
-    public class OptionCreator : ItemCreator
+    public class OptionCreator : MenuItemCreator
     {
         public MultipleChoiceItem multipleChoiceItem;
-        
-        [SerializeField] private List<string> newItems = new();
 
-        private MultipleChoiceManager _multipleChoiceManager;
-        private MultipleChoiceManager MultipleChoiceManager
+        protected override void CreateScriptsForNewItems()
         {
-            get
+            var atLeastOneScriptCreated = false;
+            foreach (var item in newItems.Where(item => 
+                         !IsThereAnItemWithSameName(item.itemName)))
             {
-                if (_multipleChoiceManager == null)
+                var itemType = ItemTypeManagers.I.FindTypeClass(item.itemType);
+                var isScriptCreated = itemType.CreateScript(multipleChoiceItem.itemName + item.itemName);
+                if (isScriptCreated)
                 {
-                    _multipleChoiceManager = ItemTypeManagers.I.GetManager<MultipleChoiceManager>();
+                    atLeastOneScriptCreated = true;
                 }
-
-                return _multipleChoiceManager;
-            }
-        }
-        
-        [Button]
-        private void CreateNewItems()
-        {
-            if (newItems.Count == 0)
-            {
-                Debug.LogError("New Items list is empty!");
-                return;
             }
             
-            if (IsThereAnyEmptyName())
-            {
-                Debug.LogError("Names cannot be empty!");
-                return;
-            }
-            
-            CreateScriptsForNewItems();
-        }
-
-        private void CreateScriptsForNewItems()
-        {
-            foreach (var itemName in newItems.Where(optionName => !IsThereAnItemWithSameName(optionName)))
-            {
-                CreateMenuScript.I.Create(multipleChoiceItem.itemName + itemName, nameof(MultipleChoiceOption), 
-                    MenuItemTypes.MultipleChoice);
-            }
-            
-            ReloadScripts.I.Set(this);
-            Debug.Log("The provided scripts are created.");
-            AssetDatabase.Refresh();
+            DecideWhetherToRefresh(atLeastOneScriptCreated);
         }
 
         public override void ContinueAfterRefreshingAssets()
@@ -67,18 +39,7 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
             FinalizeItems();
         }
 
-        private void CreateObjectsForNewItems()
-        {
-            foreach (var optionName in newItems.Where(optionName => !IsThereAnItemWithSameName(optionName)))
-            {
-                CreateLogicObject(optionName, transform);
-            }
-            
-            Debug.Log("New objects are created!");
-        }
-
-        [Button]
-        private void AddScriptsToNewItems()
+        protected override void AddScriptsToNewItems()
         {
             foreach (var child in transform.GetAllChildrenList())
             {
@@ -90,7 +51,8 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
                 }
                 if (itemInfo.isScriptAdded) continue;
                 
-                var scriptName = child.name.Replace(" ", "") + MenuManager.I.menuNameSuffix;
+                var scriptName = multipleChoiceItem.itemName.Replace(" ", "") +
+                    child.name.Replace(" ", "") + MenuManager.I.menuNameSuffix;
                 var component = CreateMenuScript.I.AddMenuComponent(scriptName, child.gameObject);
 
                 if (component != null)
@@ -108,31 +70,31 @@ namespace EraSoren.Menu.ItemTypes.MultipleChoice
             Debug.Log("Scripts added!");
         }
 
-        [Button]
-        private void FinalizeItems()
+        protected override void FinalizeItems()
         {
-            foreach (var optionName in newItems.Where(optionName => !IsThereAnItemWithSameName(optionName))) 
+            var itemType = ItemTypeManagers.I.FindTypeClass(MenuItemTypes.ChoiceOption);
+            if (itemType is ChoiceOptionManager choiceOptionManager)
             {
+                foreach (var item in newItems)
+                {
+                    if (IsThereAnItemWithSameName(item.itemName)) continue;
                 
+                    var obj = transform.Find(item.itemName).gameObject;
+                    var newItem = choiceOptionManager.Finalize(obj, item.itemName, multipleChoiceItem.transform);
+                    currentItems.Add(newItem);
+                }
+                AdjustItems();
+                Debug.Log("Items are finalized!");
             }
-            
-            Debug.Log("Items are finalized!");
         }
-
-        private void CreateLogicObject(string itemName, Transform parentObject)
+        protected override bool IsThereAnyEmptyName()
         {
-            var menuLogicObject = Instantiate(MultipleChoiceManager.optionLogicPrefab, parentObject);
-            menuLogicObject.name = itemName;
-        }
-
-        private bool IsThereAnyEmptyName()
-        {
-            if (newItems.All(item => item.Replace(" ", "") != "")) return false;
+            if (newItems.All(item => item.itemName.Replace(" ", "") != "")) return false;
             Debug.LogError("Item names cannot be empty!");
             return true;
         }
 
-        private bool IsThereAnItemWithSameName(string optionName)
+        protected override bool IsThereAnItemWithSameName(string optionName)
         {
             return multipleChoiceItem.options.Any(currentItem => currentItem.itemName == optionName);
         }

@@ -3,12 +3,14 @@ using System.Linq;
 using EraSoren.Menu.General;
 using EraSoren.Menu.Managers;
 using Sirenix.OdinInspector;
+using TreeEditor;
 using UnityEngine;
 
 namespace EraSoren.Menu.ItemTypes.MultipleChoice
 {
     public abstract class MultipleChoiceItem : MenuItem
     {
+        public GameObject menuCanvasObject;
         public List<MultipleChoiceOption> options = new();
         public MultipleChoiceOption currentOption;
         private int _currentOptionNo;
