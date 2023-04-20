@@ -15,9 +15,9 @@ namespace EraSoren.HopebeamSystem
             return creationMethodConditions.All(condition => condition.EvaluateCondition());
         }
 
-        public static bool EvaluateConditionHolders(IEnumerable<ConditionHolder> conditionHolder)
+        public static bool EvaluateConditionHolders(List<ConditionHolder> conditionHolder)
         {
-            return conditionHolder.Any(holder => holder.AreConditionsMet());
+            return conditionHolder.Any(holder => holder.AreConditionsMet()) || (conditionHolder.Count == 0);
         }
     }
 }

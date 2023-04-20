@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
@@ -17,29 +19,41 @@ namespace EraSoren.HopebeamSystem
 
         private bool _isDone;
         private bool _isCreating;
+        private bool _isActivatedByMethodList;
+        private float _nextCreationTime;
         
-
         public void SetCreationActivity(bool active)
         {
-            isActive = active;
+            _isActivatedByMethodList = active;
         }
 
         private void Update()
         {
-            if (!isActive || _isDone) return;
+            if (!isActive || _isDone || !_isActivatedByMethodList) return;
             
             if (!_isCreating)
             {
-                // if (ConditionHolder.EvaluateConditionHolders(startConditionHolders))
-                // {
-                //     StartCreating();
-                // }
+                if (ConditionHolder.EvaluateConditionHolders(startConditionHolders))
+                {
+                    StartCreating();
+                    Create();
+                    _nextCreationTime = frequency.GetTime();
+                }
             }
             else
             {
                 if (ConditionHolder.EvaluateConditionHolders(endConditionHolders))
                 {
                     EndCreating();
+                }
+                else
+                {
+                    _nextCreationTime -= Time.deltaTime;
+                    if (_nextCreationTime <= 0f)
+                    {
+                        _nextCreationTime = frequency.GetTime();
+                        Create();
+                    }
                 }
             }
         }
@@ -51,10 +65,66 @@ namespace EraSoren.HopebeamSystem
 
         private void Create()
         {
+            Debug.Log("Create");
             if (ConditionHolder.EvaluateConditionHolders(creationConditionHolders))
             {
-                // TODO: Create actual stuff
+                Debug.Log("Creation conditions met!");
+                var packageToCreate = ChooseAPackageAccordingToTheirWeight();
+                foreach (var hopebeamCreation in packageToCreate.hopebeamCreations)
+                {
+                    if (hopebeamCreation.delayTime > 0f)
+                    {
+                        StartCoroutine(CreationSequence(hopebeamCreation));
+                    }
+                    else
+                    {
+                        ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamType);
+                    }
+                }
+
             }
+        }
+
+        private static IEnumerator CreationSequence(HopebeamCreation hopebeamCreation)
+        {
+            yield return new WaitForSeconds(hopebeamCreation.delayTime);
+            ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamType);
+        }
+
+        private static void ActivateHopebeamSpawnProtocol(HopebeamType hopebeamType)
+        {
+            hopebeamType.SpawnHopebeam();
+        }
+
+        private HopebeamPackage ChooseAPackageAccordingToTheirWeight()
+        {
+            var weights = new int[hopebeamPackages.Count];
+            for (var i = 0; i < weights.Length; i++)
+            {
+                weights[i] = hopebeamPackages[i].weight;
+            }
+            var totalWeight = weights.Sum();
+            var selectedPackageNo = 0;
+            var rnd = Random.Range(0f, totalWeight);
+            if (rnd <= weights[0])
+            {
+                selectedPackageNo = 0;
+            }
+            else
+            {
+                var weightSum = weights[0];
+                for (var i = 1; i < weights.Length; i++)
+                {
+                    if (rnd > weightSum && rnd <= weightSum + weights[i])
+                    {
+                        selectedPackageNo = i;
+                    }
+
+                    weightSum += weights[i];
+                }
+            }
+
+            return hopebeamPackages[selectedPackageNo].package;
         }
 
         private void EndCreating()

@@ -1,4 +1,5 @@
 ﻿using System;
+using EraSoren.Other;
 using UnityEngine;
 
 namespace EraSoren.HopebeamSystem.StartCreationConditions
@@ -6,10 +7,10 @@ namespace EraSoren.HopebeamSystem.StartCreationConditions
     [Serializable]
     public class TimeMustBePassed : ICondition
     {
-        [SerializeField] private float time = 0.1f;
+        public float requiredtime;
         public bool EvaluateCondition()
         {
-            return time > 0.2f;
+            return TimeManager.I.levelTime > requiredtime;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace EraSoren.Hopelight
 
         private void Update()
         {
-            if (InputManager.GetKeyDown(InputButton.Teleport)) 
+            if (InputManager.GetKeyDown(InputButton.Catch)) 
             {
                 HopelightCheck();
             }

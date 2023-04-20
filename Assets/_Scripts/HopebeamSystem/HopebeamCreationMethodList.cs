@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,11 +9,15 @@ namespace EraSoren.HopebeamSystem
     public class HopebeamCreationMethodList : MonoBehaviour
     {
         public List<HopebeamCreationMethod> hopebeamCreationMethods = new();
-        public bool isActive;
+        private bool _isActivatedByCreator;
         
         public void SetCreationActivity(bool active)
         {
-            isActive = active;
+            _isActivatedByCreator = active;
+            foreach (var method in hopebeamCreationMethods)
+            {
+                method.SetCreationActivity(active);
+            }
         }
     }
 }
