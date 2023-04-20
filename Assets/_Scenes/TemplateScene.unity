@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &26192485
 Transform:
   m_ObjectHideFlags: 0
@@ -1764,6 +1764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 697422665}
   - component: {fileID: 697422666}
+  - component: {fileID: 697422667}
   m_Layer: 0
   m_Name: Standard Method
   m_TagString: Untagged
@@ -1812,23 +1813,16 @@ MonoBehaviour:
     provideFloatField:
       rid: 1349626784500940800
   hopebeamPackages:
-  - package:
-      packageConditionHolders: []
-      hopebeamCreations:
-      - hopebeamType: {fileID: 1657685800}
-        delayTime: 0
-      - hopebeamType: {fileID: 1657685800}
-        delayTime: 0.2
-      - hopebeamType: {fileID: 1657685800}
-        delayTime: 0.4
+  - package: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb, type: 2}
+    weight: 100
+  - package: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
     weight: 1
-  - package:
-      packageConditionHolders: []
-      hopebeamCreations:
-      - hopebeamType: {fileID: 1209648398}
-        delayTime: 0
-    weight: 1
-  packageCreationOverrides: []
+  packageCreationOverrides:
+  - overrideConditionHolders:
+    - creationMethodConditions:
+      - rid: 1349626804071038980
+    hopebeamPackage: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
+  packageHistory: {fileID: 697422667}
   references:
     version: 2
     RefIds:
@@ -1840,12 +1834,33 @@ MonoBehaviour:
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
-        requiredtime: 2
+        requiredTime: 2
     - rid: 1349626804071038977
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
-        requiredtime: 10
+        requiredTime: 50
+    - rid: 1349626804071038980
+      type: {class: ConsecutivePackageException, ns: EraSoren.HopebeamSystem.PackageOverrideConditions,
+        asm: Assembly-CSharp}
+      data:
+        packageHistory: {fileID: 697422667}
+        hopebeamPackageToCheck: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb,
+          type: 2}
+        consecutivePackageCount: 4
+--- !u!114 &697422667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697422664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5891fb97f09e4b03af24d314687deb33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  packages: []
 --- !u!1001 &700441385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4148,6 +4163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c78939d0b8a422bba74215430c63720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hopebeamTypeID: HP Square 2
   hopebeamPrefab: {fileID: 2896290794989694039, guid: 1f6f7f8a82fae8e48a2485546fad7dc2,
     type: 3}
   hopebeamSpawnProtocol: {fileID: 71154729}
@@ -4715,6 +4731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c78939d0b8a422bba74215430c63720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hopebeamTypeID: HP Square 1
   hopebeamPrefab: {fileID: 2896290794989694039, guid: 645a7210010b3314eb37183631ac76f2,
     type: 3}
   hopebeamSpawnProtocol: {fileID: 71154729}
@@ -4872,6 +4889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704739681}
+  - component: {fileID: 1704739682}
   m_Layer: 0
   m_Name: Hopebeam Types
   m_TagString: Untagged
@@ -4896,6 +4914,21 @@ Transform:
   m_Father: {fileID: 1097996174}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1704739682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704739680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7b453f146d4c98b1d4059f467bf4fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hopebeamTypes:
+  - {fileID: 1657685800}
+  - {fileID: 1209648398}
 --- !u!1 &1715867913
 GameObject:
   m_ObjectHideFlags: 0
@@ -10240,6 +10273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4581453180567684689, guid: 81472389c1d56084d9c97c9d4ca2b9cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81472389c1d56084d9c97c9d4ca2b9cd, type: 3}
 --- !u!4 &1504215598048453223 stripped
@@ -10436,6 +10474,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Effect Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860449250551765028, guid: 44241e0c7e13e964398fdeee6e6071c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3860449250551765029, guid: 44241e0c7e13e964398fdeee6e6071c8,
         type: 3}
@@ -10658,6 +10701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sound Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974893970090948701, guid: f4447620abd06ad429f1cfcc268df1e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4447620abd06ad429f1cfcc268df1e0, type: 3}

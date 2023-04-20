@@ -65,11 +65,11 @@ namespace EraSoren.HopebeamSystem
 
         private void Create()
         {
-            Debug.Log("Create");
             if (ConditionHolder.EvaluateConditionHolders(creationConditionHolders))
             {
-                Debug.Log("Creation conditions met!");
-                var packageToCreate = ChooseAPackageAccordingToTheirWeight();
+                var packageOverride = CheckPackageCreationOverrides();
+                var packageToCreate = packageOverride != null ? packageOverride.hopebeamPackage : ChooseAPackageAccordingToTheirWeight();
+                packageHistory.packages.Add(packageToCreate);
                 foreach (var hopebeamCreation in packageToCreate.hopebeamCreations)
                 {
                     if (hopebeamCreation.delayTime > 0f)
@@ -78,7 +78,7 @@ namespace EraSoren.HopebeamSystem
                     }
                     else
                     {
-                        ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamType);
+                        ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
                     }
                 }
 
@@ -88,12 +88,18 @@ namespace EraSoren.HopebeamSystem
         private static IEnumerator CreationSequence(HopebeamCreation hopebeamCreation)
         {
             yield return new WaitForSeconds(hopebeamCreation.delayTime);
-            ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamType);
+            ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
         }
 
-        private static void ActivateHopebeamSpawnProtocol(HopebeamType hopebeamType)
+        private static void ActivateHopebeamSpawnProtocol(string hopebeamTypeID)
         {
+            var hopebeamType = HopebeamTypes.I.GetHopebeamTypeByID(hopebeamTypeID);
             hopebeamType.SpawnHopebeam();
+        }
+
+        private PackageCreationOverride CheckPackageCreationOverrides()
+        {
+            return packageCreationOverrides.FirstOrDefault(creationOverride => ConditionHolder.EvaluateConditionHolders(creationOverride.overrideConditionHolders));
         }
 
         private HopebeamPackage ChooseAPackageAccordingToTheirWeight()

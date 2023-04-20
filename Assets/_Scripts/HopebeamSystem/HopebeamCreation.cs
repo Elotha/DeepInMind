@@ -5,7 +5,7 @@ namespace EraSoren.HopebeamSystem
     [Serializable]
     public class HopebeamCreation
     {
-        public HopebeamType hopebeamType;
+        public string hopebeamTypeID;
         public float delayTime;
         public NotValidException notValidException;
     }

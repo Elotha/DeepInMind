@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
 {
-    [Serializable]
-    public class PackageHistory
+    public class PackageHistory : MonoBehaviour
     {
-        
+        public List<HopebeamPackage> packages;
     }
 }

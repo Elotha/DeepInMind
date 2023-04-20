@@ -8,5 +8,6 @@ namespace EraSoren.HopebeamSystem
     public class PackageCreationOverride
     {
         public List<ConditionHolder> overrideConditionHolders;
+        public HopebeamPackage hopebeamPackage;
     }
 }

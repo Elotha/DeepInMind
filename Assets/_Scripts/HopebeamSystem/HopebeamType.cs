@@ -6,6 +6,7 @@ namespace EraSoren.HopebeamSystem
 {
     public class HopebeamType : MonoBehaviour
     {
+        public string hopebeamTypeID;
         public GameObject hopebeamPrefab;
         public HopebeamSpawnProtocol hopebeamSpawnProtocol;
         public List<HopebeamLifetimeBehaviour> lifetimeBehaviours = new();

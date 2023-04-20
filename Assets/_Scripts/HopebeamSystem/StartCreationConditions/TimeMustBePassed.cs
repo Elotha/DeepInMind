@@ -7,10 +7,10 @@ namespace EraSoren.HopebeamSystem.StartCreationConditions
     [Serializable]
     public class TimeMustBePassed : ICondition
     {
-        public float requiredtime;
+        public float requiredTime;
         public bool EvaluateCondition()
         {
-            return TimeManager.I.levelTime > requiredtime;
+            return TimeManager.I.levelTime > requiredTime;
         }
     }
 }
