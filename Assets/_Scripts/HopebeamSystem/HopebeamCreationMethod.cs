@@ -35,9 +35,12 @@ namespace EraSoren.HopebeamSystem
             {
                 if (ConditionHolder.EvaluateConditionHolders(startConditionHolders))
                 {
-                    StartCreating();
-                    Create();
-                    _nextCreationTime = frequency.GetTime();
+                    if (!ConditionHolder.EvaluateConditionHolders(endConditionHolders))
+                    {
+                        StartCreating();
+                        Create();
+                        _nextCreationTime = frequency.GetTime();
+                    }
                 }
             }
             else

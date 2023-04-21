@@ -7,16 +7,7 @@ namespace EraSoren.HopebeamSystem
 {
     public class HopebeamManager : Singleton<HopebeamManager>
     {
-        public List<HopebeamTypeHolder> hopebeamTypes = new();
         public ClickInfoList clickInfoList;
-
-        [Serializable]
-        public struct HopebeamTypeHolder
-        {
-            public HopebeamType hopebeamType;
-            public bool solo;
-            public bool mute;
-        }
-
+        public HopebeamTypes hopebeamTypes;
     }
 }

@@ -425,6 +425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 692531973}
+  - {fileID: 1883217806}
   - {fileID: 327186555}
   m_Father: {fileID: 1097996174}
   m_RootOrder: 1
@@ -517,7 +518,7 @@ Transform:
   m_Children:
   - {fileID: 697422665}
   m_Father: {fileID: 320721030}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &327186556
 MonoBehaviour:
@@ -1766,7 +1767,7 @@ GameObject:
   - component: {fileID: 697422666}
   - component: {fileID: 697422667}
   m_Layer: 0
-  m_Name: Standard Method
+  m_Name: Method 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1783,8 +1784,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1271610826}
+  m_Children: []
   m_Father: {fileID: 327186555}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 1
-  isRepetable: 0
+  isRepetable: 1
   startConditionHolders:
   - creationMethodConditions:
     - rid: 1349626804071038976
@@ -1814,7 +1814,7 @@ MonoBehaviour:
       rid: 1349626784500940800
   hopebeamPackages:
   - package: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb, type: 2}
-    weight: 100
+    weight: 1
   - package: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
     weight: 1
   packageCreationOverrides:
@@ -1822,6 +1822,10 @@ MonoBehaviour:
     - creationMethodConditions:
       - rid: 1349626804071038980
     hopebeamPackage: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
+  - overrideConditionHolders:
+    - creationMethodConditions:
+      - rid: 1349626829969817601
+    hopebeamPackage: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb, type: 2}
   packageHistory: {fileID: 697422667}
   references:
     version: 2
@@ -1839,7 +1843,7 @@ MonoBehaviour:
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
-        requiredTime: 50
+        requiredTime: 5
     - rid: 1349626804071038980
       type: {class: ConsecutivePackageException, ns: EraSoren.HopebeamSystem.PackageOverrideConditions,
         asm: Assembly-CSharp}
@@ -1847,7 +1851,15 @@ MonoBehaviour:
         packageHistory: {fileID: 697422667}
         hopebeamPackageToCheck: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb,
           type: 2}
-        consecutivePackageCount: 4
+        consecutivePackageCount: 1
+    - rid: 1349626829969817601
+      type: {class: ConsecutivePackageException, ns: EraSoren.HopebeamSystem.PackageOverrideConditions,
+        asm: Assembly-CSharp}
+      data:
+        packageHistory: {fileID: 697422667}
+        hopebeamPackageToCheck: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6,
+          type: 2}
+        consecutivePackageCount: 1
 --- !u!114 &697422667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3854,11 +3866,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d92300e0b4bc59f01b18d4c832538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hopebeamTypes:
-  - hopebeamType: {fileID: 1657685800}
-    solo: 0
-    mute: 0
   clickInfoList: {fileID: 724576528}
+  hopebeamTypes: {fileID: 1704739682}
 --- !u!1 &1116329969
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,6 +4172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c78939d0b8a422bba74215430c63720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
   hopebeamTypeID: HP Square 2
   hopebeamPrefab: {fileID: 2896290794989694039, guid: 1f6f7f8a82fae8e48a2485546fad7dc2,
     type: 3}
@@ -4352,7 +4362,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 697422665}
+  m_Father: {fileID: 1883217806}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395931509
@@ -4731,6 +4741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c78939d0b8a422bba74215430c63720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
   hopebeamTypeID: HP Square 1
   hopebeamPrefab: {fileID: 2896290794989694039, guid: 645a7210010b3314eb37183631ac76f2,
     type: 3}
@@ -4927,8 +4938,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hopebeamTypes:
-  - {fileID: 1657685800}
-  - {fileID: 1209648398}
+  - hopebeamType: {fileID: 1657685800}
+    soloAndMute: 0
+  - hopebeamType: {fileID: 1209648398}
+    soloAndMute: 0
 --- !u!1 &1715867913
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,6 +5214,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 325036067}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1883217805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1883217806}
+  m_Layer: 0
+  m_Name: Lifetime Behaviours
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1883217806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883217805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1271610826}
+  m_Father: {fileID: 320721030}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1883236622
 GameObject:
