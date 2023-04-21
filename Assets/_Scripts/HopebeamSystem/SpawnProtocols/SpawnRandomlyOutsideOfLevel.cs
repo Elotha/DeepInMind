@@ -12,7 +12,7 @@ namespace EraSoren.HopebeamSystem
         [SerializeField] private Vector2 spawnSecondPoint;
 
         [Button]
-        public override void SpawnHopebeam(HopebeamType hopebeamType)
+        public override Hopebeam SpawnHopebeam(HopebeamType hopebeamType)
         {
             float rndX, rndY;
             var rnd = Random.Range(0f, 4f);
@@ -43,6 +43,7 @@ namespace EraSoren.HopebeamSystem
             var hopebeam = Instantiate(hopebeamPrefab, spawnPos, quaternion.identity, hopebeamType.transform);
             var hopebeamScript = hopebeam.GetComponent<Hopebeam>();
             hopebeamType.ActivateLifetimeBehaviours(hopebeamScript);
+            return hopebeamScript;
         }
 
         private void OnDrawGizmosSelected()

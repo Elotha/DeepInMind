@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
@@ -11,6 +12,7 @@ namespace EraSoren.HopebeamSystem
         public GameObject hopebeamPrefab;
         public HopebeamSpawnProtocol hopebeamSpawnProtocol;
         public List<HopebeamLifetimeBehaviour> lifetimeBehaviours = new();
+        public List<HopebeamCollisionBehaviour> collisionBehaviours = new();
 
         public void SetActivityOfHopebeamType(bool active)
         {
@@ -31,7 +33,26 @@ namespace EraSoren.HopebeamSystem
         {
             if (!isActive) return;
             
-            hopebeamSpawnProtocol.SpawnHopebeam(this);
+            var hopebeam = hopebeamSpawnProtocol.SpawnHopebeam(this);
+            hopebeam.hopebeamType = this;
+        }
+
+        public void ProcessTriggerEnter(Hopebeam hopebeam, GameObject collidedObject)
+        {
+            foreach (var collisionBehaviour in collisionBehaviours
+                         .Where(collisionBehaviour => collisionBehaviour.layerToCollide == 
+                                                      LayerMask.GetMask(LayerMask.LayerToName(collidedObject.layer))))
+            {
+                collisionBehaviour.ProcessTriggerEnter(hopebeam, collidedObject);
+            }
+        }
+
+        public void ProcessTriggerExit(Hopebeam hopebeam, GameObject collidedObject)
+        {
+            foreach (var collisionBehaviour in collisionBehaviours.Where(collisionBehaviour => collisionBehaviour.layerToCollide == collidedObject.layer))
+            {
+                collisionBehaviour.ProcessTriggerExit(hopebeam, collidedObject);
+            }
         }
 
     }
