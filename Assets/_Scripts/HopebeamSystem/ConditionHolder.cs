@@ -8,16 +8,31 @@ namespace EraSoren.HopebeamSystem
     [Serializable]
     public class ConditionHolder
     {
-        [SerializeReference] public List<ICondition> creationMethodConditions = new();
+        public bool isActive = true;
+        [SerializeReference] public List<ICondition> conditions = new();
+
+        public static ConditionResult EvaluateConditionHolders(List<ConditionHolder> conditionHolders)
+        {
+            if (conditionHolders.All(x => !x.isActive))
+            {
+                return ConditionResult.NoActiveConditionHolders;
+            }
+            
+            var result = conditionHolders.Where(x => x.isActive).Any(y => y.AreConditionsMet());
+            return result ? ConditionResult.ConditionsAreMet : ConditionResult.ConditionsAreNotMet;
+        }
 
         public bool AreConditionsMet()
         {
-            return creationMethodConditions.All(condition => condition.EvaluateCondition());
+            return conditions.Where(condition => condition.IsActive)
+                .All(condition => condition.EvaluateCondition());
         }
 
-        public static bool EvaluateConditionHolders(List<ConditionHolder> conditionHolder)
+        public enum ConditionResult
         {
-            return conditionHolder.Any(holder => holder.AreConditionsMet()) || (conditionHolder.Count == 0);
+            NoActiveConditionHolders,
+            ConditionsAreMet,
+            ConditionsAreNotMet
         }
     }
 }

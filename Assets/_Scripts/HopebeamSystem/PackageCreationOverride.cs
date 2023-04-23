@@ -7,6 +7,7 @@ namespace EraSoren.HopebeamSystem
     [Serializable]
     public class PackageCreationOverride
     {
+        public bool isActive = true;
         public List<ConditionHolder> overrideConditionHolders;
         public HopebeamPackage hopebeamPackage;
     }

@@ -532,6 +532,7 @@ Transform:
   - {fileID: 1989135311}
   - {fileID: 1023395046}
   - {fileID: 364659754}
+  - {fileID: 1191470878}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1339,12 +1340,6 @@ Transform:
   m_Father: {fileID: 826564653}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &530932993 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 530932993, guid: 81472389c1d56084d9c97c9d4ca2b9cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504215598048453222}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &539758928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6720935753602184212, guid: 929ed5af79d654746a9a1dcc2f3ab1b6,
@@ -1821,56 +1816,32 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 673031811}
     m_ColliderPaths:
-    - - X: 140000100
-        Y: -120000041
-      - X: 140000100
-        Y: 100000041
-      - X: 140000041
-        Y: 100000100
-      - X: -140000041
-        Y: 100000100
-      - X: -140000100
-        Y: 100000041
-      - X: -140000100
-        Y: -120000041
-      - X: -140000041
-        Y: -120000100
-      - X: 140000041
-        Y: -120000100
-    - - X: -129999900
-        Y: -109999900
-      - X: -129999900
-        Y: 79999900
-      - X: -130000041
-        Y: 79999900
-      - X: -130000100
-        Y: 79999959
-      - X: -130000100
-        Y: 90000041
-      - X: -130000041
-        Y: 90000100
-      - X: 130000041
-        Y: 90000100
-      - X: 130000100
-        Y: 90000041
-      - X: 130000100
-        Y: 79999959
-      - X: 130000041
-        Y: 79999900
-      - X: 129999900
-        Y: 79999900
-      - X: 129999900
-        Y: -109999900
+    - - X: 140000000
+        Y: 100000000
+      - X: -140000000
+        Y: 100000000
+      - X: -140000000
+        Y: -120000000
+      - X: 140000000
+        Y: -120000000
+    - - X: -130000000
+        Y: -110000000
+      - X: -130000000
+        Y: 90000000
+      - X: 130000000
+        Y: 90000000
+      - X: 130000000
+        Y: -110000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 13.999974, y: -12.00001}
-      - {x: 13.999974, y: 10.00001}
-      - {x: -14.00001, y: 9.999974}
-      - {x: -13.999974, y: -12.00001}
-    - - {x: 12.99999, y: -10.999961}
-      - {x: -12.99999, y: -10.999961}
-      - {x: -12.999974, y: 9.00001}
-      - {x: 13.00001, y: 8.999974}
+    - - {x: 13.999971, y: -12}
+      - {x: 13.999971, y: 10}
+      - {x: -14, y: 9.99997}
+      - {x: -13.999971, y: -12}
+    - - {x: 13, y: -10.99997}
+      - {x: -13, y: -10.99997}
+      - {x: -12.99997, y: 9}
+      - {x: 13, y: 8.99997}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &673031811
@@ -3099,11 +3070,17 @@ MonoBehaviour:
   isActive: 1
   isRepetable: 1
   startConditionHolders:
-  - creationMethodConditions:
-    - rid: 1349626804071038976
+  - isActive: 1
+    conditions:
+    - rid: 1349626863717711873
+    - rid: 1349626863717711878
+  - isActive: 1
+    conditions:
+    - rid: 1349626863717711880
   endConditionHolders:
-  - creationMethodConditions:
-    - rid: 1349626804071038977
+  - isActive: 0
+    conditions:
+    - rid: 1349626863717711875
   creationConditionHolders: []
   frequency:
     provideFloatField:
@@ -3114,14 +3091,12 @@ MonoBehaviour:
   - package: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
     weight: 1
   packageCreationOverrides:
-  - overrideConditionHolders:
-    - creationMethodConditions:
-      - rid: 1349626804071038980
+  - isActive: 0
+    overrideConditionHolders:
+    - isActive: 0
+      conditions:
+      - rid: 1349626863717711876
     hopebeamPackage: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
-  - overrideConditionHolders:
-    - creationMethodConditions:
-      - rid: 1349626829969817601
-    hopebeamPackage: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb, type: 2}
   packageHistory: {fileID: 697422667}
   references:
     version: 2
@@ -3130,32 +3105,39 @@ MonoBehaviour:
       type: {class: ProvideConstantFloat, ns: EraSoren.HopebeamSystem, asm: Assembly-CSharp}
       data:
         timeFrequency: 1
-    - rid: 1349626804071038976
+    - rid: 1349626863717711873
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
+        <IsActive>k__BackingField: 0
         requiredTime: 1
-    - rid: 1349626804071038977
+    - rid: 1349626863717711875
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
-        requiredTime: 5
-    - rid: 1349626804071038980
+        <IsActive>k__BackingField: 1
+        requiredTime: 3
+    - rid: 1349626863717711876
       type: {class: ConsecutivePackageException, ns: EraSoren.HopebeamSystem.PackageOverrideConditions,
         asm: Assembly-CSharp}
       data:
+        <IsActive>k__BackingField: 1
         packageHistory: {fileID: 697422667}
         checkForThisPackage: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb,
           type: 2}
         consecutivePackageCount: 1
-    - rid: 1349626829969817601
-      type: {class: ConsecutivePackageException, ns: EraSoren.HopebeamSystem.PackageOverrideConditions,
+    - rid: 1349626863717711878
+      type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
       data:
-        packageHistory: {fileID: 697422667}
-        checkForThisPackage: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6,
-          type: 2}
-        consecutivePackageCount: 1
+        <IsActive>k__BackingField: 1
+        requiredTime: 5
+    - rid: 1349626863717711880
+      type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
+        asm: Assembly-CSharp}
+      data:
+        <IsActive>k__BackingField: 1
+        requiredTime: 3
 --- !u!114 &697422667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3168,7 +3150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5891fb97f09e4b03af24d314687deb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packages: []
+  history: []
+  onClearHistory:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &700441385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3299,10 +3284,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3a39d600af452dbdeea956358a78f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  history: []
+  onClearHistory:
+    m_PersistentCalls:
+      m_Calls: []
   canCountFrames: 0
   successfulInteractionCount: 0
   missedInteractionCount: 0
-  clickInfos: []
 --- !u!1 &790578347
 GameObject:
   m_ObjectHideFlags: 0
@@ -5164,7 +5152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d92300e0b4bc59f01b18d4c832538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickInfoList: {fileID: 724576528}
+  clickInfoHistory: {fileID: 724576528}
   hopebeamTypes: {fileID: 1704739682}
 --- !u!1 &1116329969
 GameObject:
@@ -5340,14 +5328,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191470876}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.82335573, y: -0.021727141, z: -0.095585376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 673031809}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 325036067}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209422917
 GameObject:
@@ -5380,15 +5368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ab3f2f482140f78797797fe49be965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpawner: {fileID: 0}
-  creationOffsetX: 17
-  creationOffsetY: 10
-  minRandomTime: 0.25
-  maxRandomTime: 1.75
-  hopelightObject: {fileID: 6168812031046643200, guid: 2e30fe7796af87b48a36aa6bbca77f39,
-    type: 3}
-  lifeTime: 3.5
-  moveSpeed: 15
 --- !u!4 &1209422919
 Transform:
   m_ObjectHideFlags: 0
@@ -5417,26 +5396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93a748de11d4cf4ac0e0d63f008049d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cam: {fileID: 0}
-  hopelightMask:
-    m_Bits: 2048
-  inputProximityRadius: 0.5
-  onHopelightClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - {m_Target: {fileID: 1834991207602290611}, m_TargetAssemblyTypeName: EraSoren.Player.PlayerTeleport, Assembly-CSharp, m_MethodName: StartTeleporting, m_Mode: 0, m_Arguments: {m_ObjectArgument: {fileID: 0},
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0,
-          m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-      - {m_Target: {fileID: 2094482218}, m_TargetAssemblyTypeName: EraSoren.Hopelight.CreateBullets, Assembly-CSharp, m_MethodName: CreateBulletsAtHopelightPosition, m_Mode: 0, m_Arguments: {m_ObjectArgument: {fileID: 0},
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0,
-          m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-      - {m_Target: {fileID: 1209422921}, m_TargetAssemblyTypeName: EraSoren.Hopelight.DestroyHopelightObject, Assembly-CSharp, m_MethodName: DestroyHopelightObjectOnTeleport, m_Mode: 0, m_Arguments: {m_ObjectArgument: {fileID: 0},
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0,
-          m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-      - {m_Target: {fileID: 650065569}, m_TargetAssemblyTypeName: EraSoren._CameraSystem.CameraEffects.CameraShake, Assembly-CSharp, m_MethodName: Shake, m_Mode: 1, m_Arguments: {m_ObjectArgument: {fileID: 0},
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0,
-          m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
-    m_CallsDirty: 1
 --- !u!114 &1209422921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11254,8 +11213,62 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 320721031}
         m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.HopebeamCreator, Assembly-CSharp
-        m_MethodName: ActivateCreation
-        m_Mode: 1
+        m_MethodName: SetCreationActivity
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 724576528}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.ClickInfoList, Assembly-CSharp
+        m_MethodName: SetCanCountTime
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onPauseCountingLevelTime:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320721031}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.HopebeamCreator, Assembly-CSharp
+        m_MethodName: SetCreationActivity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 724576528}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.ClickInfoList, Assembly-CSharp
+        m_MethodName: SetCanCountTime
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStopCountingLevelTime:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 320721031}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.HopebeamCreator, Assembly-CSharp
+        m_MethodName: SetCreationActivity
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11274,7 +11287,31 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 320721031}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.HopebeamCreator, Assembly-CSharp
+        m_MethodName: RestartAllNextCreationTimes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1704739682}
+        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.HopebeamTypes, Assembly-CSharp
+        m_MethodName: DestroyAllHopebeams
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!4 &2058695339
 Transform:
@@ -11335,11 +11372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62461f564a340f7bd5ff7b5cc505fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletObject: {fileID: 443618411746809840, guid: e4d110a6a3e10174687e37a453f795cf,
-    type: 3}
-  bulletParent: {fileID: 1704391346}
-  bulletSpeed: 15
-  cursorObject: {fileID: 530932993}
 --- !u!1001 &123452197411332188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11759,18 +11791,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1834991207602290594}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1834991207602290611 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6159275779241764647, guid: 0dc71739dffacf243a4b23f5ffbb6bb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1834991207602290594}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf3faf39eee84625b277f40a409e27e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3860449251048861370
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,18 +6,21 @@ namespace EraSoren.HopebeamSystem.PackageOverrideConditions
     [Serializable]
     public class ConsecutivePackageException : ICondition
     {
+        [field: SerializeField]
+        public bool IsActive { get; set; }
+        
         [SerializeField] private PackageHistory packageHistory;
         [SerializeField] private HopebeamPackage checkForThisPackage;
         [SerializeField] private int consecutivePackageCount;
-        
+
         public bool EvaluateCondition()
         {
-            if (packageHistory.packages.Count < consecutivePackageCount) return false;
+            if (packageHistory.history.Count < consecutivePackageCount) return false;
             
             var didPackageComeConsecutively = true;
-            for (var i = packageHistory.packages.Count - consecutivePackageCount; i < packageHistory.packages.Count; i++)
+            for (var i = packageHistory.history.Count - consecutivePackageCount; i < packageHistory.history.Count; i++)
             {
-                if (packageHistory.packages[i] != checkForThisPackage)
+                if (packageHistory.history[i] != checkForThisPackage)
                 {
                     didPackageComeConsecutively = false;
                 }

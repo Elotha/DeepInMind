@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab24b6a5245b44329973183ea3138253, type: 3}
   m_Name: HP Square 1
   m_EditorClassIdentifier: 
-  packageConditionHolders: []
+  packageConditionHolders:
+  - isActive: 1
+    conditions: []
   hopebeamCreations:
   - hopebeamTypeID: HP Square 1
-    delayTime: 0.1
+    delayTime: 0
   references:
     version: 2
     RefIds: []

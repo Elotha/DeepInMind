@@ -19,5 +19,13 @@ namespace EraSoren.HopebeamSystem
                 method.SetCreationActivity(active);
             }
         }
+
+        public void RestartAllNextCreationTimes()
+        {
+            foreach (var method in hopebeamCreationMethods)
+            {
+                method.RestartNextCreationTime();
+            }
+        }
     }
 }

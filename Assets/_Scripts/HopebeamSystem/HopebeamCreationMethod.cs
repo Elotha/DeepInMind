@@ -25,6 +25,10 @@ namespace EraSoren.HopebeamSystem
         public void SetCreationActivity(bool active)
         {
             _isActivatedByMethodList = active;
+            if (!active && _isCreating)
+            {
+                EndCreating();
+            }
         }
 
         private void Update()
@@ -33,19 +37,24 @@ namespace EraSoren.HopebeamSystem
             
             if (!_isCreating)
             {
-                if (ConditionHolder.EvaluateConditionHolders(startConditionHolders))
-                {
-                    if (!ConditionHolder.EvaluateConditionHolders(endConditionHolders))
-                    {
-                        StartCreating();
-                        Create();
-                        _nextCreationTime = frequency.GetTime();
-                    }
-                }
+                // Start Conditions
+                var startConditions = ConditionHolder.EvaluateConditionHolders(startConditionHolders);
+                if (startConditions is not (ConditionHolder.ConditionResult.ConditionsAreMet
+                    or ConditionHolder.ConditionResult.NoActiveConditionHolders)) return;
+               
+                // End Conditions
+                var endConditions = ConditionHolder.EvaluateConditionHolders(endConditionHolders);
+                if (endConditions is not (ConditionHolder.ConditionResult.ConditionsAreNotMet
+                    or ConditionHolder.ConditionResult.NoActiveConditionHolders)) return;
+                
+                StartCreating();
+                Create();
+                _nextCreationTime = frequency.GetTime();
             }
             else
             {
-                if (ConditionHolder.EvaluateConditionHolders(endConditionHolders))
+                var endConditions = ConditionHolder.EvaluateConditionHolders(endConditionHolders);
+                if (endConditions == ConditionHolder.ConditionResult.ConditionsAreMet)
                 {
                     EndCreating();
                 }
@@ -68,23 +77,26 @@ namespace EraSoren.HopebeamSystem
 
         private void Create()
         {
-            if (ConditionHolder.EvaluateConditionHolders(creationConditionHolders))
-            {
-                var packageOverride = CheckPackageCreationOverrides();
-                var packageToCreate = packageOverride != null ? packageOverride.hopebeamPackage : ChooseAPackageAccordingToTheirWeight();
-                packageHistory.packages.Add(packageToCreate);
-                foreach (var hopebeamCreation in packageToCreate.hopebeamCreations)
-                {
-                    if (hopebeamCreation.delayTime > 0f)
-                    {
-                        StartCoroutine(CreationSequence(hopebeamCreation));
-                    }
-                    else
-                    {
-                        ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
-                    }
-                }
+            var creationConditions = ConditionHolder.EvaluateConditionHolders(creationConditionHolders);
+            if (creationConditions == ConditionHolder.ConditionResult.ConditionsAreNotMet) return;
+            
+            var packageOverride = CheckPackageCreationOverrides();
+            var packageToCreate = packageOverride != null ? packageOverride.hopebeamPackage : ChooseAPackageAccordingToTheirWeight();
 
+            var packageConditions = ConditionHolder.EvaluateConditionHolders(packageToCreate.packageConditionHolders);
+            if (packageConditions == ConditionHolder.ConditionResult.ConditionsAreNotMet) return;
+            
+            packageHistory.history.Add(packageToCreate);
+            foreach (var hopebeamCreation in packageToCreate.hopebeamCreations)
+            {
+                if (hopebeamCreation.delayTime > 0f)
+                {
+                    StartCoroutine(CreationSequence(hopebeamCreation));
+                }
+                else
+                {
+                    ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
+                }
             }
         }
 
@@ -102,12 +114,22 @@ namespace EraSoren.HopebeamSystem
 
         private PackageCreationOverride CheckPackageCreationOverrides()
         {
-            return packageCreationOverrides.FirstOrDefault(creationOverride => ConditionHolder.EvaluateConditionHolders(creationOverride.overrideConditionHolders));
+            var availablePackageCreationOverrides = packageCreationOverrides.Where(creationOverride => creationOverride.isActive).ToList();
+            
+            return (from creationOverride in availablePackageCreationOverrides 
+                let creationOverrideConditions = ConditionHolder.EvaluateConditionHolders(creationOverride.overrideConditionHolders) 
+                where creationOverrideConditions == ConditionHolder.ConditionResult.ConditionsAreMet 
+                select creationOverride).FirstOrDefault();
         }
 
         private HopebeamPackage ChooseAPackageAccordingToTheirWeight()
         {
-            var weights = new int[hopebeamPackages.Count];
+            var availablePackages = (from packageWithWeight in hopebeamPackages 
+                let packageConditions = ConditionHolder.EvaluateConditionHolders(packageWithWeight.package.packageConditionHolders) 
+                where packageConditions is ConditionHolder.ConditionResult.ConditionsAreMet or ConditionHolder.ConditionResult.NoActiveConditionHolders 
+                select packageWithWeight).ToList();
+            
+            var weights = new int[availablePackages.Count];
             for (var i = 0; i < weights.Length; i++)
             {
                 weights[i] = hopebeamPackages[i].weight;
@@ -133,13 +155,18 @@ namespace EraSoren.HopebeamSystem
                 }
             }
 
-            return hopebeamPackages[selectedPackageNo].package;
+            return availablePackages[selectedPackageNo].package;
         }
 
         private void EndCreating()
         {
             _isCreating = false;
             _isDone = !isRepetable;
+        }
+
+        public void RestartNextCreationTime()
+        {
+            _nextCreationTime = 0f;
         }
     }
 }

@@ -11,6 +11,15 @@ namespace EraSoren.HopebeamSystem
     {
         public List<HopebeamTypeHolder> hopebeamTypes = new();
 
+        [Button]
+        public void DestroyAllHopebeams()
+        {
+            foreach (var hopebeamType in hopebeamTypes)
+            {
+                hopebeamType.DestroyHopebeams();
+            }
+        }
+
         [Serializable]
         public class HopebeamTypeHolder
         {

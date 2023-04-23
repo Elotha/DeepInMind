@@ -15,6 +15,8 @@ namespace EraSoren.Other
         #region Events
 
         public UnityEvent onStartCountingLevelTime;
+        public UnityEvent<bool> onPauseCountingLevelTime;
+        public UnityEvent onStopCountingLevelTime;
 
         #endregion
 
@@ -30,6 +32,7 @@ namespace EraSoren.Other
         public void PauseCountingLevelTime()
         {
             countLevelTime = !countLevelTime;
+            onPauseCountingLevelTime?.Invoke(countLevelTime);
         }
 
         [Button]
@@ -37,6 +40,7 @@ namespace EraSoren.Other
         {
             levelTime = 0f;
             countLevelTime = false;
+            onStopCountingLevelTime?.Invoke();
         }
 
         private void Update()

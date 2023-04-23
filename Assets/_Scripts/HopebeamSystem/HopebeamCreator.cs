@@ -14,11 +14,21 @@ namespace EraSoren.HopebeamSystem
             activeCreationMethodList.SetCreationActivity(true);
         }
 
+        public void SetCreationActivity(bool active)
+        {
+            activeCreationMethodList.SetCreationActivity(active);
+        }
+
         public void SetActiveCreationMethodList(HopebeamCreationMethodList methodList)
         {
             activeCreationMethodList.SetCreationActivity(false);
             activeCreationMethodList = methodList;
             activeCreationMethodList.SetCreationActivity(true);
+        }
+
+        public void RestartAllNextCreationTimes()
+        {
+            activeCreationMethodList.RestartAllNextCreationTimes();
         }
     }
 }
