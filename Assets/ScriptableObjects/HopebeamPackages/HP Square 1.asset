@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab24b6a5245b44329973183ea3138253, type: 3}
   m_Name: HP Square 1
   m_EditorClassIdentifier: 
-  packageConditionHolders:
-  - isActive: 1
-    conditions: []
+  packageConditionHolders: []
   hopebeamCreations:
   - hopebeamTypeID: HP Square 1
-    delayTime: 0
+    delayTime:
+      rid: 1349626863717711890
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1349626863717711890
+      type: {class: ProvideConstantTime, ns: EraSoren.HopebeamSystem.TimeSetters,
+        asm: Assembly-CSharp}
+      data:
+        time: 0

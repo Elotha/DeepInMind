@@ -12,7 +12,7 @@ namespace EraSoren.HopebeamSystem
         public List<ConditionHolder> startConditionHolders;
         [SerializeField] private List<ConditionHolder> endConditionHolders = new();
         [SerializeField] private List<ConditionHolder> creationConditionHolders = new();
-        [SerializeField] private Frequency frequency;
+        [SerializeField] private TimeSetter timeSetter;
         [SerializeField] private List<HopebeamPackageWithWeight> hopebeamPackages = new();
         [SerializeField] private List<PackageCreationOverride> packageCreationOverrides = new();
         [SerializeField] private PackageHistory packageHistory = new();
@@ -49,7 +49,7 @@ namespace EraSoren.HopebeamSystem
                 
                 StartCreating();
                 Create();
-                _nextCreationTime = frequency.GetTime();
+                _nextCreationTime = timeSetter.GetTime();
             }
             else
             {
@@ -63,7 +63,7 @@ namespace EraSoren.HopebeamSystem
                     _nextCreationTime -= Time.deltaTime;
                     if (_nextCreationTime <= 0f)
                     {
-                        _nextCreationTime = frequency.GetTime();
+                        _nextCreationTime = timeSetter.GetTime();
                         Create();
                     }
                 }
@@ -89,7 +89,8 @@ namespace EraSoren.HopebeamSystem
             packageHistory.history.Add(packageToCreate);
             foreach (var hopebeamCreation in packageToCreate.hopebeamCreations)
             {
-                if (hopebeamCreation.delayTime > 0f)
+                var time = hopebeamCreation.delayTime.GetTime();
+                if (time > 0f)
                 {
                     StartCoroutine(CreationSequence(hopebeamCreation));
                 }
@@ -102,7 +103,8 @@ namespace EraSoren.HopebeamSystem
 
         private static IEnumerator CreationSequence(HopebeamCreation hopebeamCreation)
         {
-            yield return new WaitForSeconds(hopebeamCreation.delayTime);
+            var time = hopebeamCreation.delayTime.GetTime();
+            yield return new WaitForSeconds(time);
             ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
         }
 

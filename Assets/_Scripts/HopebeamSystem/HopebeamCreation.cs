@@ -1,4 +1,6 @@
 ﻿using System;
+using EraSoren.HopebeamSystem.TimeSetters;
+using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
 {
@@ -6,7 +8,7 @@ namespace EraSoren.HopebeamSystem
     public class HopebeamCreation
     {
         public string hopebeamTypeID;
-        public float delayTime;
+        [SerializeReference] public IProvideTime delayTime = new ProvideConstantTime();
         public NotValidException notValidException;
     }
 }

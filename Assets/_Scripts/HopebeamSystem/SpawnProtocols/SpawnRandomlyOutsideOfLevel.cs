@@ -1,10 +1,9 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace EraSoren.HopebeamSystem
+namespace EraSoren.HopebeamSystem.SpawnProtocols
 {
     public class SpawnRandomlyOutsideOfLevel : HopebeamSpawnProtocol
     {

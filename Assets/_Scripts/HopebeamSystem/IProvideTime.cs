@@ -1,6 +1,6 @@
 ﻿namespace EraSoren.HopebeamSystem
 {
-    public interface IProvideFloatField
+    public interface IProvideTime
     {
         public float GetTime();
     }
