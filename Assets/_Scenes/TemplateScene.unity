@@ -5420,7 +5420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   hopebeamTypeID: HP Square 2
-  hopebeamPrefab: {fileID: 2896290794989694039, guid: 1f6f7f8a82fae8e48a2485546fad7dc2,
+  hopebeamPrefab: {fileID: 7005920935535830969, guid: 6ae725ffa5b853c4e829952cd10c1518,
     type: 3}
   hopebeamSpawnProtocol: {fileID: 71154729}
   lifetimeBehaviours:
@@ -5991,7 +5991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   hopebeamTypeID: HP Square 1
-  hopebeamPrefab: {fileID: 2896290794989694039, guid: 645a7210010b3314eb37183631ac76f2,
+  hopebeamPrefab: {fileID: 4835819002044275433, guid: 4b5e0f5ee6cbc07429d54afea239d342,
     type: 3}
   hopebeamSpawnProtocol: {fileID: 71154729}
   lifetimeBehaviours:
@@ -11189,7 +11189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countLevelTime: 0
-  canCountFrames: 0
+  countFrames: 0
   levelTime: 0
   frameCount: 0
   onStartCountingLevelTime:

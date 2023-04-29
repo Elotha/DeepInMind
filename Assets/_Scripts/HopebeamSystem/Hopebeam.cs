@@ -7,15 +7,18 @@ namespace EraSoren.HopebeamSystem
     public class Hopebeam : MonoBehaviour
     {
         [HideInInspector] public HopebeamType hopebeamType;
-        public Rigidbody2D rb;
+        [HideInInspector] public Rigidbody2D rb;
         public HopebeamState hopebeamState = HopebeamState.BeingCreated;
-        private IDestroyHopebeams _destroyHopebeam;
+        public int life = 1;
+        public bool interactable = true;
+        
+        [Header("Debug")]
         [SerializeField] private float gizmoLineMultiplier = 1f;
+        
+        private IDestroyHopebeams _destroyHopebeam;
         
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
-            
             // TODO: No get component
             _destroyHopebeam = GetComponent<IDestroyHopebeams>();
         }
