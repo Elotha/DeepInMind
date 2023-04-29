@@ -11,8 +11,7 @@ namespace EraSoren.HopebeamSystem.CollisionBehaviours
 
         public override void ProcessTriggerEnter(Hopebeam hopebeam, GameObject collidedObject)
         {
-            Debug.Log("hopebeam destroyed!");
-            Destroy(hopebeam.gameObject);
+            hopebeam.StartDestroySequence();
         }
 
         public override void ProcessTriggerExit(Hopebeam hopebeam, GameObject collidedObject)

@@ -7,6 +7,7 @@ namespace EraSoren.HopebeamSystem
 {
     public class HopebeamManager : Singleton<HopebeamManager>
     {
+        public HopebeamHistory hopebeamHistory;
         public ClickInfoHistory clickInfoHistory;
         public HopebeamTypes hopebeamTypes;
     }

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5295277890633865607}
   - component: {fileID: 2896290794989694038}
   - component: {fileID: 2896290794989694043}
+  - component: {fileID: 1491848088574837322}
   m_Layer: 11
-  m_Name: Hopebeam
+  m_Name: Hopebeam 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,4 +149,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hopebeamType: {fileID: 0}
   rb: {fileID: 5295277890633865607}
+  hopebeamState: 1
   gizmoLineMultiplier: 1
+--- !u!114 &1491848088574837322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896290794989694039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a133580a50a49838e42b19957fa493c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

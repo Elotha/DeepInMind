@@ -4,12 +4,15 @@ using System.Linq;
 using EraSoren._Core.Helpers;
 using EraSoren._Core.Utilities;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
 {
     public class HopebeamTypes : Singleton<HopebeamTypes>
     {
         public List<HopebeamTypeHolder> hopebeamTypes = new();
+        [HideInInspector] public List<HopebeamTypeHolder> soloList = new();
+        [HideInInspector] public List<HopebeamTypeHolder> muteList = new();
 
         [Button]
         public void DestroyAllHopebeams()
@@ -34,39 +37,36 @@ namespace EraSoren.HopebeamSystem
                 hopebeamType.GetComponent<DestroyChildObjects>().DestroyChilds();
             }
 
-            private List<HopebeamTypeHolder> _soloList = new();
-            private List<HopebeamTypeHolder> _muteList = new();
-
             private void DealWithSolosAndMutes()
             {
-                _soloList.Clear();
-                _muteList.Clear();
+                I.soloList.Clear();
+                I.muteList.Clear();
                 foreach (var holder in I.hopebeamTypes)
                 {
                     switch (holder.soloAndMute)
                     {
                         case SoloAndMute.Solo:
-                            _soloList.Add(holder);
+                            I.soloList.Add(holder);
                             break;
                         
                         case SoloAndMute.Mute:
-                            _muteList.Add(holder);
+                            I.muteList.Add(holder);
                             break;
                     }
                 }
 
-                if (_soloList.Count > 0)
+                if (I.soloList.Count > 0)
                 {
                     foreach (var holder in I.hopebeamTypes)
                     {
-                        holder.hopebeamType.SetActivityOfHopebeamType(_soloList.Contains(holder));
+                        holder.hopebeamType.SetActivityOfHopebeamType(I.soloList.Contains(holder));
                     }
                 }
                 else
                 {
                     foreach (var holder in I.hopebeamTypes)
                     {
-                        holder.hopebeamType.SetActivityOfHopebeamType(!_muteList.Contains(holder));
+                        holder.hopebeamType.SetActivityOfHopebeamType(!I.muteList.Contains(holder));
                     }
                 }
             }

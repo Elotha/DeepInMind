@@ -15,7 +15,7 @@ namespace EraSoren.HopebeamSystem
         [SerializeField] private TimeSetter timeSetter;
         [SerializeField] private List<HopebeamPackageWithWeight> hopebeamPackages = new();
         [SerializeField] private List<PackageCreationOverride> packageCreationOverrides = new();
-        [SerializeField] private PackageHistory packageHistory = new();
+        [SerializeField] private PackageHistory packageHistory;
 
         private bool _isDone;
         private bool _isCreating;
@@ -105,7 +105,10 @@ namespace EraSoren.HopebeamSystem
         {
             var time = hopebeamCreation.delayTime.GetTime();
             yield return new WaitForSeconds(time);
-            ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
+            if (HopebeamCreator.I.CanSpawn())
+            {
+                ActivateHopebeamSpawnProtocol(hopebeamCreation.hopebeamTypeID);
+            }
         }
 
         private static void ActivateHopebeamSpawnProtocol(string hopebeamTypeID)

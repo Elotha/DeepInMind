@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EraSoren._Core.Helpers;
 using Sirenix.OdinInspector;
 
@@ -7,6 +8,19 @@ namespace EraSoren.HopebeamSystem
     public class HopebeamCreator : Singleton<HopebeamCreator>
     {
         public HopebeamCreationMethodList activeCreationMethodList;
+
+        private ISpawnCondition[] _spawnConditions;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _spawnConditions = GetComponents<ISpawnCondition>();
+        }
+
+        public bool CanSpawn()
+        {
+            return _spawnConditions.All(x => x.CanSpawn());
+        }
 
         [Button]
         public void ActivateCreation()

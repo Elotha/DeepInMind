@@ -16,11 +16,11 @@ MonoBehaviour:
   hopebeamCreations:
   - hopebeamTypeID: HP Square 1
     delayTime:
-      rid: 1349626863717711890
+      rid: 1349626988781633541
   references:
     version: 2
     RefIds:
-    - rid: 1349626863717711890
+    - rid: 1349626988781633541
       type: {class: ProvideConstantTime, ns: EraSoren.HopebeamSystem.TimeSetters,
         asm: Assembly-CSharp}
       data:

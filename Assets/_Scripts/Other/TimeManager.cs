@@ -9,8 +9,19 @@ namespace EraSoren.Other
     public class TimeManager : Singleton<TimeManager>
     {
         [SerializeField] private bool countLevelTime;
+        [SerializeField] private bool canCountFrames;
         
         public float levelTime;
+        public int frameCount;
+        public void SetCanCountTime(bool canCount)
+        {
+            canCountFrames = canCount;
+        }
+
+        private void CountFrames()
+        {
+            frameCount++;
+        }
 
         #region Events
 
@@ -45,10 +56,10 @@ namespace EraSoren.Other
 
         private void Update()
         {
-            if (countLevelTime)
-            {
-                levelTime += Time.deltaTime;
-            }
+            if (!countLevelTime) return;
+            
+            levelTime += Time.deltaTime;
+            CountFrames();
         }
     }
 }

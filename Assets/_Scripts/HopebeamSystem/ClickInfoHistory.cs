@@ -1,33 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using EraSoren._InputSystem;
-using Sirenix.OdinInspector;
-using UnityEngine;
+using EraSoren.Other;
 
 namespace EraSoren.HopebeamSystem
 {
     public class ClickInfoHistory : History<ClickInfo>
     {
-        [SerializeField] private bool canCountFrames;
+        public bool canSaveInfo;
         public int successfulInteractionCount;
         public int missedInteractionCount;
-        private int _frameCount;
-        public void SetCanCountTime(bool canCount)
+
+        private TimeManager _timeManager;
+
+        private void Start()
         {
-            canCountFrames = canCount;
+            _timeManager = TimeManager.I;
         }
 
         private void Update()
         {
-            if (!canCountFrames) return;
-            
-            CountFrames();
+            if (!canSaveInfo) return;
             ProcessInput();
-        }
-
-        private void CountFrames()
-        {
-            _frameCount++;
         }
 
         private void ProcessInput()
@@ -35,7 +28,7 @@ namespace EraSoren.HopebeamSystem
             if (!InputManager.GetKeyDown(InputButton.Catch)) return;
             
             var catchingInfo = CatchingManager.I.TryToCatch();
-            history.Add(new ClickInfo(_frameCount, catchingInfo));
+            history.Add(new ClickInfo(_timeManager.frameCount, catchingInfo));
             if (catchingInfo.didPlayerCatchBeam)
             {
                 successfulInteractionCount++;

@@ -39,9 +39,11 @@ namespace EraSoren.HopebeamSystem.SpawnProtocols
             }
             var spawnPos = new Vector3(rndX, rndY);
             var hopebeamPrefab = hopebeamType.hopebeamPrefab;
-            var hopebeam = Instantiate(hopebeamPrefab, spawnPos, quaternion.identity, hopebeamType.transform);
-            var hopebeamScript = hopebeam.GetComponent<Hopebeam>();
+            var hopebeamObj = Instantiate(hopebeamPrefab, spawnPos, quaternion.identity, hopebeamType.transform);
+            var hopebeamScript = hopebeamObj.GetComponent<Hopebeam>();
             hopebeamType.ActivateLifetimeBehaviours(hopebeamScript);
+            SetHopebeamStateToActive(hopebeamScript);
+            hopebeamScript.hopebeamType = hopebeamType;
             return hopebeamScript;
         }
 

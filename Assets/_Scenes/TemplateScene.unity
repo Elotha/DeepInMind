@@ -3082,14 +3082,14 @@ MonoBehaviour:
     conditions:
     - rid: 1349626863717711875
   creationConditionHolders: []
-  frequency:
-    provideFloatField:
-      rid: 1349626784500940800
+  timeSetter:
+    provideTime:
+      rid: 1349626988781633538
   hopebeamPackages:
   - package: {fileID: 11400000, guid: 79472f20084e50e499af76647576d3fb, type: 2}
     weight: 1
   - package: {fileID: 11400000, guid: 2b64aa4c50e47a747bf16283daa925d6, type: 2}
-    weight: 1
+    weight: 0
   packageCreationOverrides:
   - isActive: 0
     overrideConditionHolders:
@@ -3101,10 +3101,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1349626784500940800
-      type: {class: ProvideConstantFloat, ns: EraSoren.HopebeamSystem, asm: Assembly-CSharp}
-      data:
-        timeFrequency: 1
     - rid: 1349626863717711873
       type: {class: TimeMustBePassed, ns: EraSoren.HopebeamSystem.StartCreationConditions,
         asm: Assembly-CSharp}
@@ -3138,6 +3134,11 @@ MonoBehaviour:
       data:
         <IsActive>k__BackingField: 1
         requiredTime: 3
+    - rid: 1349626988781633538
+      type: {class: ProvideConstantTime, ns: EraSoren.HopebeamSystem.TimeSetters,
+        asm: Assembly-CSharp}
+      data:
+        time: 1
 --- !u!114 &697422667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3288,7 +3289,7 @@ MonoBehaviour:
   onClearHistory:
     m_PersistentCalls:
       m_Calls: []
-  canCountFrames: 0
+  canSaveInfo: 0
   successfulInteractionCount: 0
   missedInteractionCount: 0
 --- !u!1 &790578347
@@ -5115,6 +5116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1097996174}
   - component: {fileID: 1097996176}
+  - component: {fileID: 1097996177}
   m_Layer: 0
   m_Name: Hopebeam Manager
   m_TagString: Untagged
@@ -5152,8 +5154,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d92300e0b4bc59f01b18d4c832538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hopebeamHistory: {fileID: 1097996177}
   clickInfoHistory: {fileID: 724576528}
   hopebeamTypes: {fileID: 1704739682}
+--- !u!114 &1097996177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097996172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173fa434cf45497f8840999aa4105ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  history: []
+  onClearHistory:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1116329969
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,9 +5365,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209422919}
-  - component: {fileID: 1209422918}
-  - component: {fileID: 1209422921}
-  - component: {fileID: 1209422920}
   m_Layer: 0
   m_Name: Hopelight Manager
   m_TagString: Untagged
@@ -5356,18 +5372,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1209422918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209422917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ab3f2f482140f78797797fe49be965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1209422919
 Transform:
   m_ObjectHideFlags: 0
@@ -5384,30 +5388,6 @@ Transform:
   m_Father: {fileID: 1160829343}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1209422920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209422917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93a748de11d4cf4ac0e0d63f008049d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1209422921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209422917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b01e0a69bf04a1ca5429f9ce2123839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1209648397
 GameObject:
   m_ObjectHideFlags: 0
@@ -6212,6 +6192,8 @@ MonoBehaviour:
     soloAndMute: 0
   - hopebeamType: {fileID: 1209648398}
     soloAndMute: 0
+  soloList: []
+  muteList: []
 --- !u!1 &1715867913
 GameObject:
   m_ObjectHideFlags: 0
@@ -11207,7 +11189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countLevelTime: 0
+  canCountFrames: 0
   levelTime: 0
+  frameCount: 0
   onStartCountingLevelTime:
     m_PersistentCalls:
       m_Calls:
@@ -11223,8 +11207,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 724576528}
-        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.ClickInfoList, Assembly-CSharp
+      - m_Target: {fileID: 2058695338}
+        m_TargetAssemblyTypeName: EraSoren.Other.TimeManager, Assembly-CSharp
         m_MethodName: SetCanCountTime
         m_Mode: 6
         m_Arguments:
@@ -11233,7 +11217,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   onPauseCountingLevelTime:
     m_PersistentCalls:
@@ -11250,8 +11234,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 724576528}
-        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.ClickInfoList, Assembly-CSharp
+      - m_Target: {fileID: 2058695338}
+        m_TargetAssemblyTypeName: EraSoren.Other.TimeManager, Assembly-CSharp
         m_MethodName: SetCanCountTime
         m_Mode: 0
         m_Arguments:
@@ -11260,7 +11244,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   onStopCountingLevelTime:
     m_PersistentCalls:
@@ -11277,8 +11261,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 724576528}
-        m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.ClickInfoList, Assembly-CSharp
+      - m_Target: {fileID: 2058695338}
+        m_TargetAssemblyTypeName: EraSoren.Other.TimeManager, Assembly-CSharp
         m_MethodName: SetCanCountTime
         m_Mode: 6
         m_Arguments:
@@ -11337,7 +11321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2094482217}
-  - component: {fileID: 2094482218}
   m_Layer: 0
   m_Name: Create Bullets
   m_TagString: Untagged
@@ -11360,18 +11343,6 @@ Transform:
   m_Father: {fileID: 1209422919}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2094482218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2094482216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62461f564a340f7bd5ff7b5cc505fef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &123452197411332188
 PrefabInstance:
   m_ObjectHideFlags: 0

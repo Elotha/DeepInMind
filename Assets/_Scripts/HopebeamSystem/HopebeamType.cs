@@ -14,6 +14,13 @@ namespace EraSoren.HopebeamSystem
         public List<HopebeamLifetimeBehaviour> lifetimeBehaviours = new();
         public List<HopebeamCollisionBehaviour> collisionBehaviours = new();
 
+        private HopebeamManager _hopebeamManager;
+
+        private void Start()
+        {
+            _hopebeamManager = HopebeamManager.I;
+        }
+
         public void SetActivityOfHopebeamType(bool active)
         {
             isActive = active;
@@ -35,6 +42,7 @@ namespace EraSoren.HopebeamSystem
             
             var hopebeam = hopebeamSpawnProtocol.SpawnHopebeam(this);
             hopebeam.hopebeamType = this;
+            _hopebeamManager.hopebeamHistory.CreateEntry(hopebeam);
         }
 
         public void ProcessTriggerEnter(Hopebeam hopebeam, GameObject collidedObject)
