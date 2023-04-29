@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
 {
-    public interface ICondition
+    public interface IInteractionCondition
     {
         public bool IsActive { get; set; }
-
-        public bool EvaluateCondition();
+        public bool EvaluateCondition(Hopebeam hopebeam, Vector2 catchingPos);
     }
 }

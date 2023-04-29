@@ -474,6 +474,7 @@ Transform:
   - {fileID: 692531973}
   - {fileID: 1883217806}
   - {fileID: 684675070}
+  - {fileID: 987399283}
   - {fileID: 327186555}
   m_Father: {fileID: 1097996174}
   m_RootOrder: 1
@@ -567,7 +568,7 @@ Transform:
   m_Children:
   - {fileID: 697422665}
   m_Father: {fileID: 320721030}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &327186556
 MonoBehaviour:
@@ -3273,6 +3274,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   catchingRadius: 0.1
+  isSecondaryInputActiveForHopebeams: 0
 --- !u!114 &724576528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3682,6 +3684,84 @@ Transform:
   - {fileID: 837153810}
   m_Father: {fileID: 325036067}
   m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &959562891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 959562892}
+  - component: {fileID: 959562893}
+  m_Layer: 0
+  m_Name: Give Damage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &959562892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959562891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 987399283}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959562893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959562891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7f0d4bbee54e749f1ec05fdb415030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageNumber: 1
+--- !u!1 &987399282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987399283}
+  m_Layer: 0
+  m_Name: Interaction Behaviours
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987399283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987399282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1889665482}
+  - {fileID: 959562892}
+  m_Father: {fileID: 320721030}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023395042
 GameObject:
@@ -5427,6 +5507,10 @@ MonoBehaviour:
   - {fileID: 1271610825}
   collisionBehaviours:
   - {fileID: 197889491}
+  interactionBehaviours: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &1209648399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5998,6 +6082,65 @@ MonoBehaviour:
   - {fileID: 1271610825}
   collisionBehaviours:
   - {fileID: 197889491}
+  interactionBehaviours:
+  - isActive: 1
+    interactionType: 0
+    interactionConditionHolders:
+    - isActive: 1
+      conditions:
+      - rid: 1349626999764418563
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 959562893}
+          m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.InteractionBehaviours.GiveDamageToHopebeam,
+            Assembly-CSharp
+          m_MethodName: Interact
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - isActive: 1
+    interactionType: 0
+    interactionConditionHolders:
+    - isActive: 1
+      conditions:
+      - rid: 1349626999764418561
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1889665483}
+          m_TargetAssemblyTypeName: EraSoren.HopebeamSystem.InteractionBehaviours.DestroyHopebeamIfNoLivesLeft,
+            Assembly-CSharp
+          m_MethodName: Interact
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 1349626999764418561
+      type: {class: LivesCheck, ns: EraSoren.HopebeamSystem.InteractionConditions,
+        asm: Assembly-CSharp}
+      data:
+        <IsActive>k__BackingField: 1
+        livesCount: 0
+    - rid: 1349626999764418563
+      type: {class: StillHasLives, ns: EraSoren.HopebeamSystem.InteractionConditions,
+        asm: Assembly-CSharp}
+      data:
+        <IsActive>k__BackingField: 1
 --- !u!4 &1657685801
 Transform:
   m_ObjectHideFlags: 0
@@ -6583,6 +6726,50 @@ Transform:
   m_Father: {fileID: 926431129}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1889665481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889665482}
+  - component: {fileID: 1889665483}
+  m_Layer: 0
+  m_Name: Destroy If No Lives Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889665482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889665481}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 987399283}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889665483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889665481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517cce046a084380a16471f5ab6f9454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1928272780
 GameObject:
   m_ObjectHideFlags: 0

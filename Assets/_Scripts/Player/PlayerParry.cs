@@ -41,7 +41,7 @@ namespace EraSoren.Player
         private void HandleInput()
         {
             if (!_canParry) return;
-            if (InputManager.GetKeyDown(InputButton.Parry))
+            if (InputManager.GetKeyDown(InputButton.Secondary))
             {
                 StartCoroutine(Parry());
                 

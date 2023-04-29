@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EraSoren._InputSystem;
 using EraSoren.Other;
 
@@ -15,21 +16,13 @@ namespace EraSoren.HopebeamSystem
         private void Start()
         {
             _timeManager = TimeManager.I;
+            CatchingManager.I.onPrimaryInputCatch += CreateEntry;
         }
-
-        private void Update()
+        private void CreateEntry(CatchingManager.CatchingInfo catchingInfo)
         {
             if (!canSaveInfo) return;
-            ProcessInput();
-        }
-
-        private void ProcessInput()
-        {
-            if (!InputManager.GetKeyDown(InputButton.Catch)) return;
-            
-            var catchingInfo = CatchingManager.I.TryToCatch();
-            history.Add(new ClickInfo(_timeManager.frameCount, catchingInfo));
-            if (catchingInfo.didPlayerCatchBeam)
+            history.Add(new ClickInfo(_timeManager.frameCount, _timeManager.levelTime, catchingInfo));
+            if (catchingInfo.hopebeams.Count > 0)
             {
                 successfulInteractionCount++;
             }
@@ -44,11 +37,13 @@ namespace EraSoren.HopebeamSystem
     public class ClickInfo
     {
         public int frameCount;
+        public float timeStamp;
         public CatchingManager.CatchingInfo catchingInfo;
 
-        public ClickInfo(int frameCount, CatchingManager.CatchingInfo catchingInfo)
+        public ClickInfo(int frameCount, float timeStamp, CatchingManager.CatchingInfo catchingInfo)
         {
             this.frameCount = frameCount;
+            this.timeStamp = timeStamp;
             this.catchingInfo = catchingInfo;
         }
     }

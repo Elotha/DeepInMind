@@ -65,7 +65,12 @@ PrefabInstance:
     - target: {fileID: 2896290794989694039, guid: 645a7210010b3314eb37183631ac76f2,
         type: 3}
       propertyPath: m_Name
-      value: Hopebeam Root
+      value: Hopebeam 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2896290794989694043, guid: 645a7210010b3314eb37183631ac76f2,
+        type: 3}
+      propertyPath: lives
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645a7210010b3314eb37183631ac76f2, type: 3}

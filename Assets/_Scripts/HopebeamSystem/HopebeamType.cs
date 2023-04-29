@@ -13,6 +13,7 @@ namespace EraSoren.HopebeamSystem
         public HopebeamSpawnProtocol hopebeamSpawnProtocol;
         public List<HopebeamLifetimeBehaviour> lifetimeBehaviours = new();
         public List<HopebeamCollisionBehaviour> collisionBehaviours = new();
+        public List<InteractionHandler> interactionBehaviours = new();
 
         private HopebeamManager _hopebeamManager;
 
@@ -63,5 +64,32 @@ namespace EraSoren.HopebeamSystem
             }
         }
 
+        public bool TryToInteract(Hopebeam hopebeam, Vector2 catchingPos, bool primaryInput)
+        {
+            return AtLeastOneValidInteraction(hopebeam, catchingPos, primaryInput);
+        }
+
+        private bool AtLeastOneValidInteraction(Hopebeam hopebeam, Vector2 catchingPos, bool primaryInput)
+        {
+            var atLeastOneValidInteraction = false;
+            foreach (var interactionBehaviour in interactionBehaviours.Where(interactionBehaviour => interactionBehaviour.isActive))
+            {
+                switch (primaryInput)
+                {
+                    case true when interactionBehaviour.interactionType == InteractionType.PrimaryInputDown:
+                    case false when interactionBehaviour.interactionType == InteractionType.SecondaryInputDown:
+                        
+                        var result = InteractionConditionHolder.EvaluateConditionHolders(interactionBehaviour.interactionConditionHolders, hopebeam, catchingPos);
+                        if (result != ConditionHolder.ConditionResult.ConditionsAreNotMet)
+                        {
+                            interactionBehaviour.Interact(hopebeam, catchingPos);
+                            atLeastOneValidInteraction = true;
+                        }
+                        break;
+                }
+            }
+
+            return atLeastOneValidInteraction;
+        }
     }
 }

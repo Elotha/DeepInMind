@@ -9,8 +9,9 @@ namespace EraSoren.HopebeamSystem
         [HideInInspector] public HopebeamType hopebeamType;
         [HideInInspector] public Rigidbody2D rb;
         public HopebeamState hopebeamState = HopebeamState.BeingCreated;
-        public int life = 1;
+        public int lives = 1;
         public bool interactable = true;
+        public int catchPriority = 1;
         
         [Header("Debug")]
         [SerializeField] private float gizmoLineMultiplier = 1f;

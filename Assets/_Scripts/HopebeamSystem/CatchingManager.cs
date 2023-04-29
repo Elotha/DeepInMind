@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using EraSoren._CameraSystem;
 using EraSoren._Core.Helpers;
+using EraSoren._InputSystem;
 using UnityEngine;
 
 namespace EraSoren.HopebeamSystem
@@ -9,34 +12,82 @@ namespace EraSoren.HopebeamSystem
     {
         [SerializeField] private LayerMask beamMask;
         [SerializeField] private float catchingRadius = 0.1f;
+        public bool isSecondaryInputActiveForHopebeams;
+
+        #region Events
+
+        public Action<CatchingInfo> onPrimaryInputCatch;
+        public Action<CatchingInfo> onSecondaryInputCatch;
+
+        #endregion
 
         [Serializable]
         public struct CatchingInfo
         {
             public Vector2 catchingPos;
-            public Hopebeam hopebeam;
-            public bool didPlayerCatchBeam;
+            public List<Hopebeam> hopebeams;
 
-            public CatchingInfo(Vector2 catchingPos, Hopebeam hopebeam, bool didPlayerCatchBeam)
+            public CatchingInfo(Vector2 catchingPos, List<Hopebeam> hopebeams)
             {
                 this.catchingPos = catchingPos;
-                this.hopebeam = hopebeam;
-                this.didPlayerCatchBeam = didPlayerCatchBeam;
+                this.hopebeams = hopebeams;
             }
         }
 
-        public CatchingInfo TryToCatch()
+        // ReSharper disable Unity.PerformanceAnalysis
+        private CatchingInfo TryToCatch()
         {
             var catchingPos = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-            Hopebeam beam = null;
-            var overlapCircle = Physics2D.OverlapCircle(catchingPos, catchingRadius, beamMask);
-            if (overlapCircle != null)
+            List<Hopebeam> beams = new ();
+            var overlapCircles = Physics2D.OverlapCircleAll(catchingPos, catchingRadius, beamMask);
+            if (overlapCircles.Length > 0)
             {
-                beam = overlapCircle.GetComponent<Hopebeam>();
+                beams.AddRange(overlapCircles.Select(circle => circle.GetComponent<Hopebeam>()));
             }
-            Debug.DrawLine(catchingPos, catchingPos + Vector3.up * catchingRadius / 2f, Color.cyan, 2f);
-            var catchingInfo = new CatchingInfo(catchingPos, beam, beam != null);
+            // Debug.DrawLine(catchingPos, catchingPos + Vector3.up * catchingRadius / 2f, Color.cyan, 2f);
+            var catchingInfo = new CatchingInfo(catchingPos, beams);
             return catchingInfo;
+        }
+
+        private void Update()
+        {
+            ProcessPrimaryInput();
+            ProcessSecondaryInput();
+        }
+        private void ProcessPrimaryInput()
+        {
+            if (!InputManager.GetKeyDown(InputButton.Primary)) return;
+            
+            var catchingInfo = TryToCatch();
+            onPrimaryInputCatch?.Invoke(catchingInfo);
+
+            TryToInteractWithHopebeam(catchingInfo, true);
+        }
+
+        private void ProcessSecondaryInput()
+        {
+            if (!isSecondaryInputActiveForHopebeams) return;
+            if (!InputManager.GetKeyDown(InputButton.Secondary)) return;
+            
+            var catchingInfo = TryToCatch();
+            onSecondaryInputCatch?.Invoke(catchingInfo);
+
+            TryToInteractWithHopebeam(catchingInfo, false);
+        }
+
+        private static void TryToInteractWithHopebeam(CatchingInfo catchingInfo, bool primaryInput)
+        {
+            var beams = catchingInfo.hopebeams;
+            var maxPriority = beams.Select(beam => beam.catchPriority).Prepend(0).Max();
+            
+            var beamsToRemoveFromList = (from beam in beams.Where(beam => beam.catchPriority == maxPriority) 
+                let isCatchingValid = beam.hopebeamType.TryToInteract(beam, catchingInfo.catchingPos, primaryInput) 
+                where !isCatchingValid select beam).ToList();
+
+            foreach (var hopebeam in beamsToRemoveFromList)
+            {
+                catchingInfo.hopebeams.Remove(hopebeam);
+            }
         }
     }
 }
