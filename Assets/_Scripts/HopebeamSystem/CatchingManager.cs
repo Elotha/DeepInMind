@@ -79,12 +79,24 @@ namespace EraSoren.HopebeamSystem
         {
             var beams = catchingInfo.hopebeams;
             var maxPriority = beams.Select(beam => beam.catchPriority).Prepend(0).Max();
-            
-            var beamsToRemoveFromList = (from beam in beams.Where(beam => beam.catchPriority == maxPriority) 
-                let isCatchingValid = beam.hopebeamType.TryToInteract(beam, catchingInfo.catchingPos, primaryInput) 
-                where !isCatchingValid select beam).ToList();
 
-            foreach (var hopebeam in beamsToRemoveFromList)
+            List<Hopebeam> beamsToRemove = new();
+            foreach (var beam in beams.Where(beam => beam.catchPriority == maxPriority))
+            {
+                // Debug.Log("hopebeamType = " + (beam.hopebeamType != null));
+                // Debug.Log("cathingPos = " + (catchingInfo.catchingPos));
+                var isCatchingValid = beam.hopebeamType.TryToInteract(beam, catchingInfo.catchingPos, primaryInput);
+                if (!isCatchingValid)
+                {
+                    beamsToRemove.Add(beam);
+                }
+            }
+            
+            // var beamsToRemoveFromList = (from beam in beams.Where(beam => beam.catchPriority == maxPriority) 
+            //     let isCatchingValid = beam.hopebeamType.TryToInteract(beam, catchingInfo.catchingPos, primaryInput) 
+            //     where !isCatchingValid select beam).ToList();
+
+            foreach (var hopebeam in beamsToRemove)
             {
                 catchingInfo.hopebeams.Remove(hopebeam);
             }

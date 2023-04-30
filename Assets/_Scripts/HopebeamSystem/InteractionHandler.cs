@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace EraSoren.HopebeamSystem
 {
@@ -11,11 +10,14 @@ namespace EraSoren.HopebeamSystem
         public bool isActive;
         public InteractionType interactionType;
         public List<InteractionConditionHolder> interactionConditionHolders = new();
-        public UnityEvent<Hopebeam, Vector2> onInteraction;
+        public List<HopebeamInteractionBehaviour> actions;
 
         public void Interact(Hopebeam hopebeam, Vector2 catchingPos)
         {
-            onInteraction?.Invoke(hopebeam, catchingPos);
+            foreach (var behaviour in actions)
+            {
+                behaviour.Interact(hopebeam, catchingPos);
+            }
         }
     }
 

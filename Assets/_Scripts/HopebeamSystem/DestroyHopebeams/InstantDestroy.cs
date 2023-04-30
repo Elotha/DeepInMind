@@ -10,6 +10,7 @@ namespace EraSoren.HopebeamSystem.DestroyHopebeams
             
             // TODO: Back to the pool
             Destroy(hopebeam.gameObject);
+            // gameObject.SetActive(false);
             // hopebeam.hopebeamState = HopebeamState.Poolable;
         }
     }
